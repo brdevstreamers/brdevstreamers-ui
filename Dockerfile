@@ -1,12 +1,13 @@
-# Stage 0, "build-stage", based on Node.js, to build and compile the frontend
-FROM tiangolo/node-frontend:10 as build-stage
-WORKDIR /app
-COPY package*.json /app/
+### STAGE 1: Build ###
+FROM node:12.7-alpine AS build
+WORKDIR /usr/src/app
+COPY package.json ./
 RUN yarn install
-COPY ./ /app/
+COPY . .
 RUN yarn run build
-# Stage 1, based on Nginx, to have only the compiled app, ready for production with Nginx
-FROM nginx:1.15
-COPY --from=build-stage /app/build/ /usr/share/nginx/html
-# Copy the default nginx.conf provided by tiangolo/node-frontend
-COPY --from=build-stage /nginx.conf /etc/nginx/conf.d/default.conf
+
+### STAGE 2: Run ###
+FROM staticfloat/nginx-certbot
+ENV CERTBOT_EMAIL flaviojmendes@gmail.com
+COPY ./nginx.conf /etc/nginx/user.conf.d/
+COPY --from=build /usr/src/app/build /usr/share/nginx/html
