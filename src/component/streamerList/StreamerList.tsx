@@ -12,10 +12,6 @@ export default function StreamerList() {
 
   React.useEffect(() => {
     fetchUsers();
-
-    setInterval(() => {
-      fetchUsers();
-    }, 60000);
   }, [control]);
 
    const fetchUsers = async () => {
