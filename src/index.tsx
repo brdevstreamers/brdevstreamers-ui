@@ -5,6 +5,7 @@ import App from './App';
 import reportWebVitals from './reportWebVitals';
 import { ChakraProvider } from '@chakra-ui/react'
 import { extendTheme } from "@chakra-ui/react"
+import ReactGA from 'react-ga';
 
 // 2. Call `extendTheme` and pass your custom values
 const theme = extendTheme({
@@ -19,6 +20,9 @@ const theme = extendTheme({
     },
   },
 })
+
+ReactGA.initialize(process.env.REACT_APP_GA_ID || '');
+
 
 ReactDOM.render(
   <React.StrictMode>
