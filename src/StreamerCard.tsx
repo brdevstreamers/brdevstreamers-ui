@@ -13,7 +13,7 @@ import {
 import React from "react";
 import { chakra } from "@chakra-ui/react";
 import { StreamerModel } from "./model/StreamerModel";
-import { FaExternalLinkAlt, FaGithub, FaTwitter } from "react-icons/fa";
+import { FaGithub, FaTwitter } from "react-icons/fa";
 
 interface Props {
   streamer: StreamerModel;
