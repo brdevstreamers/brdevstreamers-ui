@@ -10,11 +10,9 @@ import {
   TagLabel,
   Tooltip,
 } from "@chakra-ui/react";
-import React from "react";
 import { chakra } from "@chakra-ui/react";
 import { FaGithub, FaTwitter } from "react-icons/fa";
 import { VodModel } from "../../model/VodModel";
-import parse from 'parse-duration'
 
 interface Props {
   vod: VodModel;

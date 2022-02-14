@@ -11,6 +11,7 @@ import ReactGA from 'react-ga';
 const theme = extendTheme({
   colors: {
     primary: {
+      400: "#D3C8FF",
       500: "#C299FF",
       600: "#B685FF",
       700: "#A970FF",
@@ -22,6 +23,7 @@ const theme = extendTheme({
 })
 
 ReactGA.initialize(process.env.REACT_APP_GA_ID || '');
+console.log(process.env.REACT_APP_GA_ID)
 
 
 ReactDOM.render(

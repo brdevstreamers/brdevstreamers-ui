@@ -1,11 +1,17 @@
 import './App.css';
 import StreamerList from './component/streamerList/StreamerList'
+import Footer from './component/footer/Footer'
 import { Center, chakra, Container, Image, Text } from '@chakra-ui/react';
 import VodList from './component/vodList/VodList';
+import ReactGA from 'react-ga';
+import { useEffect } from 'react';
+
 function App() {
 
   
-
+  useEffect( () => {
+    ReactGA.pageview(window.location.pathname + window.location.search); 
+  });
   return (
     <>
     <Center>
@@ -32,6 +38,9 @@ function App() {
     </Container>
     <Container mt='10' maxW='container.lg'>
       <VodList></VodList>
+    </Container>
+    <Container mt='10' mb='5' maxW='container.lg'>
+      <Footer></Footer>
     </Container>
     </>
     )
