@@ -78,15 +78,14 @@ export default function StreamerList() {
             <Skeleton height='30px' />
             <Skeleton height='20px' />
             <Skeleton height='20px' />
-            <Skeleton height='20px' />
+            <Skeleton height='20px' />    
           </Stack>
         </Box>
       </SimpleGrid>
-      // <Center><Spinner color='primary.700' mt='20' size='xl' thickness="5px" speed='0.65s'/></Center>
       }
       {!loading && <SimpleGrid minChildWidth="300px" columns={3} spacing={5}>
         {streamers.map((streamer: StreamerModel) => {
-          return <StreamerCard streamer={streamer}></StreamerCard>;
+          return <StreamerCard key={streamer.id} streamer={streamer}></StreamerCard>;
         })}
       </SimpleGrid>}
     </>
