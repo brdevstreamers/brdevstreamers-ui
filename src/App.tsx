@@ -1,7 +1,7 @@
-import React from 'react';
 import './App.css';
-import StreamerList from './StreamerList'
-import { Center, chakra, Container, Image } from '@chakra-ui/react';
+import StreamerList from './component/streamerList/StreamerList'
+import { Center, chakra, Container, Image, Text } from '@chakra-ui/react';
+import VodList from './component/vodList/VodList';
 function App() {
 
   
@@ -18,7 +18,20 @@ function App() {
       <chakra.h2 mt="0" lineHeight='8'>Somos todos uma comunidade</chakra.h2>
     </Center>
     <Container mt='10' maxW='container.lg'>
+      <Center>
+        <Text lineHeight='7' p='2' borderRadius='6' className='category-title' fontSize='3xl'>Lives</Text>
+      </Center>
+    </Container>
+    <Container mt='10' maxW='container.lg'>
       <StreamerList></StreamerList>
+    </Container>
+    <Container mt='10' maxW='container.lg'>
+      <Center>
+        <Text lineHeight='7' p='2' borderRadius='6' className='category-title' fontSize='3xl'>Vods</Text>
+      </Center>
+    </Container>
+    <Container mt='10' maxW='container.lg'>
+      <VodList></VodList>
     </Container>
     </>
     )

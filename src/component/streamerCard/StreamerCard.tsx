@@ -12,7 +12,7 @@ import {
 } from "@chakra-ui/react";
 import React from "react";
 import { chakra } from "@chakra-ui/react";
-import { StreamerModel } from "./model/StreamerModel";
+import { StreamerModel } from "../../model/StreamerModel";
 import { FaGithub, FaTwitter } from "react-icons/fa";
 
 interface Props {
@@ -84,21 +84,7 @@ export default function StreamerCard(props: Props) {
       </Link>
 
       <Box pl="6" pr="6" pb="6" pt="4">
-        {/* {timeStreaming.getTime() < 1800000*4 && <Box display="flex" alignItems="baseline">
-            <Badge borderRadius="full" px="2" colorScheme="teal">
-              New
-            </Badge>
-            <Box
-              color="gray.500"
-              fontWeight="semibold"
-              letterSpacing="wide"
-              fontSize="xs"
-              textTransform="uppercase"
-              ml="2"
-            >
-              Começou há pouco!
-            </Box>
-          </Box>} */}
+
         <Link
           href={"https://twitch.tv/" + streamer.user_name}
           isExternal={true}
@@ -143,7 +129,7 @@ export default function StreamerCard(props: Props) {
               </Tag>
             </Link>
           )}
-          {streamer.has_twitter && (
+          {streamer.has_github && (
             <Link ml="1" isExternal={true} href={"https://github.com/" + streamer.user_name}>
               <Tag
                 size="md"

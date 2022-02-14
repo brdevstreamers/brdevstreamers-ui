@@ -1,26 +1,28 @@
-import { Box, Center, Flex, SimpleGrid, Skeleton, Spinner, Stack } from "@chakra-ui/react";
+import { Box, SimpleGrid, Skeleton, Stack } from "@chakra-ui/react";
 import axios from "axios";
 import React from "react";
-import { StreamerModel } from "./model/StreamerModel";
+import { StreamerModel } from "../../model/StreamerModel";
 
-import StreamerCard from "./StreamerCard";
+import StreamerCard from "../streamerCard/StreamerCard";
 
 export default function StreamerList() {
   const [streamers, setStreamers] = React.useState([]);
   const [loading, setLoading] = React.useState(false);
+  const [control, setControl] = React.useState(false);
 
   React.useEffect(() => {
     fetchUsers();
-  }, []);
 
-  const fetchUsers = () => {
+    setInterval(() => {
+      fetchUsers();
+    }, 60000);
+  }, [control]);
+
+   const fetchUsers = async () => {
     setLoading(true)
-    axios
-      .get(process.env.REACT_APP_API_URL || "")
-      .then((streamersList) => {
-        setStreamers(streamersList.data)
-        setLoading(false)
-      });
+    const streamersList = await axios.get(process.env.REACT_APP_API_URL || "")
+    setStreamers(streamersList.data)
+    setLoading(false)
   };
 
   return (
