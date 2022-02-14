@@ -1,19 +1,19 @@
 @import url('https://fonts.googleapis.com/css2?family=Alfa+Slab+One&family=Livvic:wght@600&display=swap');
 
 body {
-  background-color: #5898FF !important;
+  background-color: #33374D !important;
   padding-bottom: 50px;
 }
 
 h1  {
   font-family: 'Alfa Slab One', cursive;
-  color: #6441a4;
+  color: #B685FF;
   font-size: 48px !important;
 }
 
 h2  {
   font-family: 'Livvic', sans-serif;
-  color: #000000;
+  color: #FFF;
   font-size: 28px !important;
 }
 
