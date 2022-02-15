@@ -8,12 +8,25 @@ h1  {
   font-family: 'Alfa Slab One', cursive;
   color: #B685FF;
   font-size: 48px !important;
+  cursor: default;
+  user-select: none;
 }
 
 h2  {
   font-family: 'Livvic', sans-serif;
   color: #FFF;
   font-size: 28px !important;
+  cursor: default;
+  user-select: none;
+}
+
+
+h4  {
+  font-family: 'Livvic', sans-serif;
+  color: #FFF;
+  font-size: 16px !important;
+  cursor: default;
+  user-select: none;
 }
 
 .logo {
@@ -25,6 +38,8 @@ h2  {
   color: #FFFFFF;
   font-size: 28px !important;
   background-color: #A970FF;
+  cursor: default;
+  user-select: none;
 }
 
 

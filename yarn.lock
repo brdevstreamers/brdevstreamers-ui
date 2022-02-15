@@ -3177,6 +3177,11 @@ acorn@^8.2.4, acorn@^8.4.1, acorn@^8.7.0:
   resolved "https://registry.yarnpkg.com/acorn/-/acorn-8.7.0.tgz#90951fde0f8f09df93549481e5fc141445b791cf"
   integrity sha512-V/LGr1APy+PXIwKebEWrkZPwoeoF+w1jiOBUmuxuiUIaOHtob8Qc9BTrYo7VuI5fR8tqsy+buA2WFooR5olqvQ==
 
+add-zero@^1.0.0:
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/add-zero/-/add-zero-1.0.0.tgz#88e221696717f66db467672f3f9aa004de9f1a2c"
+  integrity sha1-iOIhaWcX9m20Z2cvP5qgBN6fGiw=
+
 address@^1.0.1, address@^1.1.2:
   version "1.1.2"
   resolved "https://registry.yarnpkg.com/address/-/address-1.1.2.tgz#bf1116c9c758c51b7a933d296b72c221ed9428b6"
@@ -5419,6 +5424,14 @@ form-data@^3.0.0:
     combined-stream "^1.0.8"
     mime-types "^2.1.12"
 
+format-duration@^1.4.0:
+  version "1.4.0"
+  resolved "https://registry.yarnpkg.com/format-duration/-/format-duration-1.4.0.tgz#6ad86c88f504150873cd28ca82d26a26898d9971"
+  integrity sha512-Mcg3hOAiKxo6JRBgfrQ+sbVvr3D9/4wE7eDQXx3WV2d/yKmrcHXHJS4OhrqVeg+iiFE2Op+pHhdOkQUl8yIclw==
+  dependencies:
+    add-zero "^1.0.0"
+    parse-ms "^1.0.1"
+
 forwarded@~0.1.2:
   version "0.1.2"
   resolved "https://registry.yarnpkg.com/forwarded/-/forwarded-0.1.2.tgz#98c23dab1175657b8c0573e8ceccd91b0ff18c84"
@@ -7586,6 +7599,11 @@ parse-json@^5.2.0:
     error-ex "^1.3.1"
     json-parse-even-better-errors "^2.3.0"
     lines-and-columns "^1.1.6"
+
+parse-ms@^1.0.1:
+  version "1.0.1"
+  resolved "https://registry.yarnpkg.com/parse-ms/-/parse-ms-1.0.1.tgz#56346d4749d78f23430ca0c713850aef91aa361d"
+  integrity sha1-VjRtR0nXjyNDDKDHE4UK75GqNh0=
 
 parse5@6.0.1:
   version "6.0.1"

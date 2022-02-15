@@ -49,7 +49,7 @@ export default function VodCard(props: Props) {
             bottom={1}
             margin="auto"
             variant="solid"
-            bg="red.500"
+            bg="purple.500"
           >
             {vod.duration}
           </Tag>
@@ -69,7 +69,7 @@ export default function VodCard(props: Props) {
         </Box>
       </Link>
 
-      <Box pl="6" pr="6" pb="6" pt="4">
+      <Box position='relative' pl="6" pr="6" pb="1" pt="4">
         <Link
           href={"https://twitch.tv/" + vod.user_name}
           isExternal={true}
@@ -98,8 +98,8 @@ export default function VodCard(props: Props) {
           </chakra.p>
         </chakra.div>
 
-        <Divider mt="3"></Divider>
-        <Flex pt="3">
+        <Divider mt="3"mb='4'></Divider>
+        <Flex bottom={1} pt="3">
           {vod.has_twitter && (
             <Link isExternal={true} href={"https://twitter.com/" + vod.user_name}>
               <Tag

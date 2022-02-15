@@ -14,6 +14,8 @@ import React from "react";
 import { chakra } from "@chakra-ui/react";
 import { StreamerModel } from "../../model/StreamerModel";
 import { FaGithub, FaTwitter } from "react-icons/fa";
+var format = require('format-duration')
+
 
 interface Props {
   streamer: StreamerModel;
@@ -21,14 +23,14 @@ interface Props {
 
 export default function StreamerCard(props: Props) {
   const streamer = props.streamer;
-  const [timeStreaming, setTimeStreaming] = React.useState(new Date());
+  const [timeStreaming, setTimeStreaming] = React.useState('');
 
   React.useEffect(() => {
     const updateClock = () => {
       setTimeStreaming(
-        new Date(
-          new Date().getTime() - 3600000 - Date.parse(streamer.started_at)
-        )
+        
+        format(new Date().getTime() - Date.parse(streamer.started_at))
+        
       );
     };
 
@@ -65,7 +67,7 @@ export default function StreamerCard(props: Props) {
             variant="solid"
             bg="red.500"
           >
-            {timeStreaming.toLocaleTimeString()}
+            {timeStreaming}
           </Tag>
 
           <Tag

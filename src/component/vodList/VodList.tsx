@@ -8,11 +8,10 @@ import VodCard from "../vodCard/VodCard";
 export default function VodList() {
   const [vods, setVods] = React.useState([]);
   const [loading, setLoading] = React.useState(false);
-  const [control, setControl] = React.useState(false);
 
   React.useEffect(() => {
     fetchUsers();
-  }, [control]);
+  }, []);
 
    const fetchUsers = async () => {
     setLoading(true)
