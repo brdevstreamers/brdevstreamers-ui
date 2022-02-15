@@ -1,4 +1,5 @@
 import { ViewIcon } from "@chakra-ui/icons";
+import "./StreamerCard.css";
 import {
   Box,
   Divider,
@@ -109,8 +110,8 @@ export default function StreamerCard(props: Props) {
 
         <Divider mt="3"></Divider>
 
-        <chakra.div>
-          <chakra.p overflow="hidden" textOverflow="ellipsis">
+        <chakra.div h='70px'>
+          <chakra.p className="description" overflow="hidden" textOverflow="ellipsis">
             {streamer.description}
           </chakra.p>
         </chakra.div>

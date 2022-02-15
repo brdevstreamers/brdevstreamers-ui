@@ -1,4 +1,5 @@
 import { ViewIcon } from "@chakra-ui/icons";
+import './VodCard.css';
 import {
   Box,
   Divider,
@@ -24,6 +25,7 @@ export default function VodCard(props: Props) {
   return (
     <Box
       maxW="md"
+      maxH="md"
       borderWidth="1px"
       borderRadius="lg"
       overflow="hidden"
@@ -36,12 +38,16 @@ export default function VodCard(props: Props) {
           h="180"
           w="100%"
           position="relative"
+          backgroundColor="#33374D"
           backgroundImage={vod.thumbnail_url
             .replace("%{width}", "640")
-            .replace("%{height}", "360")}
+            .replace("%{height}", "360") || '/logo.svg'}
           backgroundRepeat="no-repeat"
-          backgroundSize="cover"
+          backgroundSize={vod.thumbnail_url ? 'cover' : '40%'}
+          backgroundPosition='center'
+          
         >
+          
           <Tag
             size="sm"
             position="absolute"
@@ -92,14 +98,14 @@ export default function VodCard(props: Props) {
 
         <Divider mt="3"></Divider>
 
-        <chakra.div>
-          <chakra.p overflow="hidden" textOverflow="ellipsis">
+        <chakra.div h='70px'>
+          <chakra.p className="description" overflow="hidden" textOverflow="ellipsis">
             {vod.description}
           </chakra.p>
         </chakra.div>
 
         <Divider mt="3"mb='4'></Divider>
-        <Flex bottom={1} pt="3">
+        <Flex >
           {vod.has_twitter && (
             <Link isExternal={true} href={"https://twitter.com/" + vod.user_name}>
               <Tag
