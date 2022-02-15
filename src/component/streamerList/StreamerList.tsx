@@ -5,20 +5,35 @@ import { StreamerModel } from "../../model/StreamerModel";
 
 import StreamerCard from "../streamerCard/StreamerCard";
 
-export default function StreamerList() {
+interface Props {
+  setReloading(isReloading: boolean): void;
+}
+
+export default function StreamerList(props:Props) {
   const [streamers, setStreamers] = React.useState([]);
   const [loading, setLoading] = React.useState(false);
-  const [isReloading, setReloading] = React.useState(false);
 
   React.useEffect(() => {
-    const reloadStreams = async () => {
-      setReloading(true);
-      fetchUsers();
-      setReloading(false);
+    const fetchUsers = async () => {
+      const streamersList = await axios.get(process.env.REACT_APP_API_URL || "");
+      setStreamers(streamersList.data);
     };
+
+    const reloadStreams = async () => {
+      props.setReloading(true);
+      await fetchUsers();
+      props.setReloading(false);
+    };
+
+    const loadStreams = async () => {
+      setLoading(true);
+      await fetchUsers();
+      setLoading(false);
+    }
     
-    fetchUsers();
+    loadStreams();
     
+
     const intervalId = setInterval(() => {
       reloadStreams();
     }, 120000);
@@ -26,19 +41,10 @@ export default function StreamerList() {
     return () => clearInterval(intervalId);
   }, []);
 
-  
-
-
-  const fetchUsers = async () => {
-    setLoading(true);
-    const streamersList = await axios.get(process.env.REACT_APP_API_URL || "");
-    setStreamers(streamersList.data);
-    setLoading(false);
-  };
 
   return (
     <>
-      {loading && !isReloading && (
+      {loading && (
         <SimpleGrid minChildWidth="300px" columns={3} spacing={5}>
           <Box
             maxW="md"
