@@ -86,7 +86,7 @@ export default function StreamerCard(props: Props) {
         </Box>
       </Link>
 
-      <Box pl="6" pr="6" pb="6" pt="4">
+      <Box pl="6" pr="6" pb="2" pt="4">
 
         <Link
           href={"https://twitch.tv/" + streamer.user_name}
@@ -116,15 +116,16 @@ export default function StreamerCard(props: Props) {
           </chakra.p>
         </chakra.div>
 
-        <Divider mt="3"></Divider>
-        <Flex pt="3">
+        <Divider mt="3" mb="4"></Divider>
+        <Flex>
           {streamer.has_twitter && (
             <Link isExternal={true} href={"https://twitter.com/" + streamer.user_name}>
               <Tag
                 size="md"
-                borderRadius="full"
                 variant="solid"
-                colorScheme="cyan"
+                backgroundColor="rgb(29, 155, 240)"
+                fontWeight='semibold'
+                fontFamily='Livvic'
               >
                 <TagLabel>
                   <Icon as={FaTwitter}></Icon> Twitter{" "}
@@ -136,9 +137,10 @@ export default function StreamerCard(props: Props) {
             <Link ml="1" isExternal={true} href={"https://github.com/" + streamer.user_name}>
               <Tag
                 size="md"
-                borderRadius="full"
                 variant="solid"
-                colorScheme="blackAlpha"
+                backgroundColor="gray.700"
+                fontWeight='semibold'
+                fontFamily='Livvic'
               >
                 <TagLabel>
                   <Icon as={FaGithub}></Icon> Github{" "}

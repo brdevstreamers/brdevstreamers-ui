@@ -75,7 +75,7 @@ export default function VodCard(props: Props) {
         </Box>
       </Link>
 
-      <Box position='relative' pl="6" pr="6" pb="1" pt="4">
+      <Box position='relative' pl="6" pr="6" pb="2" pt="4">
         <Link
           href={"https://twitch.tv/" + vod.user_name}
           isExternal={true}
@@ -110,9 +110,10 @@ export default function VodCard(props: Props) {
             <Link isExternal={true} href={"https://twitter.com/" + vod.user_name}>
               <Tag
                 size="md"
-                borderRadius="full"
                 variant="solid"
-                colorScheme="cyan"
+                backgroundColor="rgb(29, 155, 240)"
+                fontWeight='semibold'
+                fontFamily='Livvic'
               >
                 <TagLabel>
                   <Icon as={FaTwitter}></Icon> Twitter{" "}
@@ -124,9 +125,10 @@ export default function VodCard(props: Props) {
             <Link ml="1" isExternal={true} href={"https://github.com/" + vod.user_name}>
               <Tag
                 size="md"
-                borderRadius="full"
                 variant="solid"
-                colorScheme="blackAlpha"
+                backgroundColor="gray.700"
+                fontWeight='semibold'
+                fontFamily='Livvic'
               >
                 <TagLabel>
                   <Icon as={FaGithub}></Icon> Github{" "}
