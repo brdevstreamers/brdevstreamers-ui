@@ -15,8 +15,10 @@ export default function Sidebar(props: Props) {
   };
 
   const handleLiveClick = (hash: string) => {
-    window.location.hash = "";
-    window.location.hash = "#" + hash;  
+    document.querySelector(`#${hash}`)
+      ?.scrollIntoView({
+        behavior: 'smooth',
+      });
   }
 
   return (
@@ -42,7 +44,6 @@ export default function Sidebar(props: Props) {
             color: "primary.600",
           }}
           aria-label="Lives"
-          
           onClick={() => handleLiveClick('lives')}
           icon={<Icon as={BsBroadcast} />}
         />
