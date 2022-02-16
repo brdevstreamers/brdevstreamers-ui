@@ -42,8 +42,12 @@ h4  {
   user-select: none;
 }
 
+.footer {
+  display: none !important;
+}
 
-@media only screen and (max-width: 600px) {
+
+@media only screen and (max-width: 768px) {
   h1  {
    font-size: 36px !important;
   }
@@ -54,5 +58,9 @@ h4  {
 
    .logo {
     width: 150px;
+  }
+
+  .footer {
+    display: flex !important;
   }
 }

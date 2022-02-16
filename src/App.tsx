@@ -7,6 +7,7 @@ import {
   Container,
   Divider,
   Image,
+  Link,
   Spinner,
   Text,
 } from "@chakra-ui/react";
@@ -16,9 +17,14 @@ import React, { useEffect } from "react";
 
 function App() {
   const [isReloading, setReloading] = React.useState(false);
+  const [streamingUrls, setStreamingUrls] = React.useState(['']);
 
   const handleReloading = (reloading: boolean) => {
     setReloading(reloading);
+  };
+
+  const handleStreamingUrls = (streamingUrls: string[]) => {
+    setStreamingUrls(streamingUrls);
   };
 
   useEffect(() => {
@@ -59,7 +65,7 @@ function App() {
         </Center>
       </Container>
       <Container mt="5" maxW="container.lg">
-        <StreamerList setReloading={handleReloading}></StreamerList>
+        <StreamerList setStreamingUrls={handleStreamingUrls} setReloading={handleReloading}></StreamerList>
       </Container>
 
       <Container mt="8" maxW="container.lg">
@@ -81,12 +87,26 @@ function App() {
           </chakra.h4>
         </Center>
       </Container>
-      <Container mt="5" maxW="container.lg">
+      <Container mt="5" mb="100px" maxW="container.lg">
         <VodList></VodList>
       </Container>
-      <Container mt="10" mb="5" maxW="container.md">
-        <Footer></Footer>
-      </Container>
+      <Center className="footer">
+        <Container background="#33374D" position='fixed' bottom="0" mt="10" height='100' maxW="container.xl">
+          <Footer streamingUrls={streamingUrls}></Footer>
+        </Container>
+      </Center>
+      <Center>
+        <Text color="primary.500" fontWeight="semibold">
+          feito com ♥ por{" "}
+          <Link
+            isExternal={true}
+            href="https://twitch.tv/flaviojmendes"
+            color="primary.400"
+          >
+            flaviojmendes
+          </Link>
+        </Text>
+      </Center>
     </>
   );
 }

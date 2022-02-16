@@ -7,6 +7,7 @@ import StreamerCard from "../streamerCard/StreamerCard";
 
 interface Props {
   setReloading(isReloading: boolean): void;
+  setStreamingUrls(streamingUrls: string[]): void;
 }
 
 export default function StreamerList(props:Props) {
@@ -14,9 +15,14 @@ export default function StreamerList(props:Props) {
   const [loading, setLoading] = React.useState(false);
 
   React.useEffect(() => {
+    const extractUrls = (streamers: StreamerModel[]) => {
+      return streamers.map((streamer) => streamer.user_name);
+    }
+
     const fetchUsers = async () => {
       const streamersList = await axios.get(process.env.REACT_APP_API_URL || "");
       setStreamers(streamersList.data);
+      props.setStreamingUrls(extractUrls(streamersList.data));
     };
 
     const reloadStreams = async () => {
