@@ -1,4 +1,12 @@
-import { Button, Center, Icon, IconButton, Link, Text } from "@chakra-ui/react";
+import {
+  Button,
+  Center,
+  HStack,
+  Icon,
+  IconButton,
+  Link,
+  Text,
+} from "@chakra-ui/react";
 import { BsShuffle } from "react-icons/bs";
 
 interface Props {
@@ -16,25 +24,27 @@ export default function Footer(props: Props) {
 
   return (
     <>
-      <Center>
-        <IconButton size='lg'
-          mt="2"
-          aria-label="Search database"
+      <HStack
+        spacing={2}
+        position="fixed"
+        left="1%"
+        mb="2"
+      >
+        <IconButton
+          size="xl"
+          aria-label="Shuffle"
+          fontSize="36px"
+          width="70px"
+          height="70px"
+          backgroundColor="primary.600"
+          color="white"
+          _hover={{
+            background: "white",
+            color: "primary.600",
+          }}
           icon={<Icon as={BsShuffle} onClick={handleClick} />}
         />
-      </Center>
-      <Center mt='2'>
-        <Text color="primary.500" fontWeight="semibold">
-          feito com ♥ por{" "}
-          <Link
-            isExternal={true}
-            href="https://twitch.tv/flaviojmendes"
-            color="primary.400"
-          >
-            flaviojmendes
-          </Link>
-        </Text>
-      </Center>
+      </HStack>
     </>
   );
 }

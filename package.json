@@ -14,6 +14,7 @@
     "@types/node": "^16.7.13",
     "@types/react": "^17.0.20",
     "@types/react-dom": "^17.0.9",
+    "@types/react-scroll": "^1.8.3",
     "axios": "^0.25.0",
     "dotenv": "^16.0.0",
     "format-duration": "^1.4.0",
@@ -24,6 +25,7 @@
     "react-ga": "^3.3.0",
     "react-icons": "^4.3.1",
     "react-scripts": "5.0.0",
+    "react-scroll": "^1.8.4",
     "typescript": "^4.4.2",
     "web-vitals": "^2.1.0"
   },

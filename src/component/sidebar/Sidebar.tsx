@@ -15,7 +15,7 @@ export default function Sidebar(props: Props) {
   };
 
   const handleLiveClick = (hash: string) => {
-    window.location.hash = "";
+    window.location.hash = "" + hash;
     window.location.hash = "#" + hash;  
   }
 
@@ -27,6 +27,7 @@ export default function Sidebar(props: Props) {
         position="fixed"
         top="50%"
         ml="2"
+        zIndex={1}
         transform="translateY(-50%)"
       >
         <IconButton
