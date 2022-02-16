@@ -42,9 +42,9 @@ h4  {
   user-select: none;
 }
 
-.mobile-footer {
+/* .mobile-footer {
   display: none !important;
-}
+} */
 
 .sidebar-desktop {
   display: relative !important;

@@ -14,7 +14,7 @@ export default function Sidebar(props: Props) {
     window.open("https://www.twitch.tv/" + user_name, "_blank");
   };
 
-  const handleLiveClick = (hash: string) => {
+  const handleClick = (hash: string) => {
     document.querySelector(`#${hash}`)
       ?.scrollIntoView({
         behavior: 'smooth',
@@ -29,6 +29,7 @@ export default function Sidebar(props: Props) {
         position="fixed"
         top="50%"
         ml="2"
+        zIndex={1}
         transform="translateY(-50%)"
       >
         <IconButton
@@ -44,7 +45,7 @@ export default function Sidebar(props: Props) {
             color: "primary.600",
           }}
           aria-label="Lives"
-          onClick={() => handleLiveClick('lives')}
+          onClick={() => handleClick('lives')}
           icon={<Icon as={BsBroadcast} />}
         />
         <IconButton
@@ -76,7 +77,7 @@ export default function Sidebar(props: Props) {
             color: "primary.600",
           }}
           aria-label="Vods"
-          onClick={() => handleLiveClick('vods')}
+          onClick={() => handleClick('vods')}
           icon={<Icon as={BsCameraVideo} />}
         />
       </VStack>

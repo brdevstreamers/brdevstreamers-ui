@@ -68,7 +68,7 @@ function App() {
               borderRadius="6"
               className="category-title"
               fontSize="3xl"
-            >
+            > 
               Lives
               {isReloading && <Spinner size="sm" ml="2" color="primary.400" />}
             </Text>
@@ -106,21 +106,9 @@ function App() {
             </chakra.h4>
           </Center>
         </Container>
-        <Container mt="5" mb="100px" maxW="container.lg">
+        <Container mt="5" mb="5" maxW="container.lg">
           <VodList></VodList>
         </Container>
-        <Center className="mobile-footer">
-          <Container
-            background="#33374D"
-            position="fixed"
-            bottom="0"
-            mt="10"
-            height="100"
-            maxW="container.xl"
-          >
-            <Footer streamingUrls={streamingUrls}></Footer>
-          </Container>
-        </Center>
         <Center>
           <Text color="primary.500" fontWeight="semibold">
             feito com ♥ por{" "}
@@ -132,6 +120,14 @@ function App() {
               flaviojmendes
             </Link>
           </Text>
+        </Center>
+        <Center className="mobile-footer">
+          <Container
+            height="150"
+            maxW="container.xl"
+          >
+            <Footer streamingUrls={streamingUrls}></Footer>
+          </Container>
         </Center>
       </GridItem>
       </Grid>
