@@ -17,13 +17,13 @@ export default function Footer(props: Props) {
   return (
     <>
       <Center>
-        <IconButton
-          mt="3"
+        <IconButton size='lg'
+          mt="2"
           aria-label="Search database"
           icon={<Icon as={BsShuffle} onClick={handleClick} />}
         />
       </Center>
-      <Center>
+      <Center mt='2'>
         <Text color="primary.500" fontWeight="semibold">
           feito com ♥ por{" "}
           <Link

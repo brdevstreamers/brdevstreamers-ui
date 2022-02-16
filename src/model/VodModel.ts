@@ -11,5 +11,6 @@ export interface VodModel {
     description: string;
     has_twitter: boolean;
     has_github: boolean;
+    stream_id: string;
     duration: string;
 }

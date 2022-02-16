@@ -42,10 +42,13 @@ h4  {
   user-select: none;
 }
 
-.footer {
+.mobile-footer {
   display: none !important;
 }
 
+.sidebar-desktop {
+  display: relative !important;
+}
 
 @media only screen and (max-width: 768px) {
   h1  {
@@ -60,7 +63,11 @@ h4  {
     width: 150px;
   }
 
-  .footer {
+  .mobile-footer {
     display: flex !important;
+  }
+
+  .sidebar-desktop {
+    display: none !important;
   }
 }

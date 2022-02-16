@@ -33,7 +33,7 @@ export default function VodCard(props: Props) {
       textOverflow="ellipsis"
       background="white"
     >
-      <Link href={"https://twitch.tv/" + vod.user_name} isExternal={true}>
+      <Link href={"https://twitch.tv/videos/" + vod.stream_id} isExternal={true}>
         <Box
           h="180"
           w="100%"

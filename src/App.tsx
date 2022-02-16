@@ -1,11 +1,14 @@
 import "./App.css";
 import StreamerList from "./component/streamerList/StreamerList";
 import Footer from "./component/footer/Footer";
+import Sidebar from "./component/sidebar/Sidebar";
 import {
   Center,
   chakra,
   Container,
   Divider,
+  Grid,
+  GridItem,
   Image,
   Link,
   Spinner,
@@ -17,7 +20,7 @@ import React, { useEffect } from "react";
 
 function App() {
   const [isReloading, setReloading] = React.useState(false);
-  const [streamingUrls, setStreamingUrls] = React.useState(['']);
+  const [streamingUrls, setStreamingUrls] = React.useState([""]);
 
   const handleReloading = (reloading: boolean) => {
     setReloading(reloading);
@@ -32,81 +35,106 @@ function App() {
   });
   return (
     <>
-      <Center>
-        <Image className="logo" src="/logo.svg" alt="Br Dev Streamers"></Image>
-      </Center>
-      <Center>
-        <chakra.h1 mb="0" lineHeight="10">
-          Br Dev Streamers
-        </chakra.h1>
-      </Center>
-      <Center>
-        <chakra.h2 mt="0" lineHeight="8">
-          Somos todos uma comunidade
-        </chakra.h2>
-      </Center>
-      <Container mt="50px" maxW="container.lg">
+    <Grid templateColumns='repeat(5, 1fr)' gap={6}>
+      <GridItem w='100%'>
+        <chakra.div className="sidebar-desktop">
+          <Sidebar streamingUrls={streamingUrls}></Sidebar>
+        </chakra.div>
+      </GridItem>
+      <GridItem colSpan={5} w='100%'>
         <Center>
-          <Text
-            lineHeight="7"
-            p="2"
-            borderRadius="6"
-            className="category-title"
-            fontSize="3xl"
-          >
-            Lives
-            {isReloading && <Spinner size='sm' ml='2' color="primary.400"/>}
-          </Text>
+          <Image
+            className="logo"
+            src="/logo.svg"
+            alt="Br Dev Streamers"
+          ></Image>
         </Center>
         <Center>
-          <chakra.h4 mt="0" lineHeight="6">
-            Prestigie quem está ao vivo
-          </chakra.h4>
-        </Center>
-      </Container>
-      <Container mt="5" maxW="container.lg">
-        <StreamerList setStreamingUrls={handleStreamingUrls} setReloading={handleReloading}></StreamerList>
-      </Container>
-
-      <Container mt="8" maxW="container.lg">
-        <Divider mt="4" mb="8"></Divider>
-        <Center>
-          <Text
-            lineHeight="7"
-            p="2"
-            borderRadius="6"
-            className="category-title"
-            fontSize="3xl"
-          >
-            Vods
-          </Text>
+          <chakra.h1 mb="0" lineHeight="10">
+            Br Dev Streamers
+          </chakra.h1>
         </Center>
         <Center>
-          <chakra.h4 mt="0" lineHeight="6">
-            Veja o que deixaram gravado
-          </chakra.h4>
+          <chakra.h2 mt="0" lineHeight="8">
+            Somos todos uma comunidade
+          </chakra.h2>
         </Center>
-      </Container>
-      <Container mt="5" mb="100px" maxW="container.lg">
-        <VodList></VodList>
-      </Container>
-      <Center className="footer">
-        <Container background="#33374D" position='fixed' bottom="0" mt="10" height='100' maxW="container.xl">
-          <Footer streamingUrls={streamingUrls}></Footer>
+        <Container maxW="container.lg">
+          <Center mt="50px">
+            <Text
+              id="lives"
+              lineHeight="7"
+              p="2"
+              borderRadius="6"
+              className="category-title"
+              fontSize="3xl"
+            >
+              Lives
+              {isReloading && <Spinner size="sm" ml="2" color="primary.400" />}
+            </Text>
+          </Center>
+          <Center>
+            <chakra.h4 mt="0" lineHeight="6">
+              Prestigie quem está ao vivo
+            </chakra.h4>
+          </Center>
         </Container>
-      </Center>
-      <Center>
-        <Text color="primary.500" fontWeight="semibold">
-          feito com ♥ por{" "}
-          <Link
-            isExternal={true}
-            href="https://twitch.tv/flaviojmendes"
-            color="primary.400"
+        <Container mt="5" maxW="container.lg">
+          <StreamerList
+            setStreamingUrls={handleStreamingUrls}
+            setReloading={handleReloading}
+          ></StreamerList>
+        </Container>
+
+        <Container mt="8" maxW="container.lg">
+          <Divider mt="4" mb="8"></Divider>
+          <Center>
+            <Text
+              id="vods"
+              lineHeight="7"
+              p="2"
+              borderRadius="6"
+              className="category-title"
+              fontSize="3xl"
+            >
+              Vods
+            </Text>
+          </Center>
+          <Center>
+            <chakra.h4 mt="0" lineHeight="6">
+              Veja o que deixaram gravado
+            </chakra.h4>
+          </Center>
+        </Container>
+        <Container mt="5" mb="100px" maxW="container.lg">
+          <VodList></VodList>
+        </Container>
+        <Center className="mobile-footer">
+          <Container
+            background="#33374D"
+            position="fixed"
+            bottom="0"
+            mt="10"
+            height="100"
+            maxW="container.xl"
           >
-            flaviojmendes
-          </Link>
-        </Text>
-      </Center>
+            <Footer streamingUrls={streamingUrls}></Footer>
+          </Container>
+        </Center>
+        <Center>
+          <Text color="primary.500" fontWeight="semibold">
+            feito com ♥ por{" "}
+            <Link
+              isExternal={true}
+              href="https://twitch.tv/flaviojmendes"
+              color="primary.400"
+            >
+              flaviojmendes
+            </Link>
+          </Text>
+        </Center>
+      </GridItem>
+      </Grid>
     </>
   );
 }
