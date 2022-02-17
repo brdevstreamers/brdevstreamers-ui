@@ -1,20 +1,18 @@
 import { ViewIcon } from "@chakra-ui/icons";
 import "./StreamerCard.css";
+import SocialLinks from "../socialLinks/SocialLinks";
 import {
   Box,
   Divider,
   Flex,
-  Icon,
   Image,
   Link,
   Tag,
-  TagLabel,
   Tooltip,
 } from "@chakra-ui/react";
 import React from "react";
 import { chakra } from "@chakra-ui/react";
 import { StreamerModel } from "../../model/StreamerModel";
-import { FaGithub, FaTwitter } from "react-icons/fa";
 var format = require('format-duration')
 
 
@@ -86,7 +84,7 @@ export default function StreamerCard(props: Props) {
         </Box>
       </Link>
 
-      <Box pl="6" pr="6" pb="2" pt="4">
+      <Box pl="5" pr="5" pb="2" pt="4">
 
         <Link
           href={"https://twitch.tv/" + streamer.user_name}
@@ -117,38 +115,7 @@ export default function StreamerCard(props: Props) {
         </chakra.div>
 
         <Divider mt="3" mb="4"></Divider>
-        <Flex>
-          {streamer.has_twitter && (
-            <Link isExternal={true} href={"https://twitter.com/" + streamer.user_name}>
-              <Tag
-                size="md"
-                variant="solid"
-                backgroundColor="rgb(29, 155, 240)"
-                fontWeight='semibold'
-                fontFamily='Livvic'
-              >
-                <TagLabel>
-                  <Icon as={FaTwitter}></Icon> Twitter{" "}
-                </TagLabel>
-              </Tag>
-            </Link>
-          )}
-          {streamer.has_github && (
-            <Link ml="1" isExternal={true} href={"https://github.com/" + streamer.user_name}>
-              <Tag
-                size="md"
-                variant="solid"
-                backgroundColor="gray.700"
-                fontWeight='semibold'
-                fontFamily='Livvic'
-              >
-                <TagLabel>
-                  <Icon as={FaGithub}></Icon> Github{" "}
-                </TagLabel>
-              </Tag>
-            </Link>
-          )}
-        </Flex>
+        <SocialLinks streamer={streamer} />
       </Box>
     </Box>
   );

@@ -11,4 +11,9 @@ export interface StreamerModel {
     description: string;
     has_twitter: boolean;
     has_github: boolean;
+    github_url: string;
+    twitter_url: string;
+    instagram_url: string;
+    linkedin_url: string;
+    discord_url: string;
 }
