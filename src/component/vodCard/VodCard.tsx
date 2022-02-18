@@ -76,7 +76,7 @@ export default function VodCard(props: Props) {
         </Box>
       </Link>
 
-      <Box position='relative' pl="6" pr="6" pb="2" pt="4">
+      <Box position='relative' pl="5" pr="5" pb="2" pt="4">
         <Link
           href={"https://twitch.tv/" + vod.user_name}
           isExternal={true}

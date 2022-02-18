@@ -1,4 +1,12 @@
-import { Icon, IconButton, VStack } from "@chakra-ui/react";
+import {
+  Button,
+  Center,
+  Icon,
+  IconButton,
+  Stack,
+  Text,
+  VStack,
+} from "@chakra-ui/react";
 import { BsBroadcast, BsCameraVideo, BsShuffle } from "react-icons/bs";
 
 interface Props {
@@ -15,11 +23,10 @@ export default function Sidebar(props: Props) {
   };
 
   const handleClick = (hash: string) => {
-    document.querySelector(`#${hash}`)
-      ?.scrollIntoView({
-        behavior: 'smooth',
-      });
-  }
+    document.querySelector(`#${hash}`)?.scrollIntoView({
+      behavior: "smooth",
+    });
+  };
 
   return (
     <>
@@ -32,7 +39,7 @@ export default function Sidebar(props: Props) {
         zIndex={1}
         transform="translateY(-50%)"
       >
-        <IconButton
+        <Button
           className="sidebar-button"
           width="70px"
           height="70px"
@@ -45,10 +52,16 @@ export default function Sidebar(props: Props) {
             color: "primary.600",
           }}
           aria-label="Lives"
-          onClick={() => handleClick('lives')}
-          icon={<Icon as={BsBroadcast} />}
-        />
-        <IconButton
+          onClick={() => handleClick("lives")}
+        >
+          <Stack spacing={0}>
+            <Center>
+              <Icon as={BsBroadcast} />
+            </Center>
+            <Text fontSize="xs">Lives</Text>
+          </Stack>
+        </Button>
+        <Button
           className="sidebar-button"
           width="100px"
           height="100px"
@@ -62,9 +75,15 @@ export default function Sidebar(props: Props) {
           }}
           aria-label="Shuffle"
           onClick={handleShuffleClick}
-          icon={<Icon as={BsShuffle} />}
-        />
-        <IconButton
+        >
+          <Stack spacing={0}>
+            <Center>
+              <Icon as={BsShuffle} />
+            </Center>
+            <Text fontSize="xs">Estou com sorte</Text>
+          </Stack>
+        </Button>
+        <Button
           className="sidebar-button"
           width="70px"
           height="70px"
@@ -77,9 +96,15 @@ export default function Sidebar(props: Props) {
             color: "primary.600",
           }}
           aria-label="Vods"
-          onClick={() => handleClick('vods')}
-          icon={<Icon as={BsCameraVideo} />}
-        />
+          onClick={() => handleClick("vods")}
+        >
+          <Stack spacing={0}>
+            <Center>
+              <Icon as={BsCameraVideo} />
+            </Center>
+            <Text fontSize="xs">Vods</Text>
+          </Stack>
+        </Button>
       </VStack>
     </>
   );
