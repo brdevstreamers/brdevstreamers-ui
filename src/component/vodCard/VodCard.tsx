@@ -14,6 +14,7 @@ import {
 import { chakra } from "@chakra-ui/react";
 import { FaGithub, FaTwitter } from "react-icons/fa";
 import { VodModel } from "../../model/VodModel";
+import SocialLinks from "../socialLinks/SocialLinks";
 
 interface Props {
   vod: VodModel;
@@ -105,38 +106,7 @@ export default function VodCard(props: Props) {
         </chakra.div>
 
         <Divider mt="3"mb='4'></Divider>
-        <Flex >
-          {vod.has_twitter && (
-            <Link isExternal={true} href={"https://twitter.com/" + vod.user_name}>
-              <Tag
-                size="md"
-                variant="solid"
-                backgroundColor="rgb(29, 155, 240)"
-                fontWeight='semibold'
-                fontFamily='Livvic'
-              >
-                <TagLabel>
-                  <Icon as={FaTwitter}></Icon> Twitter{" "}
-                </TagLabel>
-              </Tag>
-            </Link>
-          )}
-          {vod.has_github && (
-            <Link ml="1" isExternal={true} href={"https://github.com/" + vod.user_name}>
-              <Tag
-                size="md"
-                variant="solid"
-                backgroundColor="gray.700"
-                fontWeight='semibold'
-                fontFamily='Livvic'
-              >
-                <TagLabel>
-                  <Icon as={FaGithub}></Icon> Github{" "}
-                </TagLabel>
-              </Tag>
-            </Link>
-          )}
-        </Flex>
+        <SocialLinks streamer={vod} />
       </Box>
     </Box>
   );

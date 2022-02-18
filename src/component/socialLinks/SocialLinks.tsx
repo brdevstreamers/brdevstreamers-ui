@@ -1,11 +1,11 @@
 import React from "react";
 
-import { StreamerModel } from "../../model/StreamerModel";
 import { WrapItem, Icon, Link, Tag, TagLabel, Wrap } from "@chakra-ui/react";
 
 import { FaGithub, FaTwitter, FaLinkedin, FaDiscord, FaInstagram } from "react-icons/fa";
+import { ItemModel } from "../../model/ItemModel";
 interface Props {
-  streamer: StreamerModel;
+  streamer: ItemModel;
 }
 
 export default function SocialLinks(props: Props) {
