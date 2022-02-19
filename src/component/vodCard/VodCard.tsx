@@ -4,20 +4,27 @@ import {
   Box,
   Divider,
   Flex,
-  Icon,
   Image,
   Link,
   Tag,
-  TagLabel,
   Tooltip,
 } from "@chakra-ui/react";
 import { chakra } from "@chakra-ui/react";
-import { FaGithub, FaTwitter } from "react-icons/fa";
 import { VodModel } from "../../model/VodModel";
 import SocialLinks from "../socialLinks/SocialLinks";
+import axios from "axios";
+import { StreamType } from "../../model/StreamType";
 
 interface Props {
   vod: VodModel;
+}
+
+const logClick = (user_login: string) => {
+  axios.post(process.env.REACT_APP_API_URL + "/stats" || "", {
+    user_login: user_login,
+    access_date: new Date(),
+    type: StreamType.VOD
+  });
 }
 
 export default function VodCard(props: Props) {
@@ -34,7 +41,7 @@ export default function VodCard(props: Props) {
       textOverflow="ellipsis"
       background="white"
     >
-      <Link href={"https://twitch.tv/videos/" + vod.stream_id} isExternal={true}>
+      <Link href={"https://twitch.tv/videos/" + vod.stream_id} isExternal={true} onClick={() => logClick(vod.user_login)}>
         <Box
           h="180"
           w="100%"
@@ -79,7 +86,7 @@ export default function VodCard(props: Props) {
       <Box position='relative' pl="5" pr="5" pb="2" pt="4">
         <Link
           href={"https://twitch.tv/" + vod.user_name}
-          isExternal={true}
+          isExternal={true} onClick={() => logClick(vod.user_login)}
         >
           <Flex mt="0" fontWeight="semibold" lineHeight="tight">
             <Image

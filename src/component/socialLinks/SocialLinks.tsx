@@ -33,7 +33,7 @@ export default function SocialLinks(props: Props) {
         {/* Github Link  */}
         {props.streamer.github_url && (
           <WrapItem>
-            <Link ml="1" isExternal={true} href={props.streamer.github_url}>
+            <Link isExternal={true} href={props.streamer.github_url}>
               <Tag
                 size="md"
                 variant="solid"
@@ -51,7 +51,7 @@ export default function SocialLinks(props: Props) {
         {/* Linkedin Link  */}
         {props.streamer.linkedin_url && (
           <WrapItem>
-            <Link ml="1" isExternal={true} href={props.streamer.linkedin_url}>
+            <Link isExternal={true} href={props.streamer.linkedin_url}>
               <Tag
                 size="md"
                 variant="solid"
@@ -69,7 +69,7 @@ export default function SocialLinks(props: Props) {
         {/* Discord Link  */}
         {props.streamer.discord_url && (
           <WrapItem>
-            <Link ml="1" isExternal={true} href={props.streamer.discord_url}>
+            <Link isExternal={true} href={props.streamer.discord_url}>
               <Tag
                 size="md"
                 variant="solid"
@@ -87,7 +87,7 @@ export default function SocialLinks(props: Props) {
         {/* Instagram Link  */}
         {props.streamer.instagram_url && (
           <WrapItem>
-            <Link ml="1" isExternal={true} href={props.streamer.instagram_url}>
+            <Link isExternal={true} href={props.streamer.instagram_url}>
               <Tag
                 size="md"
                 variant="solid"

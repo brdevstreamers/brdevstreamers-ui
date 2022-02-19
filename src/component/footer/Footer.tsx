@@ -1,27 +1,35 @@
 import {
   Button,
   Center,
-  Flex,
   Grid,
   GridItem,
   Icon,
-  IconButton,
-  Link,
   Stack,
   Text,
 } from "@chakra-ui/react";
+import axios from "axios";
 import { BsBroadcast, BsCameraVideo, BsShuffle } from "react-icons/bs";
+import { StreamType } from "../../model/StreamType";
 
 interface Props {
   streamingUrls: string[];
 }
 
 export default function Footer(props: Props) {
+  const logClick = (user_login: string) => {
+    axios.post(process.env.REACT_APP_API_URL + "/stats" || "", {
+      user_login: user_login,
+      access_date: new Date(),
+      type: StreamType.STREAM,
+    });
+  };
+
   const handleShuffleClick = () => {
     const user_name =
       props.streamingUrls[
         Math.floor(Math.random() * props.streamingUrls.length)
       ];
+    logClick(user_name.toLowerCase());
     window.open("https://www.twitch.tv/" + user_name, "_blank");
   };
 

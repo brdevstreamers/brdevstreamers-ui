@@ -1,6 +1,7 @@
 import { ViewIcon } from "@chakra-ui/icons";
 import "./StreamerCard.css";
 import SocialLinks from "../socialLinks/SocialLinks";
+import { StreamType } from "../../model/StreamType";
 import {
   Box,
   Divider,
@@ -13,6 +14,7 @@ import {
 import React from "react";
 import { chakra } from "@chakra-ui/react";
 import { StreamerModel } from "../../model/StreamerModel";
+import axios from "axios";
 var format = require('format-duration')
 
 
@@ -36,6 +38,14 @@ export default function StreamerCard(props: Props) {
     setInterval(() => updateClock(), 1000);
   }, [streamer.started_at]);
 
+  const logClick = (user_login: string) => {
+    axios.post(process.env.REACT_APP_API_URL + "/stats" || "", {
+      user_login: user_login,
+      access_date: new Date(),
+      type: StreamType.STREAM
+    });
+  }
+  
   return (
     <Box
       maxW="md"
@@ -46,7 +56,7 @@ export default function StreamerCard(props: Props) {
       textOverflow="ellipsis"
       background="white"
     >
-      <Link href={"https://twitch.tv/" + streamer.user_name} isExternal={true}>
+      <Link href={"https://twitch.tv/" + streamer.user_name} isExternal={true}  onClick={() => logClick(streamer.user_login)}>
         <Box
           h="180"
           w="100%"
@@ -88,7 +98,7 @@ export default function StreamerCard(props: Props) {
 
         <Link
           href={"https://twitch.tv/" + streamer.user_name}
-          isExternal={true}
+          isExternal={true} onClick={() => logClick(streamer.user_login)}
         >
           <Flex mt="0" fontWeight="semibold" lineHeight="tight">
             <Image
