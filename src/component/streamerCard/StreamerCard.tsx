@@ -27,6 +27,7 @@ interface Props {
 export default function StreamerCard(props: Props) {
   const streamer = props.streamer;
   const [timeStreaming, setTimeStreaming] = React.useState("");
+  const [isHover, setHover] = React.useState(false);
 
   React.useEffect(() => {
     const updateClock = () => {
@@ -53,6 +54,25 @@ export default function StreamerCard(props: Props) {
     })();
   };
 
+  const showPreview = (user_name: string) => {
+    return (
+      <>
+        <chakra.div position="absolute" height="180px" width="100%" backgroundColor="rgba(255,255,255,0)"></chakra.div>
+        <iframe
+          title={streamer.user_login}
+          src={
+            "https://player.twitch.tv/?channel=" +
+            streamer.user_name +
+            "&parent=localhost&enableExtensions=false&muted=true&quality=low&controls=false"
+          }
+          height="180"
+          width="100%"
+          onClick={() => console.log("clicou ")}
+        ></iframe>
+      </>
+    );
+  };
+
   return (
     <Box
       maxW="md"
@@ -77,7 +97,12 @@ export default function StreamerCard(props: Props) {
             .replace("{height}", "360")}
           backgroundRepeat="no-repeat"
           backgroundSize="cover"
+          onMouseOver={() => setHover(true)}
+          onMouseLeave={() => setHover(false)}
+          onTouchStart={() => setHover(true)}
+          onTouchEnd={() => setHover(false)}
         >
+          {isHover && showPreview(streamer.user_name)}
           <Tag
             size="sm"
             position="absolute"

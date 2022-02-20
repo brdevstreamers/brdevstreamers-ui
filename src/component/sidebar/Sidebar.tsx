@@ -2,7 +2,6 @@ import {
   Button,
   Center,
   Icon,
-  IconButton,
   Stack,
   Text,
   VStack,
