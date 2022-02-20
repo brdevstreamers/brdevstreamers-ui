@@ -63,7 +63,7 @@ export default function StreamerCard(props: Props) {
           src={
             "https://player.twitch.tv/?channel=" +
             streamer.user_name +
-            "&parent=brstreamers.dev&enableExtensions=false&muted=true&quality=low&controls=false"
+            "&parent=" + process.env.REACT_APP_DOMAIN + "&enableExtensions=false&muted=true&quality=low&controls=false"
           }
           height="180"
           width="100%"
