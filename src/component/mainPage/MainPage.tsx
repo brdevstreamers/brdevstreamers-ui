@@ -1,6 +1,7 @@
 import StreamerList from "../streamerList/StreamerList";
-import Footer from "../footer/Footer";
+import BottomBar from "../bottombar/BottomBar";
 import Sidebar from "../sidebar/Sidebar";
+import './MainPage.css';
 import {
   Center,
   chakra,
@@ -109,8 +110,8 @@ export default function MainPage() {
             </Container>
             
             <Center className="mobile-footer">
-              <Container height="150" maxW="container.xl">
-                <Footer streamingUrls={streamingUrls}></Footer>
+              <Container height="10" maxW="container.xl">
+                <BottomBar streamingUrls={streamingUrls}></BottomBar>
               </Container>
             </Center>
           </GridItem>
