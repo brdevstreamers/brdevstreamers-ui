@@ -1,4 +1,5 @@
 import { ViewIcon } from "@chakra-ui/icons";
+
 import "./StreamerCard.css";
 import SocialLinks from "../socialLinks/SocialLinks";
 import { StreamType } from "../../model/StreamType";
@@ -15,8 +16,9 @@ import React from "react";
 import { chakra } from "@chakra-ui/react";
 import { StreamerModel } from "../../model/StreamerModel";
 import axios from "axios";
-var format = require('format-duration')
-
+import FingerprintJS from "@fingerprintjs/fingerprintjs";
+var format = require("format-duration");
+const fpPromise = FingerprintJS.load();
 
 interface Props {
   streamer: StreamerModel;
@@ -24,14 +26,12 @@ interface Props {
 
 export default function StreamerCard(props: Props) {
   const streamer = props.streamer;
-  const [timeStreaming, setTimeStreaming] = React.useState('');
+  const [timeStreaming, setTimeStreaming] = React.useState("");
 
   React.useEffect(() => {
     const updateClock = () => {
       setTimeStreaming(
-        
         format(new Date().getTime() - Date.parse(streamer.started_at))
-        
       );
     };
 
@@ -39,13 +39,20 @@ export default function StreamerCard(props: Props) {
   }, [streamer.started_at]);
 
   const logClick = (user_login: string) => {
-    axios.post(process.env.REACT_APP_API_URL + "/stats" || "", {
-      user_login: user_login,
-      access_date: new Date(),
-      type: StreamType.STREAM
-    });
-  }
-  
+    (async () => {
+      // Get the visitor identifier when you need it.
+      const fp = await fpPromise;
+      const result = await fp.get();
+
+      axios.post(process.env.REACT_APP_API_URL + "/stats" || "", {
+        user_login: user_login,
+        access_date: new Date(),
+        type: StreamType.STREAM,
+        fingerprint: result.visitorId,
+      });
+    })();
+  };
+
   return (
     <Box
       maxW="md"
@@ -56,7 +63,11 @@ export default function StreamerCard(props: Props) {
       textOverflow="ellipsis"
       background="white"
     >
-      <Link href={"https://twitch.tv/" + streamer.user_name} isExternal={true}  onClick={() => logClick(streamer.user_login)}>
+      <Link
+        href={"https://twitch.tv/" + streamer.user_name}
+        isExternal={true}
+        onClick={() => logClick(streamer.user_login)}
+      >
         <Box
           h="180"
           w="100%"
@@ -95,10 +106,10 @@ export default function StreamerCard(props: Props) {
       </Link>
 
       <Box pl="5" pr="5" pb="2" pt="4">
-
         <Link
           href={"https://twitch.tv/" + streamer.user_name}
-          isExternal={true} onClick={() => logClick(streamer.user_login)}
+          isExternal={true}
+          onClick={() => logClick(streamer.user_login)}
         >
           <Flex mt="0" fontWeight="semibold" lineHeight="tight">
             <Image
@@ -118,8 +129,12 @@ export default function StreamerCard(props: Props) {
 
         <Divider mt="3"></Divider>
 
-        <chakra.div h='70px'>
-          <chakra.p className="description" overflow="hidden" textOverflow="ellipsis">
+        <chakra.div h="70px">
+          <chakra.p
+            className="description"
+            overflow="hidden"
+            textOverflow="ellipsis"
+          >
             {streamer.description}
           </chakra.p>
         </chakra.div>

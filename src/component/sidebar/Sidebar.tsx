@@ -10,6 +10,8 @@ import {
 import axios from "axios";
 import { BsBroadcast, BsCameraVideo, BsShuffle } from "react-icons/bs";
 import { StreamType } from "../../model/StreamType";
+import FingerprintJS from "@fingerprintjs/fingerprintjs";
+const fpPromise = FingerprintJS.load();
 
 interface Props {
   streamingUrls: string[];
@@ -19,11 +21,18 @@ export default function Sidebar(props: Props) {
 
   
   const logClick = (user_login: string) => {
-    axios.post(process.env.REACT_APP_API_URL + "/stats" || "", {
-      user_login: user_login,
-      access_date: new Date(),
-      type: StreamType.STREAM,
-    });
+    (async () => {
+      // Get the visitor identifier when you need it.
+      const fp = await fpPromise;
+      const result = await fp.get();
+
+      axios.post(process.env.REACT_APP_API_URL + "/stats" || "", {
+        user_login: user_login,
+        access_date: new Date(),
+        type: StreamType.STREAM,
+        fingerprint: result.visitorId,
+      });
+    })();
   };
   
   const handleShuffleClick = () => {
