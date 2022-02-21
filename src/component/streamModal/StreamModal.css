@@ -15,7 +15,7 @@
 
 @media only screen and (max-width: 768px) {
     .modal-content {
-        height: 60vh !important;
+        height: 90vh !important;
         max-width: 100vw !important;
         width: 100vw !important;
     }
@@ -24,7 +24,7 @@
         width: 100%;
     }
     .modal-chat {
-        display: none;
+    display: none !important;
     }
 
 }

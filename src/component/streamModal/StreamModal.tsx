@@ -56,7 +56,7 @@ export default function StreamModal(props: Props) {
                 src={props.streamer.profile_image_url}
                 alt={props.streamer.user_name}
               />
-              <chakra.span mt='1'>{props.streamer.user_name}</chakra.span>
+              <chakra.span mt="1">{props.streamer.user_name}</chakra.span>
               <Tag
                 size="sm"
                 ml="5"
@@ -104,21 +104,7 @@ export default function StreamModal(props: Props) {
             </Flex>
           </ModalBody>
 
-          <ModalFooter>
-            <Button
-              float="right"
-              _hover={{
-                background: "primary.700",
-                color: "white",
-              }}
-              backgroundColor="primary.800"
-              color="white"
-              mr={0}
-              onClick={onClose}
-            >
-              Fechar
-            </Button>
-          </ModalFooter>
+          <ModalFooter></ModalFooter>
         </ModalContent>
       </Modal>
     </>
