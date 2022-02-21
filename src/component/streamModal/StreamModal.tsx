@@ -47,7 +47,7 @@ export default function StreamModal(props: Props) {
       <Modal isOpen={isOpen} onClose={onClose} isCentered>
         <ModalOverlay />
         <ModalContent className="modal-content">
-          <ModalHeader p="4">
+          <ModalHeader p="2">
             <Flex>
               <Image
                 w="10"
@@ -104,7 +104,7 @@ export default function StreamModal(props: Props) {
             </Flex>
           </ModalBody>
 
-          <ModalFooter></ModalFooter>
+          <ModalFooter p='0'></ModalFooter>
         </ModalContent>
       </Modal>
     </>
