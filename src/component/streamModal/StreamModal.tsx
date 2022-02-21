@@ -19,6 +19,9 @@ import {
 } from "@chakra-ui/react";
 import { StreamerModel } from "../../model/StreamerModel";
 import "./StreamModal.css";
+import { logClick } from "../../service/StatsService";
+import { StreamType } from "../../model/StreamType";
+import chakraUiTheme from "@chakra-ui/theme";
 
 interface Props {
   streamer: StreamerModel;
@@ -28,12 +31,60 @@ interface Props {
 export default function StreamModal(props: Props) {
   const { isOpen, onOpen, onClose } = useDisclosure();
 
+  const bringButtonToFront = () => {
+    const name = document.getElementById("modal-button-" + props.streamer.id);
+
+    if (name) {
+      name.style.zIndex = "99999";
+    }
+  };
+
+  const hideModal = async () => {
+    const chakraPortal = Array.from(
+      document.getElementsByClassName(
+        "chakra-portal"
+      ) as HTMLCollectionOf<HTMLElement>
+    )[0];
+    if (chakraPortal) {
+      chakraPortal.style.display = "none";
+    }
+  };
+
+  const showModal = () => {
+
+
+
+    const chakraPortal = Array.from(
+      document.getElementsByClassName(
+        "chakra-portal"
+      ) as HTMLCollectionOf<HTMLElement>
+    )[0];
+    chakraPortal.style.display = "block";
+
+    const name = document.getElementById("modal-button-" + props.streamer.id);
+
+    if (name) {
+      name.style.zIndex = "0";
+    }
+  };
+
   return (
     <>
       <Button
+        id={"modal-button-" + props.streamer.id}
         size="xs"
         float="right"
-        onClick={onOpen}
+        onMouseEnter={() => {
+          bringButtonToFront();
+          onOpen();
+        }}
+        onMouseOver={() => {
+          hideModal();
+        }}
+        onClick={() => {
+          logClick(props.streamer.user_login, StreamType.PREVIEW);
+          showModal();
+        }}
         _hover={{
           background: "primary.700",
           color: "white",
@@ -70,10 +121,11 @@ export default function StreamModal(props: Props) {
             </Flex>
           </ModalHeader>
           <ModalCloseButton />
-          <ModalBody p="1">
+          <ModalBody p="1" className="modal-body">
             <Flex h="100%">
               <Center className="modal-stream">
                 <iframe
+                  id={`preview-${props.streamer.id}`}
                   title={props.streamer.user_login}
                   src={
                     "https://player.twitch.tv/?channel=" +
@@ -85,7 +137,7 @@ export default function StreamModal(props: Props) {
                   height="100%"
                   width="100%"
                   onClick={() => console.log("clicou ")}
-                ></iframe>{" "}
+                ></iframe>
               </Center>
               <Center className="modal-chat">
                 <iframe
@@ -104,7 +156,7 @@ export default function StreamModal(props: Props) {
             </Flex>
           </ModalBody>
 
-          <ModalFooter p='0'></ModalFooter>
+          <ModalFooter p="0"></ModalFooter>
         </ModalContent>
       </Modal>
     </>

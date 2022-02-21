@@ -1,27 +1,13 @@
-import {
-  Center,
-  chakra,
-  Container,
-  Divider,
-  Image,
-  Link,
-  Text,
-} from "@chakra-ui/react";
+import { chakra, Container, Link, Text } from "@chakra-ui/react";
+import Header from "../../component/header/Header";
 
 export default function AboutPage() {
   return (
     <>
-      <Container maxW="container.lg" mb='10'>
-        <Center>
-          <Image
-            className="logo"
-            src="/logo.svg"
-            alt="Br Dev Streamers"
-          ></Image>
-        </Center>
-        <Center>
-          <h1>Sobre</h1>
-        </Center>
+      <Container maxW="container.lg" mb="10">
+        <Header
+          title="Sobre"
+        ></Header>
         <chakra.h2 mt="3" lineHeight="8">
           O que é?
         </chakra.h2>
@@ -41,11 +27,13 @@ export default function AboutPage() {
           É verdade que este é um projeto open source?
         </chakra.h2>
         <Text color="primary.400" fontWeight="semibold" fontSize="lg">
-          Sim, o projeto é open source e você pode acessá-lo (e abrir um PR) no Github em:
+          Sim, o projeto é open source e você pode acessá-lo (e abrir um PR) no
+          Github em:
         </Text>
         <Text color="primary.400" fontWeight="semibold" fontSize="lg">
-          Frontend: {' '}
-          <Link color="primary.500"
+          Frontend:{" "}
+          <Link
+            color="primary.500"
             isExternal={true}
             href="https://github.com/flaviojmendes/brdevstreamers-ui"
           >
@@ -53,8 +41,9 @@ export default function AboutPage() {
           </Link>
         </Text>
         <Text color="primary.400" fontWeight="semibold" fontSize="lg">
-          Backend: {' '}
-          <Link color="primary.500"
+          Backend:{" "}
+          <Link
+            color="primary.500"
             isExternal={true}
             href="https://github.com/flaviojmendes/brdevstreamers"
           >

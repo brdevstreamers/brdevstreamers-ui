@@ -1,5 +1,6 @@
 export enum StreamType {
     STREAM = 'STREAM',
-    VOD = 'VOD'
+    VOD = 'VOD',
+    PREVIEW = 'PREVIEW',
 
 }

@@ -1,5 +1,5 @@
 import { ViewIcon } from "@chakra-ui/icons";
-import './VodCard.css';
+import "./VodCard.css";
 import {
   Box,
   Divider,
@@ -12,34 +12,16 @@ import {
 import { chakra } from "@chakra-ui/react";
 import { VodModel } from "../../model/VodModel";
 import SocialLinks from "../socialLinks/SocialLinks";
-import axios from "axios";
+import { logClick } from "../../service/StatsService";
 import { StreamType } from "../../model/StreamType";
-import FingerprintJS from "@fingerprintjs/fingerprintjs";
-const fpPromise = FingerprintJS.load();
-
 
 interface Props {
   vod: VodModel;
 }
 
-const logClick = (user_login: string) => {
-  (async () => {
-    // Get the visitor identifier when you need it.
-    const fp = await fpPromise;
-    const result = await fp.get();
-
-    axios.post(process.env.REACT_APP_API_URL + "/stats" || "", {
-      user_login: user_login,
-      access_date: new Date(),
-      type: StreamType.VOD,
-      fingerprint: result.visitorId,
-    });
-  })();
-}
-
 export default function VodCard(props: Props) {
   const vod = props.vod;
-  
+
   return (
     <Box
       maxW="md"
@@ -51,21 +33,25 @@ export default function VodCard(props: Props) {
       textOverflow="ellipsis"
       background="white"
     >
-      <Link href={"https://twitch.tv/videos/" + vod.stream_id} isExternal={true} onClick={() => logClick(vod.user_login)}>
+      <Link
+        href={"https://twitch.tv/videos/" + vod.stream_id}
+        isExternal={true}
+        onClick={() => logClick(vod.user_login, StreamType.VOD)}
+      >
         <Box
           h="180"
           w="100%"
           position="relative"
           backgroundColor="#33374D"
-          backgroundImage={vod.thumbnail_url
-            .replace("%{width}", "640")
-            .replace("%{height}", "360") || '/logo.svg'}
+          backgroundImage={
+            vod.thumbnail_url
+              .replace("%{width}", "640")
+              .replace("%{height}", "360") || "/logo.svg"
+          }
           backgroundRepeat="no-repeat"
-          backgroundSize={vod.thumbnail_url ? 'cover' : '40%'}
-          backgroundPosition='center'
-          
+          backgroundSize={vod.thumbnail_url ? "cover" : "40%"}
+          backgroundPosition="center"
         >
-          
           <Tag
             size="sm"
             position="absolute"
@@ -93,10 +79,11 @@ export default function VodCard(props: Props) {
         </Box>
       </Link>
 
-      <Box position='relative' pl="5" pr="5" pb="2" pt="4">
+      <Box position="relative" pl="5" pr="5" pb="2" pt="4">
         <Link
           href={"https://twitch.tv/" + vod.user_name}
-          isExternal={true} onClick={() => logClick(vod.user_login)}
+          isExternal={true}
+          onClick={() => logClick(vod.user_login, StreamType.VOD)}
         >
           <Flex mt="0" fontWeight="semibold" lineHeight="tight">
             <Image
@@ -116,13 +103,17 @@ export default function VodCard(props: Props) {
 
         <Divider mt="3"></Divider>
 
-        <chakra.div h='70px'>
-          <chakra.p className="description" overflow="hidden" textOverflow="ellipsis">
+        <chakra.div h="70px">
+          <chakra.p
+            className="description"
+            overflow="hidden"
+            textOverflow="ellipsis"
+          >
             {vod.description}
           </chakra.p>
         </chakra.div>
 
-        <Divider mt="3"mb='4'></Divider>
+        <Divider mt="3" mb="4"></Divider>
         <SocialLinks streamer={vod} />
       </Box>
     </Box>

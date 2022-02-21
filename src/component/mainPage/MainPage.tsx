@@ -2,6 +2,7 @@ import StreamerList from "../streamerList/StreamerList";
 import BottomBar from "../bottombar/BottomBar";
 import Sidebar from "../sidebar/Sidebar";
 import './MainPage.css';
+import Header from "../header/Header";
 import {
   Center,
   chakra,
@@ -9,8 +10,6 @@ import {
   Divider,
   Grid,
   GridItem,
-  Image,
-  Link,
   Spinner,
   Text,
 } from "@chakra-ui/react";
@@ -39,23 +38,8 @@ export default function MainPage() {
             </chakra.div>
           </GridItem>
           <GridItem colSpan={5} w="100%">
-            <Center>
-              <Image
-                className="logo"
-                src="/logo.svg"
-                alt="Br Dev Streamers"
-              ></Image>
-            </Center>
-            <Center>
-              <chakra.h1 mb="0" lineHeight="10">
-                Br Dev Streamers
-              </chakra.h1>
-            </Center>
-            <Center>
-              <chakra.h2 mt="0" lineHeight="8">
-                Somos todos uma comunidade
-              </chakra.h2>
-            </Center>
+            <Header title="Br Dev Streamers" subtitle="Somos todos uma comunidade"></Header>
+            
             <Container maxW="container.lg">
               <Center mt="50px">
                 <Text

@@ -17,11 +17,9 @@ import {
 import React from "react";
 import { chakra } from "@chakra-ui/react";
 import { StreamerModel } from "../../model/StreamerModel";
-import axios from "axios";
+import { logClick } from "../../service/StatsService";
 import StreamModal from "../streamModal/StreamModal";
-import FingerprintJS from "@fingerprintjs/fingerprintjs";
 var format = require("format-duration");
-const fpPromise = FingerprintJS.load();
 
 interface Props {
   streamer: StreamerModel;
@@ -41,21 +39,6 @@ export default function StreamerCard(props: Props) {
 
     setInterval(() => updateClock(), 1000);
   }, [streamer.started_at]);
-
-  const logClick = (user_login: string) => {
-    (async () => {
-      // Get the visitor identifier when you need it.
-      const fp = await fpPromise;
-      const result = await fp.get();
-
-      axios.post(process.env.REACT_APP_API_URL + "/stats" || "", {
-        user_login: user_login,
-        access_date: new Date(),
-        type: StreamType.STREAM,
-        fingerprint: result.visitorId,
-      });
-    })();
-  };
 
   const showPreview = (user_name: string) => {
     return (
@@ -96,7 +79,7 @@ export default function StreamerCard(props: Props) {
       <Link
         href={"https://twitch.tv/" + streamer.user_name}
         isExternal={true}
-        onClick={() => logClick(streamer.user_login)}
+        onClick={() => logClick(streamer.user_login, StreamType.STREAM)}
       >
         <Box
           h="180"
@@ -146,7 +129,7 @@ export default function StreamerCard(props: Props) {
             <Link
               href={"https://twitch.tv/" + streamer.user_name}
               isExternal={true}
-              onClick={() => logClick(streamer.user_login)}
+              onClick={() => logClick(streamer.user_login, StreamType.STREAM)}
             >
               <Flex fontWeight='semibold'>
                 <Image
