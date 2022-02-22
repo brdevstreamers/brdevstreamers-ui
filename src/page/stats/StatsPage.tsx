@@ -1,8 +1,6 @@
-import { ArrowBackIcon } from "@chakra-ui/icons";
 import {
   Center,
   Container,
-  IconButton,
   Table,
   Tbody,
   Td,
@@ -14,6 +12,7 @@ import { ApexOptions } from "apexcharts";
 import axios from "axios";
 import React from "react";
 import ReactApexChart from "react-apexcharts";
+import Header from "../../component/header/Header";
 
 import { StatModel } from "../../model/StatModel";
 
@@ -22,6 +21,7 @@ export default function StatsPage() {
   const [statsSummary, setStatsSummary] = React.useState({
     streams: 0,
     vods: 0,
+    previews: 0,
   });
 
   React.useEffect(() => {
@@ -41,33 +41,25 @@ export default function StatsPage() {
       width: 380,
       type: "pie",
     },
-    colors: ["#B685FF", "#D3C8FF"],
+    colors: ["#B685FF", "#D3C8FF", "#92DCFF"],
 
     legend: {
       show: true,
       position: "top",
       labels: {
-        colors: ["#B685FF", "#D3C8FF"],
+        colors: ["#B685FF", "#D3C8FF", "#92DCFF"],
         useSeriesColors: true,
       },
     },
-    labels: ["Lives", "Vods"],
+    labels: ["Lives", "Vods", "Prévias"],
   };
 
   return (
     <>
       <Container>
-        <IconButton
-          colorScheme="primary"
-          aria-label="Voltar"
-          onClick={() => window.history.back()}
-          icon={<ArrowBackIcon />}
-        />
-        <Center>
-          <h1>Stats</h1>
-        </Center>
+        <Header title="Stats"></Header>
 
-        <Table size="sm" color="primary.400">
+        <Table mt='5' size="sm" color="primary.400">
           <Thead>
             <Tr>
               <Th color="primary.600">Streamer</Th>
@@ -76,6 +68,9 @@ export default function StatsPage() {
               </Th>
               <Th isNumeric color="primary.600">
                 Acessos em Vods
+              </Th>
+              <Th isNumeric color="primary.600">
+                Prévias na Página
               </Th>
             </Tr>
           </Thead>
@@ -86,6 +81,7 @@ export default function StatsPage() {
                   <Td>{stat.user_login}</Td>
                   <Td isNumeric>{stat.stream_clicks}</Td>
                   <Td isNumeric>{stat.vod_clicks}</Td>
+                  <Td isNumeric>{stat.preview_clicks}</Td>
                 </Tr>
               );
             })}
@@ -94,7 +90,7 @@ export default function StatsPage() {
         <Center mt="10">
           <ReactApexChart
             options={options}
-            series={[statsSummary.streams, statsSummary.vods]}
+            series={[statsSummary.streams, statsSummary.vods, statsSummary.previews]}
             type="pie"
             width={380}
           />

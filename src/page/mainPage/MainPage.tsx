@@ -1,6 +1,6 @@
-import StreamerList from "../streamerList/StreamerList";
-import BottomBar from "../bottombar/BottomBar";
-import Sidebar from "../sidebar/Sidebar";
+import StreamerList from "../../component/streamerList/StreamerList";
+import BottomBar from "../../component/bottombar/BottomBar";
+import Sidebar from "../../component/sidebar/Sidebar";
 import './MainPage.css';
 import {
   Center,
@@ -9,13 +9,12 @@ import {
   Divider,
   Grid,
   GridItem,
-  Image,
-  Link,
   Spinner,
   Text,
 } from "@chakra-ui/react";
-import VodList from "../vodList/VodList";
+import VodList from "../../component/vodList/VodList";
 import React from "react";
+import Header from "../../component/header/Header";
 
 export default function MainPage() {
     const [isReloading, setReloading] = React.useState(false);
@@ -32,6 +31,7 @@ export default function MainPage() {
 
     return (
         <>
+        <Header title="Br Dev Streamers" subtitle="Somos todos uma comunidade"></Header>
         <Grid templateColumns="repeat(5, 1fr)" gap={6}>
           <GridItem w="100%">
             <chakra.div className="sidebar-desktop">
@@ -39,23 +39,6 @@ export default function MainPage() {
             </chakra.div>
           </GridItem>
           <GridItem colSpan={5} w="100%">
-            <Center>
-              <Image
-                className="logo"
-                src="/logo.svg"
-                alt="Br Dev Streamers"
-              ></Image>
-            </Center>
-            <Center>
-              <chakra.h1 mb="0" lineHeight="10">
-                Br Dev Streamers
-              </chakra.h1>
-            </Center>
-            <Center>
-              <chakra.h2 mt="0" lineHeight="8">
-                Somos todos uma comunidade
-              </chakra.h2>
-            </Center>
             <Container maxW="container.lg">
               <Center mt="50px">
                 <Text

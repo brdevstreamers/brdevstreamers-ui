@@ -33,6 +33,14 @@ export default function Footer() {
               </Text>
             </WrapItem>
             <WrapItem>
+              <Text color="primary.500" fontWeight="semibold">
+                <RouteLink to="/agradecimentos">Agradecimentos</RouteLink>
+              </Text>
+              <Text color="primary.400" ml="2" fontWeight="semibold">
+                |
+              </Text>
+            </WrapItem>
+            <WrapItem>
               <Text color="primary.400" ml="2" fontWeight="semibold">
                 feito com ♥ por
               </Text>

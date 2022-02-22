@@ -4,9 +4,8 @@ import {
   Center,
   chakra,
   Flex,
-  Grid,
-  GridItem,
   Image,
+  Link,
   Modal,
   ModalBody,
   ModalCloseButton,
@@ -19,6 +18,8 @@ import {
 } from "@chakra-ui/react";
 import { StreamerModel } from "../../model/StreamerModel";
 import "./StreamModal.css";
+import { logClick } from "../../service/StatsService";
+import { StreamType } from "../../model/StreamType";
 
 interface Props {
   streamer: StreamerModel;
@@ -56,7 +57,15 @@ export default function StreamModal(props: Props) {
                 src={props.streamer.profile_image_url}
                 alt={props.streamer.user_name}
               />
-              <chakra.span mt="1">{props.streamer.user_name}</chakra.span>
+              <chakra.span mt="1">
+                <Link
+                  href={"https://twitch.tv/" + props.streamer.user_name}
+                  isExternal={true}
+                  onClick={() => logClick(props.streamer.user_login, StreamType.STREAM)}
+                >
+                  {props.streamer.user_name}
+                </Link>
+              </chakra.span>
               <Tag
                 size="sm"
                 ml="5"
@@ -104,7 +113,7 @@ export default function StreamModal(props: Props) {
             </Flex>
           </ModalBody>
 
-          <ModalFooter p='0'></ModalFooter>
+          <ModalFooter p="0"></ModalFooter>
         </ModalContent>
       </Modal>
     </>
