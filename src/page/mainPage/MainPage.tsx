@@ -19,6 +19,7 @@ import Header from "../../component/header/Header";
 export default function MainPage() {
     const [isReloading, setReloading] = React.useState(false);
     const [streamingUrls, setStreamingUrls] = React.useState([""]);
+    const [mosaicModeOn, setMosaicModeOn] = React.useState(false);
   
     const handleReloading = (reloading: boolean) => {
       setReloading(reloading);
@@ -27,6 +28,12 @@ export default function MainPage() {
     const handleStreamingUrls = (streamingUrls: string[]) => {
       setStreamingUrls(streamingUrls);
     };
+
+
+    const handleMosaicMode = (mosaicModeOn: boolean) => {
+      setMosaicModeOn(mosaicModeOn);
+      console.log('main', mosaicModeOn);
+    }
   
 
     return (
@@ -35,7 +42,7 @@ export default function MainPage() {
         <Grid templateColumns="repeat(5, 1fr)" gap={6}>
           <GridItem w="100%">
             <chakra.div className="sidebar-desktop">
-              <Sidebar streamingUrls={streamingUrls}></Sidebar>
+              <Sidebar setMosaicModeOn={handleMosaicMode} streamingUrls={streamingUrls}></Sidebar>
             </chakra.div>
           </GridItem>
           <GridItem colSpan={5} w="100%">
@@ -65,6 +72,7 @@ export default function MainPage() {
               <StreamerList
                 setStreamingUrls={handleStreamingUrls}
                 setReloading={handleReloading}
+                mosaicModeOn={mosaicModeOn}
               ></StreamerList>
             </Container>
 

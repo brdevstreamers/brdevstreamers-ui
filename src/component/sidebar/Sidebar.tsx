@@ -7,17 +7,21 @@ import {
   VStack,
 } from "@chakra-ui/react";
 import axios from "axios";
-import { BsBroadcast, BsCameraVideo, BsShuffle } from "react-icons/bs";
+import { BsBroadcast, BsCameraVideo, BsColumnsGap, BsShuffle } from "react-icons/bs";
 import { StreamType } from "../../model/StreamType";
 import FingerprintJS from "@fingerprintjs/fingerprintjs";
+import React, { useEffect } from "react";
 const fpPromise = FingerprintJS.load();
 
 interface Props {
   streamingUrls: string[];
+  setMosaicModeOn(mosaicModeOn: boolean): void;
+
 }
 
 export default function Sidebar(props: Props) {
 
+  const [mosaicModeOn, setMosaicModeOn] = React.useState(false);
   
   const logClick = (user_login: string) => {
     (async () => {
@@ -49,6 +53,11 @@ export default function Sidebar(props: Props) {
       behavior: "smooth",
     });
   };
+
+  useEffect(() => {
+    props.setMosaicModeOn(mosaicModeOn)
+  }, [mosaicModeOn, props]);
+
 
   return (
     <>
@@ -105,6 +114,30 @@ export default function Sidebar(props: Props) {
             <Text fontSize="xs">Estou com sorte</Text>
           </Stack>
         </Button>
+
+        <Button
+          className="sidebar-button"
+          width="70px"
+          height="70px"
+          ml="0"
+          fontSize="45px"
+          backgroundColor="primary.600"
+          color="white"
+          _hover={{
+            background: "white",
+            color: "primary.600",
+          }}
+          aria-label="Vods"
+          onClick={() => {setMosaicModeOn(!mosaicModeOn)}}
+        >
+          <Stack spacing={0}>
+            <Center>
+              <Icon as={BsColumnsGap} />
+            </Center>
+            <Text fontSize="xs">Mosaico</Text>
+          </Stack>
+        </Button>
+
         <Button
           className="sidebar-button"
           width="70px"
