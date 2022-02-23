@@ -129,7 +129,7 @@ export default function StreamerList(props: Props) {
       )}
       {!loading && (
         <>
-        <Mosaic mosaicModeOn={props.mosaicModeOn} user_names={selectedStreams}/>
+        
           <SimpleGrid minChildWidth="300px" columns={3} spacing={5}>
             {streamers.map((streamer: StreamerModel) => {
               return (
