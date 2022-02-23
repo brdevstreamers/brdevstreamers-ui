@@ -2,7 +2,6 @@ import { Box, SimpleGrid, Skeleton, Stack } from "@chakra-ui/react";
 import axios from "axios";
 import React from "react";
 import { StreamerModel } from "../../model/StreamerModel";
-import Mosaic from "../mosaic/Mosaic";
 import StreamerCard from "../streamerCard/StreamerCard";
 
 interface Props {
