@@ -1,14 +1,15 @@
-import { Box, SimpleGrid, Skeleton, Stack , Button, Center, Icon, Text} from "@chakra-ui/react";
+import { Box, SimpleGrid, Skeleton, Stack } from "@chakra-ui/react";
 import axios from "axios";
 import React from "react";
 import { StreamerModel } from "../../model/StreamerModel";
-import { BsColumnsGap, BsFillCollectionPlayFill } from "react-icons/bs";
-
+import Mosaic from "../mosaic/Mosaic";
 import StreamerCard from "../streamerCard/StreamerCard";
 
 interface Props {
   setReloading(isReloading: boolean): void;
   setStreamingUrls(streamingUrls: string[]): void;
+  setMosaicModeOn(mosaicModeOn: boolean): void;
+  setSelectedStreams(selectedStreams: string[]): void;
   mosaicModeOn: boolean;
 }
 
@@ -51,6 +52,11 @@ export default function StreamerList(props: Props) {
     return () => clearInterval(intervalId);
   }, []);
 
+
+  React.useEffect(() => {
+    props.setSelectedStreams(selectedStreams);
+  }, [selectedStreams]);
+
   const handleMosaicSelection = (user_name: string) => {
     if (selectedStreams.includes(user_name)) {
       setSelectedStreams(
@@ -59,8 +65,8 @@ export default function StreamerList(props: Props) {
     } else {
       setSelectedStreams([...selectedStreams, user_name]);
     }
-    console.log(JSON.stringify(selectedStreams));
   };
+
 
   return (
     <>
@@ -124,28 +130,7 @@ export default function StreamerList(props: Props) {
       )}
       {!loading && (
         <>
-        <Button
-          className="sidebar-button"
-          width="70px"
-          height="70px"
-          ml="0"
-          fontSize="45px"
-          backgroundColor="primary.600"
-          color="white"
-          _hover={{
-            background: "white",
-            color: "primary.600",
-          }}
-          aria-label="Vods"
-        >
-          <Stack spacing={0}>
-            <Center>
-              <Icon as={BsFillCollectionPlayFill} />
-            </Center>
-            <Text fontSize="xs">Play</Text>
-          </Stack>
-        </Button>
-
+        <Mosaic mosaicModeOn={props.mosaicModeOn} user_names={selectedStreams}/>
           <SimpleGrid minChildWidth="300px" columns={3} spacing={5}>
             {streamers.map((streamer: StreamerModel) => {
               return (

@@ -6,6 +6,7 @@ The main purpose of this project is giving visibility to Brazilian Developers th
 
 ## Requirements
 [] Node > 12.7 (I think.. 👀)
+
 [] Happyness 🙂
 
 
