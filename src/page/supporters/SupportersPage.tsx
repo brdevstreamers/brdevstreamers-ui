@@ -35,7 +35,7 @@ export default function SupportersPage() {
       <Container maxW="container.lg">
         <Header title="Agradecimentos" />
         <Center>
-          <Wrap mt="10" spacing="50px">
+          <Wrap mt="10" spacing="50px" justify='center'>
             {supporters.map((supporter: SupporterModel) => {
               return (
                 <>
