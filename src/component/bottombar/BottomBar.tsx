@@ -24,7 +24,7 @@ export default function BottomBar(props: Props) {
       const fp = await fpPromise;
       const result = await fp.get();
 
-      axios.post(process.env.REACT_APP_API_URL + "/stats" || "", {
+      axios.post(process.env.REACT_APP_API_URL + "/public/stats" || "", {
         user_login: user_login,
         access_date: new Date(),
         type: StreamType.STREAM,

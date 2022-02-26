@@ -1,20 +1,35 @@
 import { useAuth0 } from "@auth0/auth0-react";
+import { ChevronDownIcon } from "@chakra-ui/icons";
 import {
   Button,
-  Center,
-  Popover,
-  PopoverContent,
-  PopoverTrigger,
-  Text,
+  chakra,
+  Menu,
+  MenuButton,
+  MenuItem,
+  MenuList,
 } from "@chakra-ui/react";
-import { Avatar } from "@chakra-ui/react";
+import { useEffect } from "react";
+import Cookies from "universal-cookie";
+import { useNavigate } from "react-router-dom";
+import "./Login.css";
+
+const cookies = new Cookies();
 
 export default function Login() {
-  const { user, isAuthenticated, isLoading } = useAuth0();
+  const { user, isAuthenticated, getAccessTokenSilently } = useAuth0();
+  const navigate = useNavigate();
+  const { logout } = useAuth0();
 
-  if (isLoading) {
-    return <div>Loading ...</div>;
-  }
+  useEffect(() => {
+    (async () => {
+      const token = await getAccessTokenSilently({
+        audience: "BrStreamersApi",
+      });
+
+      cookies.set("api_token", `Bearer ${token}`);
+      
+    })();
+  }, [getAccessTokenSilently]);
 
   const LoginButton = () => {
     const { loginWithRedirect } = useAuth0();
@@ -25,28 +40,21 @@ export default function Login() {
         mr="5"
         mt="5"
         variant="solid"
-        onClick={() => loginWithRedirect()}
+        onClick={() => {
+          loginWithRedirect();
+        }}
       >
         Login
       </Button>
     );
   };
 
-  const LogoutButton = () => {
-    const { logout } = useAuth0();
+  const handleLogoutClick = () => {
+    logout({ returnTo: "http://localhost:3000/" });
+  };
 
-    return (
-      <Button
-        colorScheme="purple"
-        float="right"
-        mr="5"
-        mt="5"
-        variant="solid"
-        onClick={() => logout({ returnTo: 'http://localhost:3000/' })}
-      >
-        Logout
-      </Button>
-    );
+  const handleProfileClick = () => {
+    navigate("/profile");
   };
 
   return (
@@ -54,27 +62,24 @@ export default function Login() {
       {!isAuthenticated && <LoginButton />}
       {isAuthenticated && (
         <>
-          <Popover placement="left" closeOnBlur={true}>
-            <PopoverTrigger>
-              <Avatar
-                position="absolute"
-                right="40px"
-                top="40px"
-                name={user?.name}
-                src={user?.picture}
-              />
-            </PopoverTrigger>
-            <PopoverContent color="white" bg="#33374D" borderColor="white" p='5' mt='5'>
-              <Center>
-                <Text color="primary.500" fontSize="lg" fontWeight="semibold">
-                  {user?.nickname}
-                </Text>
-              </Center>
-              <Center>
-                <LogoutButton />
-              </Center>
-            </PopoverContent>
-          </Popover>
+          <Menu>
+            <MenuButton
+              colorScheme="purple"
+              as={Button}
+              rightIcon={<ChevronDownIcon />}
+              position="absolute"
+              right="40px"
+              top="40px"
+            >
+              <chakra.span className="login-label">
+                {user?.nickname}
+              </chakra.span>
+            </MenuButton>
+            <MenuList>
+              <MenuItem onClick={handleProfileClick}>Perfil</MenuItem>
+              <MenuItem onClick={handleLogoutClick}>Logout</MenuItem>
+            </MenuList>
+          </Menu>
         </>
       )}
     </>

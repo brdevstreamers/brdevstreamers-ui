@@ -37,7 +37,9 @@ ReactDOM.render(
     <Auth0Provider
       domain="zapperson.us.auth0.com"
       clientId="kAjHyV9DL1T5sclXTywVtlMJaociI4Sv"
-      redirectUri={'http://localhost:3000/'}
+      redirectUri={'http://localhost:3000/login'}
+      audience="BrStreamersApi"
+      
     >
       <ChakraProvider theme={theme}>
         <App />

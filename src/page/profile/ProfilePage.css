@@ -1,0 +1,15 @@
+.profileImg-mobile {
+    display: none;
+}
+
+
+@media only screen and (max-width: 900px) {
+    .profileImg-desktop {
+        display: none;
+    }
+
+    .profileImg-mobile {
+        display: block;
+    }
+
+}

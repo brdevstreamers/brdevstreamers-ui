@@ -15,7 +15,7 @@ export default function VodList() {
 
    const fetchUsers = async () => {
     setLoading(true)
-    const vodsList = await axios.get(process.env.REACT_APP_API_URL + '/vods' || "")
+    const vodsList = await axios.get(process.env.REACT_APP_API_URL + '/public/vods' || "")
     setVods(vodsList.data)
     setLoading(false)
   };

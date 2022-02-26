@@ -53,7 +53,7 @@ export default function StreamerCard(props: Props) {
       const fp = await fpPromise;
       const result = await fp.get();
 
-      axios.post(process.env.REACT_APP_API_URL + "/stats" || "", {
+      axios.post(process.env.REACT_APP_API_URL + "/api/userinteraction" || "", {
         user_login: user_login,
         access_date: new Date(),
         type: StreamType.STREAM,

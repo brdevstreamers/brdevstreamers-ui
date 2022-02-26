@@ -24,7 +24,7 @@ export default function StreamerList(props: Props) {
 
     const fetchUsers = async () => {
       const streamersList = await axios.get(
-        process.env.REACT_APP_API_URL || ""
+        process.env.REACT_APP_API_URL + '/public' || ""
       );
       setStreamers(streamersList.data);
       props.setStreamingUrls(extractUrls(streamersList.data));

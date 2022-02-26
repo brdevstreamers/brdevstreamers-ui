@@ -9,7 +9,7 @@ export const logClick = async (user_login: string, streamType: StreamType) => {
       const fp = await fpPromise;
       const result = await fp.get();
 
-      axios.post(process.env.REACT_APP_API_URL + "/stats" || "", {
+      axios.post(process.env.REACT_APP_API_URL + "/api/stats" || "", {
         user_login: user_login,
         access_date: new Date(),
         type: streamType,

@@ -25,12 +25,12 @@ export default function StatsPage() {
   });
 
   React.useEffect(() => {
-    axios.get(process.env.REACT_APP_API_URL + "/stats").then((response) => {
+    axios.get(process.env.REACT_APP_API_URL + "/public/stats").then((response) => {
       setStats(response.data);
     });
 
     axios
-      .get(process.env.REACT_APP_API_URL + "/stats/summary")
+      .get(process.env.REACT_APP_API_URL + "/public/stats/summary")
       .then((response) => {
         setStatsSummary(response.data);
       });
