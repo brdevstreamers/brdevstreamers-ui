@@ -37,7 +37,7 @@ ReactDOM.render(
     <Auth0Provider
       domain="zapperson.us.auth0.com"
       clientId={process.env.REACT_APP_AUTH0_CLIENT_ID || ""}
-      redirectUri={process.env.REACT_REDIRECT_URL + '/login'}
+      redirectUri={process.env.REACT_APP_REDIRECT_URL + '/login'}
       audience="BrStreamersApi"
       
     >
