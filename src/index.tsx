@@ -36,7 +36,7 @@ ReactDOM.render(
   <React.StrictMode>
     <Auth0Provider
       domain="zapperson.us.auth0.com"
-      clientId="kAjHyV9DL1T5sclXTywVtlMJaociI4Sv"
+      clientId={process.env.REACT_APP_AUTH0_CLIENT_ID || ""}
       redirectUri={'http://localhost:3000/login'}
       audience="BrStreamersApi"
       
