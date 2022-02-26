@@ -50,7 +50,7 @@ export default function Login() {
   };
 
   const handleLogoutClick = () => {
-    logout({ returnTo: "http://localhost:3000/" });
+    logout({ returnTo: "process.env.REACT_APP_REDIRECT_URL" });
   };
 
   const handleProfileClick = () => {
