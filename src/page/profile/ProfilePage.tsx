@@ -97,6 +97,7 @@ const onSubmit = () => {
         </Box>
 
         <VStack
+        minH="md"
           borderWidth="1px"
           borderRadius="lg"
           position="relative"

@@ -27,10 +27,8 @@ export default function LoginPage() {
         );
         document.location.href = "/";
       })();
-    } else {
-        document.location.href = "/";
     }
-  });
+  }, [isAuthenticated]);
 
   return (
     <>

@@ -32,6 +32,8 @@ const theme = extendTheme({
 ReactGA.initialize(process.env.REACT_APP_GA_ID || "");
 console.log(process.env.REACT_APP_GA_ID);
 
+
+
 ReactDOM.render(
   <React.StrictMode>
     <Auth0Provider
