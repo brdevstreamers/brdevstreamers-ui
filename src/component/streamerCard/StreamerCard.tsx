@@ -2,7 +2,7 @@ import { ViewIcon } from "@chakra-ui/icons";
 
 import "./StreamerCard.css";
 import SocialLinks from "../socialLinks/SocialLinks";
-import { StreamType } from "../../model/StreamType";
+import { UserInteractionType } from "../../model/UserInteractionModel";
 import {
   Box,
   Divider,
@@ -17,11 +17,10 @@ import {
 import React from "react";
 import { chakra } from "@chakra-ui/react";
 import { StreamerModel } from "../../model/StreamerModel";
-import axios from "axios";
 import StreamModal from "../streamModal/StreamModal";
-import FingerprintJS from "@fingerprintjs/fingerprintjs";
+import { logUserInteraction } from "../../service/StatsService";
+import { useAuth0 } from "@auth0/auth0-react";
 var format = require("format-duration");
-const fpPromise = FingerprintJS.load();
 
 interface Props {
   streamer: StreamerModel;
@@ -35,6 +34,7 @@ export default function StreamerCard(props: Props) {
   const [timeStreaming, setTimeStreaming] = React.useState("");
   const [isHover, setHover] = React.useState(false);
   const [streamSelected, setStreamSelected] = React.useState(false);
+  const { user } = useAuth0();
 
   React.useEffect(() => {
     const updateClock = () => {
@@ -48,17 +48,9 @@ export default function StreamerCard(props: Props) {
 
 
   const logClick = (user_login: string) => {
+    
     (async () => {
-      // Get the visitor identifier when you need it.
-      const fp = await fpPromise;
-      const result = await fp.get();
-
-      axios.post(process.env.REACT_APP_API_URL + "/api/userinteraction" || "", {
-        user_login: user_login,
-        access_date: new Date(),
-        type: StreamType.STREAM,
-        fingerprint: result.visitorId,
-      });
+      logUserInteraction(user_login, UserInteractionType.STREAM_CLICK, user?.nickname);
     })();
   };
 
@@ -106,7 +98,7 @@ export default function StreamerCard(props: Props) {
           overflowY="clip"
           textOverflow="ellipsis"
           border={props.mosaicModeOn ? "3px solid" : ""}
-          borderColor={streamSelected ? '#9D5CFF ' : '#FFFFFF'}
+          borderColor={props.mosaicModeOn && streamSelected ? '#9D5CFF ' : '#FFFFFF'}
           shadow={streamSelected ? "md" : "none"}
         >
           <Link

@@ -1,3 +1,4 @@
+import { useAuth0 } from "@auth0/auth0-react";
 import {
   Button,
   Center,
@@ -7,38 +8,24 @@ import {
   Stack,
   Text,
 } from "@chakra-ui/react";
-import axios from "axios";
 import { BsBroadcast, BsCameraVideo, BsShuffle } from "react-icons/bs";
-import { StreamType } from "../../model/StreamType";
-import FingerprintJS from "@fingerprintjs/fingerprintjs";
-const fpPromise = FingerprintJS.load();
+import { UserInteractionType } from "../../model/UserInteractionModel";
+import { logUserInteraction } from "../../service/StatsService";
 
 interface Props {
   streamingUrls: string[];
 }
 
 export default function BottomBar(props: Props) {
-  const logClick = (user_login: string) => {
-    (async () => {
-      // Get the visitor identifier when you need it.
-      const fp = await fpPromise;
-      const result = await fp.get();
+  const { user } = useAuth0();
 
-      axios.post(process.env.REACT_APP_API_URL + "/public/stats" || "", {
-        user_login: user_login,
-        access_date: new Date(),
-        type: StreamType.STREAM,
-        fingerprint: result.visitorId,
-      });
-    })();
-  };
 
   const handleShuffleClick = () => {
     const user_name =
       props.streamingUrls[
         Math.floor(Math.random() * props.streamingUrls.length)
       ];
-    logClick(user_name.toLowerCase());
+    logUserInteraction(user_name, UserInteractionType.STREAM_CLICK, user?.nickname);
     window.open("https://www.twitch.tv/" + user_name, "_blank");
   };
 

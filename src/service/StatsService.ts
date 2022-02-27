@@ -1,19 +1,35 @@
 import FingerprintJS from "@fingerprintjs/fingerprintjs";
 import axios from "axios";
-import { StreamType } from "../model/StreamType";
+import { UserInteractionType } from "../model/UserInteractionModel";
+import Cookies from "universal-cookie";
+import { useAuth0 } from "@auth0/auth0-react";
+
 const fpPromise = FingerprintJS.load();
 
-export const logClick = async (user_login: string, streamType: StreamType) => {
-    (async () => {
-      // Get the visitor identifier when you need it.
-      const fp = await fpPromise;
-      const result = await fp.get();
+export const logUserInteraction = async (target_user:string, streamType: UserInteractionType, user_login?: string) => {
+  const cookies = new Cookies();
 
-      axios.post(process.env.REACT_APP_API_URL + "/api/stats" || "", {
+
+  (async () => {
+    // Get the visitor identifier when you need it.
+    const fp = await fpPromise;
+    const result = await fp.get();
+
+    axios.post(
+      process.env.REACT_APP_API_URL + "/api/userinteraction" || "",
+      {
         user_login: user_login,
-        access_date: new Date(),
+        target_user: target_user.toLowerCase(),
+        date: new Date(),
         type: streamType,
-        fingerprint: result.visitorId,
-      });
-    })();
-  };
+        interaction_fingerprint: result.visitorId,
+      },
+      {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: cookies.get("api_token"),
+        },
+      }
+    );
+  })();
+};

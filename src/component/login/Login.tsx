@@ -13,23 +13,14 @@ import Cookies from "universal-cookie";
 import { useNavigate } from "react-router-dom";
 import "./Login.css";
 
+
 const cookies = new Cookies();
 
 export default function Login() {
-  const { user, isAuthenticated, getAccessTokenSilently } = useAuth0();
+  const { user, isAuthenticated } = useAuth0();
   const navigate = useNavigate();
   const { logout } = useAuth0();
 
-  useEffect(() => {
-    (async () => {
-      const token = await getAccessTokenSilently({
-        audience: "BrStreamersApi",
-      });
-
-      cookies.set("api_token", `Bearer ${token}`);
-      
-    })();
-  }, [getAccessTokenSilently]);
 
   const LoginButton = () => {
     const { loginWithRedirect } = useAuth0();
@@ -50,6 +41,8 @@ export default function Login() {
   };
 
   const handleLogoutClick = () => {
+    cookies.remove("api_token");
+
     logout({ returnTo: process.env.REACT_APP_REDIRECT_URL });
   };
 

@@ -15,20 +15,18 @@ import {
   useDisclosure,
   VStack,
 } from "@chakra-ui/react";
-import axios from "axios";
 import {
   BsBroadcast,
   BsCameraVideo,
   BsColumnsGap,
   BsShuffle,
 } from "react-icons/bs";
-import { StreamType } from "../../model/StreamType";
-import FingerprintJS from "@fingerprintjs/fingerprintjs";
+import { UserInteractionType } from "../../model/UserInteractionModel";
 import React, { useEffect } from "react";
 import { AiOutlineClose } from "react-icons/ai";
 import { BsFillCollectionPlayFill } from "react-icons/bs";
-
-const fpPromise = FingerprintJS.load();
+import { logUserInteraction } from "../../service/StatsService";
+import { useAuth0 } from "@auth0/auth0-react";
 
 interface Props {
   streamingUrls: string[];
@@ -39,19 +37,12 @@ interface Props {
 export default function Sidebar(props: Props) {
   const [mosaicModeOn, setMosaicModeOn] = React.useState(false);
   const { isOpen, onOpen, onClose } = useDisclosure();
+  const { user } = useAuth0();
+
 
   const logClick = (user_login: string) => {
     (async () => {
-      // Get the visitor identifier when you need it.
-      const fp = await fpPromise;
-      const result = await fp.get();
-
-      axios.post(process.env.REACT_APP_API_URL + "/public/userinteraction" || "", {
-        user_login: user_login,
-        access_date: new Date(),
-        type: StreamType.STREAM,
-        fingerprint: result.visitorId,
-      });
+      logUserInteraction(user_login, UserInteractionType.STREAM_CLICK, user?.nickname);
     })();
   };
 

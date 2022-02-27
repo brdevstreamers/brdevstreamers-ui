@@ -4,7 +4,7 @@ import { Link as RouteLink } from "react-router-dom";
 export default function Footer() {
   return (
     <>
-      <Container className="footer" mt="10" position="absolute" left="50%" 
+      <Container maxW='80vw' className="footer" mt="10" position="absolute" left="50%" 
         transform="translateX(-50%)" bottom="0">
         <Center>
           <Wrap justify='center'>

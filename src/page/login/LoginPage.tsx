@@ -7,11 +7,19 @@ import Cookies from "universal-cookie";
 const cookies = new Cookies();
 
 export default function LoginPage() {
-  const { user, isAuthenticated } = useAuth0();
+  const { user, isAuthenticated, getAccessTokenSilently } = useAuth0();
 
   useEffect(() => {
     if (isAuthenticated) {
+      
+
       (async () => {
+
+        const token = await getAccessTokenSilently({
+          audience: "BrStreamersApi",
+        });
+        cookies.set("api_token", `Bearer ${token}`);
+
         try {
           await axios.get(
             process.env.REACT_APP_API_URL + "/api/user/" + user?.nickname,

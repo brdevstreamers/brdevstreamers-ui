@@ -14,7 +14,7 @@ import React from "react";
 import ReactApexChart from "react-apexcharts";
 import Header from "../../component/header/Header";
 
-import { StatModel } from "../../model/StatModel";
+// import { StatModel } from "../../model/UserInteractionModel";
 
 export default function StatsPage() {
   const [stats, setStats] = React.useState([]);
@@ -25,15 +25,15 @@ export default function StatsPage() {
   });
 
   React.useEffect(() => {
-    axios.get(process.env.REACT_APP_API_URL + "/public/stats").then((response) => {
-      setStats(response.data);
-    });
+    // axios.get(process.env.REACT_APP_API_URL + "/public/stats").then((response) => {
+    //   setStats(response.data);
+    // });
 
-    axios
-      .get(process.env.REACT_APP_API_URL + "/public/stats/summary")
-      .then((response) => {
-        setStatsSummary(response.data);
-      });
+    // axios
+    //   .get(process.env.REACT_APP_API_URL + "/public/stats/summary")
+    //   .then((response) => {
+    //     setStatsSummary(response.data);
+    //   });
   }, []);
 
   const options: ApexOptions = {
@@ -75,7 +75,7 @@ export default function StatsPage() {
             </Tr>
           </Thead>
           <Tbody>
-            {stats.map((stat: StatModel) => {
+            {/* {stats.map((stat: StatModel) => {
               return (
                 <Tr key={stat.user_login}>
                   <Td>{stat.user_login}</Td>
@@ -84,7 +84,7 @@ export default function StatsPage() {
                   <Td isNumeric>{stat.preview_clicks}</Td>
                 </Tr>
               );
-            })}
+            })} */}
           </Tbody>
         </Table>
         <Center mt="10">

@@ -18,8 +18,8 @@ import {
 } from "@chakra-ui/react";
 import { StreamerModel } from "../../model/StreamerModel";
 import "./StreamModal.css";
-import { logClick } from "../../service/StatsService";
-import { StreamType } from "../../model/StreamType";
+import { logUserInteraction } from "../../service/StatsService";
+import { UserInteractionType } from "../../model/UserInteractionModel";
 
 interface Props {
   streamer: StreamerModel;
@@ -61,7 +61,7 @@ export default function StreamModal(props: Props) {
                 <Link
                   href={"https://twitch.tv/" + props.streamer.user_name}
                   isExternal={true}
-                  onClick={() => logClick(props.streamer.user_login, StreamType.STREAM)}
+                  onClick={() => logUserInteraction(props.streamer.user_login, UserInteractionType.STREAM_CLICK)}
                 >
                   {props.streamer.user_name}
                 </Link>

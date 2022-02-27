@@ -12,10 +12,8 @@ import {
 import { chakra } from "@chakra-ui/react";
 import { VodModel } from "../../model/VodModel";
 import SocialLinks from "../socialLinks/SocialLinks";
-import axios from "axios";
-import { StreamType } from "../../model/StreamType";
-import FingerprintJS from "@fingerprintjs/fingerprintjs";
-const fpPromise = FingerprintJS.load();
+import { UserInteractionType } from "../../model/UserInteractionModel";
+import { logUserInteraction } from "../../service/StatsService";
 
 
 interface Props {
@@ -24,16 +22,7 @@ interface Props {
 
 const logClick = (user_login: string) => {
   (async () => {
-    // Get the visitor identifier when you need it.
-    const fp = await fpPromise;
-    const result = await fp.get();
-
-    axios.post(process.env.REACT_APP_API_URL + "/userinteraction" || "", {
-      user_login: user_login,
-      access_date: new Date(),
-      type: StreamType.VOD,
-      fingerprint: result.visitorId,
-    });
+    logUserInteraction(user_login, UserInteractionType.VOD_CLICK);
   })();
 }
 
