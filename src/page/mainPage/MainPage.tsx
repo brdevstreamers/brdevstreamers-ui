@@ -42,7 +42,7 @@ export default function MainPage() {
 
     return (
         <>
-        <Header title="Br Dev Streamers" subtitle="Somos todos uma comunidade"></Header>
+        <Header title="Br Dev Streamers" subtitle="Unindo a comunidade de Live Coding"></Header>
         <Grid templateColumns="repeat(5, 1fr)" gap={6}>
           <GridItem w="100%">
             <chakra.div className="sidebar-desktop">
@@ -51,7 +51,7 @@ export default function MainPage() {
           </GridItem>
           <GridItem colSpan={5} w="100%">
             <Container maxW="container.lg">
-              <Center mt="50px">
+              <Center mt="30px">
                 <Text
                   id="lives"
                   lineHeight="7"
@@ -72,7 +72,7 @@ export default function MainPage() {
                 </chakra.h4>
               </Center>
             </Container>
-            <Container mt="5" maxW="container.lg">
+            <Container mt="4" maxW="container.lg">
               <StreamerList
                 setStreamingUrls={handleStreamingUrls}
                 setReloading={handleReloading}
@@ -102,7 +102,7 @@ export default function MainPage() {
                 </chakra.h4>
               </Center>
             </Container>
-            <Container mt="5" mb="5" maxW="container.lg">
+            <Container mt="4" mb="5" maxW="container.lg">
               <VodList></VodList>
             </Container>
             

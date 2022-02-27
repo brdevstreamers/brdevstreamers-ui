@@ -4,6 +4,7 @@ import {
   chakra,
   Image,
   StackDivider,
+  useMediaQuery,
   VStack,
 } from "@chakra-ui/react";
 import { Link } from "react-router-dom";
@@ -15,20 +16,27 @@ interface Props {
 }
 
 export default function Header(props: Props) {
+
+  const [isSmallerThan720px] = useMediaQuery("(max-width: 720px)");
+
+
   return (
     <>
+     <Login />
       <VStack
         spacing={4}
         width="100%"
         align="stretch"
       >
-        <Box>
-        <Login />
-        </Box>
+        
+       
+        
         <Box>
           <Center>
             <Link to="/">
               <Image
+                height={isSmallerThan720px ? "50vw" : "10vw"}
+                width='auto'
                 className="logo"
                 src="/logo.svg"
                 alt="Br Dev Streamers"

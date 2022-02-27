@@ -1,3 +1,4 @@
+import { useAuth0 } from "@auth0/auth0-react";
 import {
   Box,
   Button,
@@ -26,6 +27,8 @@ interface Props {
 }
 
 export default function UserForm(props: Props) {
+  const { isAuthenticated } = useAuth0();
+
   const [isSmallerThan900px] = useMediaQuery("(max-width: 900px)");
   const [discord, setDiscord] = React.useState("");
   const [linkedin, setLinkedin] = React.useState("");
@@ -43,16 +46,18 @@ export default function UserForm(props: Props) {
 
   const handleSubmit = () => {
     (async () => {
-      updateUser(
-        props.userData.user_login,
-        props.userData.email,
-        discord,
-        linkedin,
-        twitter,
-        github,
-        bio
-      );
-      props.onSubmit();
+      if (isAuthenticated) {
+        await updateUser(
+          props.userData.user_login,
+          props.userData.email,
+          discord,
+          linkedin,
+          twitter,
+          github,
+          bio
+        );
+        props.onSubmit();
+      }
     })();
   };
 
@@ -76,15 +81,18 @@ export default function UserForm(props: Props) {
             </Text>
           </Center>
 
-          <Textarea my="3" placeholder="Conte um pouco sobre você.." onChange={(event) => setBio(event.currentTarget.value)} />
+          <Textarea
+            my="3"
+            placeholder="Conte um pouco sobre você.."
+            onChange={(event) => setBio(event.currentTarget.value)}
+          />
 
           <Wrap>
             <WrapItem width={isSmallerThan900px ? "100%" : "49%"}>
               <InputGroup>
-                <InputLeftAddon children="https://discord.com/" />
                 <Input
                   borderLeftRadius="0"
-                  placeholder="username"
+                  placeholder="http://seu-discord.com"
                   value={discord}
                   onChange={(event) => setDiscord(event.currentTarget.value)}
                 />

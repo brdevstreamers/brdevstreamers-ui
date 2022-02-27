@@ -1,5 +1,5 @@
 import { useAuth0 } from "@auth0/auth0-react";
-import { CircularProgress } from "@chakra-ui/react";
+import { CircularProgress, Container } from "@chakra-ui/react";
 import axios from "axios";
 import { useEffect } from "react";
 import Cookies from "universal-cookie";
@@ -12,19 +12,31 @@ export default function LoginPage() {
   useEffect(() => {
     if (isAuthenticated) {
       (async () => {
-        await axios.post(
-          process.env.REACT_APP_API_URL + "/api/user" || "",
-          {
-            user_login: user?.nickname,
-            email: user?.email,
-          },
-          {
-            headers: {
-              "Content-Type": "application/json",
-              Authorization: cookies.get("api_token"),
+        try {
+          await axios.get(
+            process.env.REACT_APP_API_URL + "/api/user/" + user?.nickname,
+            {
+              headers: {
+                "Content-Type": "application/json",
+                Authorization: cookies.get("api_token"),
+              },
+            }
+          );
+        } catch (e) {
+          await axios.post(
+            process.env.REACT_APP_API_URL + "/api/user" || "",
+            {
+              user_login: user?.nickname,
+              email: user?.email,
             },
-          }
-        );
+            {
+              headers: {
+                "Content-Type": "application/json",
+                Authorization: cookies.get("api_token"),
+              },
+            }
+          );
+        }
         document.location.href = "/";
       })();
     }
@@ -32,7 +44,14 @@ export default function LoginPage() {
 
   return (
     <>
-      <CircularProgress isIndeterminate color="primary.500" size="120px" />
+      <Container centerContent>
+        <CircularProgress
+          mt="10"
+          isIndeterminate
+          color="primary.500"
+          size="120px"
+        />
+      </Container>
     </>
   );
 }
