@@ -4,12 +4,9 @@ import {
   Button,
   Center,
   Collapse,
-  FormControl,
-  FormLabel,
   Input,
   InputGroup,
   InputLeftAddon,
-  Select,
   Text,
   Textarea,
   useMediaQuery,
@@ -84,6 +81,7 @@ export default function UserForm(props: Props) {
           <Textarea
             my="3"
             placeholder="Conte um pouco sobre você.."
+            value={bio}
             onChange={(event) => setBio(event.currentTarget.value)}
           />
 

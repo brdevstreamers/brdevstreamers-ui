@@ -201,7 +201,7 @@ export default function StreamerCard(props: Props) {
                 overflow="hidden"
                 textOverflow="ellipsis"
               >
-                {streamer.description}
+                {streamer.bio ? streamer.bio : streamer.description}
               </chakra.p>
             </chakra.div>
 

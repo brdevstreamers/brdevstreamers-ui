@@ -38,7 +38,7 @@ export default function Login() {
         colorScheme="purple"
         float="right"
         mr="5"
-        mt="5"
+        top="40px"
         variant="solid"
         onClick={() => {
           loginWithRedirect();

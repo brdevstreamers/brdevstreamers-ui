@@ -16,5 +16,6 @@ export interface ItemModel {
     instagram_url: string;
     linkedin_url: string;
     discord_url: string;
+    bio: string;
 
 }
