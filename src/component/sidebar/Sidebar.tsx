@@ -127,6 +127,7 @@ export default function Sidebar(props: Props) {
           </Button>
 
           <Button
+            data-testid="mosaicAnchorButton"
             className="sidebar-button"
             width="70px"
             height="70px"
@@ -179,6 +180,7 @@ export default function Sidebar(props: Props) {
         {mosaicModeOn && (
           <VStack spacing={2} align="stretch">
             <Button
+              data-testid="mosaicLeaveButton"
               onClick={() => {
                 setMosaicModeOn(!mosaicModeOn);
               }}
@@ -205,6 +207,7 @@ export default function Sidebar(props: Props) {
               </Stack>
             </Button>
             <Button
+              data-testid="mosaicPlayButton"
               // onClick={onOpen}
               className="sidebar-button"
               width="70px"
@@ -234,7 +237,7 @@ export default function Sidebar(props: Props) {
 
       <Modal isOpen={isOpen} onClose={onClose} size="full">
         <ModalOverlay />
-        <ModalContent backgroundColor="#33374D">
+        <ModalContent data-testid="mosaicOverlay" backgroundColor="#33374D">
           <ModalHeader color="white">
             <Center>
               {props.selectedStreams.map((user_name, index) => {
@@ -242,7 +245,10 @@ export default function Sidebar(props: Props) {
               })}
             </Center>
           </ModalHeader>
-          <ModalCloseButton color="white" />
+          <ModalCloseButton
+            data-testid="mosaicOverlayCloseButton"
+            color="white"
+          />
           <ModalBody>
             <SimpleGrid columns={2} spacing={1} height="80vh">
               {props.selectedStreams.map((user_name, index) => {
