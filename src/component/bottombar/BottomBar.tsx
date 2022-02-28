@@ -17,7 +17,7 @@ interface Props {
 }
 
 export default function BottomBar(props: Props) {
-  const { user } = useAuth0();
+  const { user, isAuthenticated } = useAuth0();
 
 
   const handleShuffleClick = () => {
@@ -25,7 +25,7 @@ export default function BottomBar(props: Props) {
       props.streamingUrls[
         Math.floor(Math.random() * props.streamingUrls.length)
       ];
-    logUserInteraction(user_name, UserInteractionType.STREAM_CLICK, user?.nickname);
+    logUserInteraction(user_name, UserInteractionType.STREAM_CLICK, isAuthenticated,  user?.nickname);
     window.open("https://www.twitch.tv/" + user_name, "_blank");
   };
 

@@ -34,7 +34,7 @@ export default function StreamerCard(props: Props) {
   const [timeStreaming, setTimeStreaming] = React.useState("");
   const [isHover, setHover] = React.useState(false);
   const [streamSelected, setStreamSelected] = React.useState(false);
-  const { user } = useAuth0();
+  const { user, isAuthenticated } = useAuth0();
 
   React.useEffect(() => {
     const updateClock = () => {
@@ -50,7 +50,7 @@ export default function StreamerCard(props: Props) {
   const logClick = (user_login: string) => {
     
     (async () => {
-      logUserInteraction(user_login, UserInteractionType.STREAM_CLICK, user?.nickname);
+      logUserInteraction(user_login, UserInteractionType.STREAM_CLICK, isAuthenticated, user?.nickname);
     })();
   };
 

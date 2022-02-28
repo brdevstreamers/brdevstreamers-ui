@@ -37,12 +37,12 @@ interface Props {
 export default function Sidebar(props: Props) {
   const [mosaicModeOn, setMosaicModeOn] = React.useState(false);
   const { isOpen, onOpen, onClose } = useDisclosure();
-  const { user } = useAuth0();
+  const { user, isAuthenticated } = useAuth0();
 
 
   const logClick = (user_login: string) => {
     (async () => {
-      logUserInteraction(user_login, UserInteractionType.STREAM_CLICK, user?.nickname);
+      logUserInteraction(user_login, UserInteractionType.STREAM_CLICK, isAuthenticated, user?.nickname);
     })();
   };
 

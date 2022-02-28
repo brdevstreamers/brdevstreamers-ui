@@ -14,21 +14,25 @@ import { VodModel } from "../../model/VodModel";
 import SocialLinks from "../socialLinks/SocialLinks";
 import { UserInteractionType } from "../../model/UserInteractionModel";
 import { logUserInteraction } from "../../service/StatsService";
+import { useAuth0 } from "@auth0/auth0-react";
 
 
 interface Props {
   vod: VodModel;
 }
 
-const logClick = (user_login: string) => {
-  (async () => {
-    logUserInteraction(user_login, UserInteractionType.VOD_CLICK);
-  })();
-}
+
 
 export default function VodCard(props: Props) {
+  const { isAuthenticated } = useAuth0();
   const vod = props.vod;
   
+  const logClick = (user_login: string) => {
+    (async () => {
+      logUserInteraction(user_login, UserInteractionType.VOD_CLICK, isAuthenticated);
+    })();
+  }
+
   return (
     <Box
       maxW="md"
