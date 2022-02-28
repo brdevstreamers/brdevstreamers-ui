@@ -1,9 +1,8 @@
 import { Box, SimpleGrid, Skeleton, Stack } from "@chakra-ui/react";
-import { useAxios } from "../../hooks/useAxios";
+import axios from "axios";
 import React from "react";
 import { StreamerModel } from "../../model/StreamerModel";
 import StreamerCard from "../streamerCard/StreamerCard";
-import { endpoints } from "../../service/api";
 
 interface Props {
   setReloading(isReloading: boolean): void;
@@ -14,8 +13,7 @@ interface Props {
 }
 
 export default function StreamerList(props: Props) {
-  const { apiGet } = useAxios();
-  const [streamers, setStreamers] = React.useState<StreamerModel[]>([]);
+  const [streamers, setStreamers] = React.useState([]);
   const [loading, setLoading] = React.useState(false);
   const [selectedStreams, setSelectedStreams] = React.useState<string[]>([]);
 
@@ -25,11 +23,11 @@ export default function StreamerList(props: Props) {
     };
 
     const fetchUsers = async () => {
-      const streamersList = await apiGet<StreamerModel[]>(
-        endpoints.streams.url,
+      const streamersList = await axios.get(
+        process.env.REACT_APP_API_URL + '/public/streams' || ""
       );
-      setStreamers(streamersList);
-      props.setStreamingUrls(extractUrls(streamersList));
+      setStreamers(streamersList.data);
+      props.setStreamingUrls(extractUrls(streamersList.data));
     };
 
     const reloadStreams = async () => {
@@ -53,6 +51,7 @@ export default function StreamerList(props: Props) {
     return () => clearInterval(intervalId);
   }, []);
 
+
   React.useEffect(() => {
     props.setSelectedStreams(selectedStreams);
   }, [selectedStreams]);
@@ -60,12 +59,13 @@ export default function StreamerList(props: Props) {
   const handleMosaicSelection = (user_name: string) => {
     if (selectedStreams.includes(user_name)) {
       setSelectedStreams(
-        selectedStreams.filter((streamer) => streamer !== user_name),
+        selectedStreams.filter((streamer) => streamer !== user_name)
       );
     } else {
       setSelectedStreams([...selectedStreams, user_name]);
     }
   };
+
 
   return (
     <>
@@ -129,6 +129,7 @@ export default function StreamerList(props: Props) {
       )}
       {!loading && (
         <>
+        
           <SimpleGrid minChildWidth="300px" columns={3} spacing={5}>
             {streamers.map((streamer: StreamerModel) => {
               return (
