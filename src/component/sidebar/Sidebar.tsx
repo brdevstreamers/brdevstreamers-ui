@@ -39,10 +39,14 @@ export default function Sidebar(props: Props) {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const { user, isAuthenticated } = useAuth0();
 
-
   const logClick = (user_login: string) => {
     (async () => {
-      logUserInteraction(user_login, UserInteractionType.STREAM_CLICK, isAuthenticated, user?.nickname);
+      logUserInteraction(
+        user_login,
+        UserInteractionType.STREAM_CLICK,
+        isAuthenticated,
+        user?.nickname,
+      );
     })();
   };
 
@@ -77,6 +81,7 @@ export default function Sidebar(props: Props) {
       >
         <VStack spacing={2} align="stretch">
           <Button
+            data-testid="livesAnchorButton"
             className="sidebar-button"
             width="70px"
             height="70px"
@@ -147,6 +152,7 @@ export default function Sidebar(props: Props) {
           </Button>
 
           <Button
+            data-testid="vodsAnchorButton"
             className="sidebar-button"
             width="70px"
             height="70px"
