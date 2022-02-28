@@ -2,6 +2,7 @@
 export interface UserInteractionModel {
     user_login: string;
     date: Date;
+    target_user: string;
     interaction_fingerprint: string;
     type: UserInteractionType;
 }

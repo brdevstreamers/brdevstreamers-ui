@@ -22,10 +22,15 @@ import {
   Grid,
   GridItem,
   chakra,
+  Table,
+  Thead,
+  Tr,
+  Th,
+  Tbody,
+  Td,
 } from "@chakra-ui/react";
 import { useAuth0 } from "@auth0/auth0-react";
 import Header from "../../component/header/Header";
-import RewardProgress from "../../component/rewardProgress/RewardProgress";
 import "./ProfilePage.css";
 import React, { useEffect } from "react";
 import axios from "axios";
@@ -33,11 +38,15 @@ import Cookies from "universal-cookie";
 import { UserModel } from "../../model/UserModel";
 import UserForm from "../../component/userForm/UserForm";
 import { FaDiscord, FaGithub, FaLinkedin, FaTwitter } from "react-icons/fa";
+import { UserInteractionModel } from "../../model/UserInteractionModel";
 
 const cookies = new Cookies();
 
 export default function ProfilePage() {
   const [userData, setUserData] = React.useState<UserModel>({} as UserModel);
+  const [userInteractionData, setUserInteractionData] = React.useState<
+    UserInteractionModel[]
+  >([]);
   const [isSmallerThan900px] = useMediaQuery("(max-width: 900px)");
   const [isLoading, setLoading] = React.useState(true);
   const { isOpen, onToggle } = useDisclosure();
@@ -57,35 +66,43 @@ export default function ProfilePage() {
           }
         );
         setUserData(res.data.__data__);
+
+        const userInteractionResponse = await axios.get(
+          process.env.REACT_APP_API_URL + "/api/userinteraction/" + user?.nickname,
+          {
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: cookies.get("api_token"),
+            },
+          }
+        );
+        setUserInteractionData(userInteractionResponse.data);
+
         setLoading(false);
       }
     })();
   }, [user]);
 
+  const getUser = async () => {
+    setLoading(true);
+    const res = await axios.get(
+      process.env.REACT_APP_API_URL + "/api/user/" + user?.nickname,
+      {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: cookies.get("api_token"),
+        },
+      }
+    );
+    setUserData(res.data.__data__);
+    setLoading(false);
+  };
 
-const getUser = async() => {
-  setLoading(true);
-  const res = await axios.get(
-    process.env.REACT_APP_API_URL + "/api/user/" + user?.nickname,
-    {
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: cookies.get("api_token"),
-      },
-    }
-  );
-  setUserData(res.data.__data__);
-  setLoading(false);
+  const onSubmit = () => {
+    getUser();
+    onToggle();
+  };
 
-} 
-
-const onSubmit = () => {
-  getUser();
-  onToggle();
-
-
-}
-  
   return (
     <>
       <Header title="Meu Perfil" />
@@ -97,7 +114,7 @@ const onSubmit = () => {
         </Box>
 
         <VStack
-        minH="md"
+          minH="md"
           borderWidth="1px"
           borderRadius="lg"
           position="relative"
@@ -145,9 +162,7 @@ const onSubmit = () => {
               />
               <HStack>
                 {!isSmallerThan900px && (
-                  <chakra.div
-                    justifyContent="center"
-                  >
+                  <chakra.div justifyContent="center">
                     <Image
                       borderRadius="full"
                       objectFit="cover"
@@ -184,7 +199,7 @@ const onSubmit = () => {
                   <Text textAlign={"center"} color="gray.700" px={3}>
                     {userData?.bio}
                   </Text>
-                  <Wrap  justify='center'>
+                  <Wrap justify="center">
                     {userData.discord && (
                       <WrapItem>
                         <Tag
@@ -240,8 +255,33 @@ const onSubmit = () => {
                   </Wrap>
                 </Stack>
               </HStack>
-              {/* <Divider></Divider>
-
+              <Divider></Divider>
+              <Heading as="h3" size="sm" mb="20px">
+                Minha Atividade
+              </Heading>
+              <Table mt="5" size="sm" color="secondary.600">
+                <Thead>
+                  <Tr>
+                    <Th color="secondary.600">Streamer</Th>
+                    <Th color="secondary.600">
+                      Ação
+                    </Th>
+                  </Tr>
+                </Thead>
+                <Tbody>
+                  {userInteractionData.map(
+                    (userInteraction: UserInteractionModel, index: number) => {
+                      return (
+                        <Tr key={index}>
+                          <Td>{userInteraction.target_user}</Td>
+                          <Td>{userInteraction.type}</Td>
+                        </Tr>
+                      );
+                    }
+                  )}
+                </Tbody>
+              </Table>
+              {/*
               <Heading as="h3" size="lg" mb="20px">
                 Recompensas
               </Heading>
