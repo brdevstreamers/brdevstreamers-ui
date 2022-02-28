@@ -1,14 +1,14 @@
 # Br Dev Steamers
+
 ![Preview](/public/preview.png)
 
 The main purpose of this project is giving visibility to Brazilian Developers that stream in Twitch.
 
-
 ## Requirements
+
 [] Node > 12.7 (I think.. 👀)
 
 [] Happyness 🙂
-
 
 ## How to run?
 
@@ -33,6 +33,20 @@ Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
 The page will reload if you make edits.\
 You will also see any lint errors in the console.
 
+## Testing
+
+To start visual tests with Cypress playground:
+
+```
+yarn start
+yarn cy:open
+```
+
+To run tests in CI:
+
+```
+yarn build && yarn test:e2e
+```
 
 ## Production Deployment
 
