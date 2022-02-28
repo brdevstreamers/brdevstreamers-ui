@@ -9,6 +9,7 @@ import ProfilePage from "./page/profile/ProfilePage";
 import SupportersPage from "./page/supporters/SupportersPage";
 import LoginPage from "./page/login/LoginPage";
 import Footer from "./component/footer/Footer";
+import RedirectPage from "./page/redirect/RedirectPage";
 
 function App() {
   useEffect(() => {
@@ -27,6 +28,7 @@ function App() {
           <Route path="agradecimentos" element={<SupportersPage />} />
           <Route path="profile" element={<ProfilePage />} />
           <Route path="login" element={<LoginPage />} />
+          <Route path="to/:username" element={<RedirectPage />} />
         </Routes>
         <Footer></Footer>
       </Router>

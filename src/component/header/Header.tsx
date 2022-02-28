@@ -28,9 +28,6 @@ export default function Header(props: Props) {
         width="100%"
         align="stretch"
       >
-        
-       
-        
         <Box>
           <Center>
             <Link to="/">
