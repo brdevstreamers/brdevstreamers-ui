@@ -22,7 +22,7 @@ export default function LoginPage() {
 
         try {
           await axios.get(
-            process.env.REACT_APP_API_URL + "/api/user/" + user?.nickname,
+            process.env.REACT_APP_PRIVATE_API_URL + "/api/user/" + user?.nickname,
             {
               headers: {
                 "Content-Type": "application/json",
@@ -32,7 +32,7 @@ export default function LoginPage() {
           );
         } catch (e) {
           await axios.post(
-            process.env.REACT_APP_API_URL + "/api/user" || "",
+            process.env.REACT_APP_PRIVATE_API_URL + "/api/user" || "",
             {
               user_login: user?.nickname,
               email: user?.email,

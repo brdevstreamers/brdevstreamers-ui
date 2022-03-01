@@ -57,7 +57,7 @@ export default function ProfilePage() {
       if (user) {
         setLoading(true);
         const res = await axios.get(
-          process.env.REACT_APP_API_URL + "/api/user/" + user?.nickname,
+          process.env.REACT_APP_PRIVATE_API_URL + "/api/user/" + user?.nickname,
           {
             headers: {
               "Content-Type": "application/json",
@@ -68,7 +68,7 @@ export default function ProfilePage() {
         setUserData(res.data.__data__);
 
         const userInteractionResponse = await axios.get(
-          process.env.REACT_APP_API_URL + "/api/userinteraction/" + user?.nickname,
+          process.env.REACT_APP_PRIVATE_API_URL + "/api/userinteraction/" + user?.nickname,
           {
             headers: {
               "Content-Type": "application/json",
@@ -86,7 +86,7 @@ export default function ProfilePage() {
   const getUser = async () => {
     setLoading(true);
     const res = await axios.get(
-      process.env.REACT_APP_API_URL + "/api/user/" + user?.nickname,
+      process.env.REACT_APP_PRIVATE_API_URL + "/api/user/" + user?.nickname,
       {
         headers: {
           "Content-Type": "application/json",
