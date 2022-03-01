@@ -186,11 +186,11 @@ export default function StreamerCard(props: Props) {
 
           <Divider mt="3"></Divider>
 
-          <chakra.div h="70px">
+          <chakra.div  overflow="hidden"
+              textOverflow="ellipsis" h="70px">
             <chakra.p
               className="description"
-              overflow="hidden"
-              textOverflow="ellipsis"
+             
             >
               {streamer.bio ? streamer.bio : streamer.description}
             </chakra.p>
