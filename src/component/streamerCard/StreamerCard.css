@@ -1,3 +1,14 @@
+.streamer-card {
+  will-change: transform;
+  transform: scale(1);
+  transition: transform 300ms ease;
+}
+
+.streamer-card:hover {
+  transform: scale(1.05);
+}
+
 .description {
   font-size: 14px;
 }
+
