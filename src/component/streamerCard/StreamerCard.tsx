@@ -104,6 +104,7 @@ export default function StreamerCard(props: Props) {
           props.mosaicModeOn && streamSelected ? "#9D5CFF " : "#FFFFFF"
         }
         shadow={streamSelected ? "md" : "none"}
+        className="streamer-card"
       >
         <Link
           href={"https://twitch.tv/" + streamer.user_name}
