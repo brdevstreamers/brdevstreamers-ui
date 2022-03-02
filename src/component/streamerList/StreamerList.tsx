@@ -24,7 +24,7 @@ export default function StreamerList(props: Props) {
 
     const fetchUsers = async () => {
       const streamersList = await axios.get(
-        process.env.REACT_APP_API_URL + '/public/streams' || ""
+        process.env.REACT_APP_API_URL + "/public/streams" || "",
       );
       setStreamers(streamersList.data);
       props.setStreamingUrls(extractUrls(streamersList.data));
@@ -51,7 +51,6 @@ export default function StreamerList(props: Props) {
     return () => clearInterval(intervalId);
   }, []);
 
-
   React.useEffect(() => {
     props.setSelectedStreams(selectedStreams);
   }, [selectedStreams]);
@@ -59,13 +58,12 @@ export default function StreamerList(props: Props) {
   const handleMosaicSelection = (user_name: string) => {
     if (selectedStreams.includes(user_name)) {
       setSelectedStreams(
-        selectedStreams.filter((streamer) => streamer !== user_name)
+        selectedStreams.filter((streamer) => streamer !== user_name),
       );
     } else {
       setSelectedStreams([...selectedStreams, user_name]);
     }
   };
-
 
   return (
     <>
@@ -129,7 +127,6 @@ export default function StreamerList(props: Props) {
       )}
       {!loading && (
         <>
-        
           <SimpleGrid minChildWidth="300px" columns={3} spacing={5}>
             {streamers.map((streamer: StreamerModel) => {
               return (
