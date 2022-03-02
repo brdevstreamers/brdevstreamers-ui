@@ -22,8 +22,7 @@ export default function AboutPage() {
           Como Participar?
         </chakra.h2>
         <Text color="primary.400" fontWeight="semibold" fontSize="lg">
-          Basta começar uma stream dentro da categoria de "Desenvolvimento de
-          Jogos e Aplicativos" com a língua em português e você aparecerá na
+          Basta começar uma stream dentro da categoria de "Software e Desenvolvimento de Jogos" com a língua em português e você aparecerá na
           lista.
         </Text>
         <chakra.h2 mt="10" lineHeight="8">

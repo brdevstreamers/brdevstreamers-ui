@@ -4,7 +4,8 @@ import React from "react";
 import { StreamerModel } from "../../model/StreamerModel";
 import StreamerCard from "../streamerCard/StreamerCard";
 import { endpoints } from "../../service/api";
-
+import TagFilter from "../tagFilter/TagFilter";
+import { setFlagsFromString } from "v8";
 interface Props {
   setReloading(isReloading: boolean): void;
   setStreamingUrls(streamingUrls: string[]): void;
@@ -16,6 +17,10 @@ interface Props {
 export default function StreamerList(props: Props) {
   const { apiGet } = useAxios();
   const [streamers, setStreamers] = React.useState<StreamerModel[]>([]);
+  const [filteredStreamers, setFilteredStreamers] = React.useState<
+    StreamerModel[]
+  >([]);
+
   const [loading, setLoading] = React.useState(false);
   const [selectedStreams, setSelectedStreams] = React.useState<string[]>([]);
 
@@ -29,6 +34,7 @@ export default function StreamerList(props: Props) {
         endpoints.streams.url,
       );
       setStreamers(streamersList);
+      setFilteredStreamers(streamersList);
       props.setStreamingUrls(extractUrls(streamersList));
     };
 
@@ -65,6 +71,21 @@ export default function StreamerList(props: Props) {
     } else {
       setSelectedStreams([...selectedStreams, user_name]);
     }
+  };
+
+  const filterByTags = (tags: string[]) => {
+    (async () => {
+      if (tags.length > 0) {
+        const filteredStreams = await streamers.filter((streamer) => {
+          return tags.every((tag) => streamer.tags.includes(tag));
+        });
+        setFilteredStreamers(filteredStreams);
+      } 
+      else {
+        setFilteredStreamers(streamers);
+
+      }
+    })();
   };
 
   return (
@@ -129,8 +150,9 @@ export default function StreamerList(props: Props) {
       )}
       {!loading && (
         <>
+          <TagFilter filterByTags={filterByTags}></TagFilter>
           <SimpleGrid minChildWidth="300px" columns={3} spacing={5}>
-            {streamers.map((streamer: StreamerModel) => {
+            {filteredStreamers.map((streamer: StreamerModel) => {
               return (
                 <StreamerCard
                   key={streamer.id}
