@@ -51,7 +51,7 @@ export default function MainPage() {
               selectedStreams={selectedStreams}
               setMosaicModeOn={handleMosaicMode}
               streamingUrls={streamingUrls}
-            ></Sidebar>
+            />
           </chakra.div>
         </GridItem>
         <GridItem colSpan={5} w="100%">

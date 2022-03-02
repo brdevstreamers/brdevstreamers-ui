@@ -1,3 +1,4 @@
+import React from "react";
 import {
   Button,
   Center,
@@ -14,17 +15,23 @@ import {
   Text,
   useDisclosure,
   VStack,
+  Box,
+  Flex,
+  Tag,
+  Tooltip,
 } from "@chakra-ui/react";
 import {
   BsBroadcast,
   BsCameraVideo,
   BsColumnsGap,
   BsShuffle,
+  BsFillCollectionPlayFill,
+  BsGridFill,
+  BsGrid1X2Fill,
 } from "react-icons/bs";
-import { UserInteractionType } from "../../model/UserInteractionModel";
-import React, { useEffect } from "react";
 import { AiOutlineClose } from "react-icons/ai";
-import { BsFillCollectionPlayFill } from "react-icons/bs";
+
+import { UserInteractionType } from "../../model/UserInteractionModel";
 import { logUserInteraction } from "../../service/StatsService";
 import { useAuth0 } from "@auth0/auth0-react";
 
@@ -35,19 +42,39 @@ interface Props {
 }
 
 export default function Sidebar(props: Props) {
-  const [mosaicModeOn, setMosaicModeOn] = React.useState(false);
   const { isOpen, onOpen, onClose } = useDisclosure();
   const { user, isAuthenticated } = useAuth0();
 
+  const [mosaicModeOn, setMosaicModeOn] = React.useState(false);
+  const [selectedStream, setSelectedStream] = React.useState("");
+  const [streams, setStreams] = React.useState<string[]>([]);
+  const [layout, setLayout] = React.useState<"grid" | "focus">("grid");
+
+  const isGridLayout = layout === "grid";
+
+  const handleLayout = () => {
+    layout === "grid" ? setLayout("focus") : setLayout("grid");
+  };
+
   const logClick = (user_login: string) => {
-    (async () => {
-      logUserInteraction(
-        user_login,
-        UserInteractionType.STREAM_CLICK,
-        isAuthenticated,
-        user?.nickname,
-      );
-    })();
+    logUserInteraction(
+      user_login,
+      UserInteractionType.STREAM_CLICK,
+      isAuthenticated,
+      user?.nickname,
+    );
+  };
+
+  const handleStreamFocus = (selectedStreamer: string) => {
+    const selectedStream = props.selectedStreams.find(
+      (streamer) => streamer === selectedStreamer,
+    );
+    setSelectedStream(selectedStream ?? "");
+
+    const streams = props.selectedStreams.filter(
+      (streamer) => streamer !== selectedStreamer,
+    );
+    setStreams(streams);
   };
 
   const handleShuffleClick = () => {
@@ -65,9 +92,14 @@ export default function Sidebar(props: Props) {
     });
   };
 
-  useEffect(() => {
+  React.useEffect(() => {
     props.setMosaicModeOn(mosaicModeOn);
   }, [mosaicModeOn, props]);
+
+  React.useEffect(() => {
+    setSelectedStream(props.selectedStreams[0]);
+    setStreams(props.selectedStreams.slice(1));
+  }, [props.selectedStreams]);
 
   return (
     <>
@@ -82,7 +114,6 @@ export default function Sidebar(props: Props) {
         <VStack spacing={2} align="stretch">
           <Button
             data-testid="livesAnchorButton"
-            className="sidebar-button"
             width="70px"
             height="70px"
             ml="0"
@@ -104,7 +135,6 @@ export default function Sidebar(props: Props) {
             </Stack>
           </Button>
           <Button
-            className="sidebar-button"
             width="100px"
             height="100px"
             ml="0"
@@ -128,7 +158,6 @@ export default function Sidebar(props: Props) {
 
           <Button
             data-testid="mosaicAnchorButton"
-            className="sidebar-button"
             width="70px"
             height="70px"
             ml="0"
@@ -154,7 +183,6 @@ export default function Sidebar(props: Props) {
 
           <Button
             data-testid="vodsAnchorButton"
-            className="sidebar-button"
             width="70px"
             height="70px"
             ml="0"
@@ -182,9 +210,8 @@ export default function Sidebar(props: Props) {
             <Button
               data-testid="mosaicLeaveButton"
               onClick={() => {
-                setMosaicModeOn(!mosaicModeOn);
+                setMosaicModeOn((prevState) => !prevState);
               }}
-              className="sidebar-button"
               width="70px"
               height="70px"
               ml="0"
@@ -197,7 +224,7 @@ export default function Sidebar(props: Props) {
                 background: "white",
                 color: "primary.600",
               }}
-              aria-label="Vods"
+              aria-label="Sair"
             >
               <Stack spacing={0}>
                 <Center>
@@ -208,8 +235,6 @@ export default function Sidebar(props: Props) {
             </Button>
             <Button
               data-testid="mosaicPlayButton"
-              // onClick={onOpen}
-              className="sidebar-button"
               width="70px"
               height="70px"
               ml="0"
@@ -221,7 +246,7 @@ export default function Sidebar(props: Props) {
                 background: "white",
                 color: "primary.600",
               }}
-              aria-label="Vods"
+              aria-label="Play"
               onClick={onOpen}
             >
               <Stack spacing={0}>
@@ -237,12 +262,41 @@ export default function Sidebar(props: Props) {
 
       <Modal isOpen={isOpen} onClose={onClose} size="full">
         <ModalOverlay />
-        <ModalContent data-testid="mosaicOverlay" backgroundColor="#33374D">
-          <ModalHeader color="white">
-            <Center>
-              {props.selectedStreams.map((user_name, index) => {
-                return `${user_name} | `;
+        <ModalContent
+          data-testid="mosaicOverlay"
+          backgroundColor="secondary.600"
+          overflow="auto"
+        >
+          <ModalHeader color="white" pb="0">
+            <Center gap="2">
+              {props.selectedStreams.map((user_name) => {
+                return (
+                  <Tag
+                    size="md"
+                    variant="solid"
+                    backgroundColor="secondary.700"
+                  >
+                    {user_name}
+                  </Tag>
+                );
               })}
+            </Center>
+            <Center mt="2">
+              <Tooltip label={isGridLayout ? "Foco" : "Grade"}>
+                <Button
+                  onClick={handleLayout}
+                  size="sm"
+                  backgroundColor="secondary.700"
+                  aria-label={`Usar layout ${isGridLayout ? "foco" : "grade"}`}
+                  _hover={{ backgroundColor: "secondary.800" }}
+                >
+                  {isGridLayout ? (
+                    <BsGrid1X2Fill size={18} />
+                  ) : (
+                    <BsGridFill size={18} />
+                  )}
+                </Button>
+              </Tooltip>
             </Center>
           </ModalHeader>
           <ModalCloseButton
@@ -250,26 +304,67 @@ export default function Sidebar(props: Props) {
             color="white"
           />
           <ModalBody>
-            <SimpleGrid columns={2} spacing={1} height="80vh">
-              {props.selectedStreams.map((user_name, index) => {
-                return (
-                  <iframe
-                    key={index}
-                    title={user_name}
-                    src={
-                      "https://player.twitch.tv/?channel=" +
-                      user_name +
-                      "&parent=" +
-                      process.env.REACT_APP_DOMAIN +
-                      "&enableExtensions=false&muted=false&volume=1.0&quality=auto&controls=true&allowFullScreen=true"
-                    }
-                    height="100%"
-                    width="100%"
-                    onClick={() => console.log("clicou ")}
-                  ></iframe>
-                );
-              })}
-            </SimpleGrid>
+            {isGridLayout ? (
+              <SimpleGrid columns={2} spacing={1} height="80vh">
+                {props.selectedStreams.map((user_name, index) => {
+                  return (
+                    <Box
+                      as="iframe"
+                      key={index}
+                      title={user_name}
+                      minH={276}
+                      src={
+                        "https://player.twitch.tv/?channel=" +
+                        user_name +
+                        "&parent=" +
+                        process.env.REACT_APP_DOMAIN +
+                        "&enableExtensions=false&muted=false&volume=1.0&quality=auto&controls=true&allowFullScreen=true"
+                      }
+                      height="100%"
+                      width="100%"
+                    />
+                  );
+                })}
+              </SimpleGrid>
+            ) : (
+              <Flex
+                direction="column"
+                justifyContent="center"
+                alignItems="center"
+              >
+                <Box
+                  as="iframe"
+                  title={selectedStream}
+                  w={{ base: "100%", md: "90vw", lg: "60vw" }}
+                  h={{ base: "100%", md: "35vh", lg: "65vh" }}
+                  mb={3}
+                  src={
+                    "https://player.twitch.tv/?channel=" +
+                    selectedStream +
+                    "&parent=" +
+                    process.env.REACT_APP_DOMAIN +
+                    "&enableExtensions=false&muted=false&volume=1.0&quality=auto&controls=true&allowFullScreen=true"
+                  }
+                />
+                <Flex wrap="wrap" justify="center" gap={3}>
+                  {streams.map((streamer) => (
+                    <Box
+                      key={streamer}
+                      onClick={() => handleStreamFocus(streamer)}
+                      cursor="pointer"
+                    >
+                      <Box
+                        as="iframe"
+                        w="100%"
+                        title={streamer}
+                        pointerEvents="none"
+                        src={`https://player.twitch.tv/?channel=${streamer}&parent=${process.env.REACT_APP_DOMAIN}&enableExtensions=false&muted=false&volume=1.0&quality=auto&controls=true&allowFullScreen=true`}
+                      />
+                    </Box>
+                  ))}
+                </Flex>
+              </Flex>
+            )}
           </ModalBody>
         </ModalContent>
       </Modal>
