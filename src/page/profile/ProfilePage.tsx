@@ -63,18 +63,20 @@ export default function ProfilePage() {
               "Content-Type": "application/json",
               Authorization: cookies.get("api_token"),
             },
-          }
+          },
         );
         setUserData(res.data.__data__);
 
         const userInteractionResponse = await axios.get(
-          process.env.REACT_APP_PRIVATE_API_URL + "/api/userinteraction/" + user?.nickname,
+          process.env.REACT_APP_PRIVATE_API_URL +
+            "/api/userinteraction/" +
+            user?.nickname,
           {
             headers: {
               "Content-Type": "application/json",
               Authorization: cookies.get("api_token"),
             },
-          }
+          },
         );
         setUserInteractionData(userInteractionResponse.data);
 
@@ -92,7 +94,7 @@ export default function ProfilePage() {
           "Content-Type": "application/json",
           Authorization: cookies.get("api_token"),
         },
-      }
+      },
     );
     setUserData(res.data.__data__);
     setLoading(false);
@@ -106,7 +108,7 @@ export default function ProfilePage() {
   return (
     <>
       <Header title="Meu Perfil" />
-      <Container maxW="60vw">
+      <Container maxW={isSmallerThan900px ? "90vw" : "60vw"}>
         <Box w="100%">
           <Button mb="5" colorScheme="purple" float="right" onClick={onToggle}>
             Editar Perfil
@@ -126,31 +128,104 @@ export default function ProfilePage() {
           {/* Skeleton if the User Profile is Loading */}
           {isLoading && (
             <>
-              <VStack>
-                <HStack>
-                  <SkeletonCircle size="150px" />
-                  <Grid templateColumns="repeat(2, 1fr)" gap={6}>
-                    <GridItem>
+              <HStack>
+                {!isSmallerThan900px && (
+                  <chakra.div justifyContent="center">
+                    <SkeletonCircle width="300px" height="300px" />
+                  </chakra.div>
+                )}
+                <Stack
+                  flex={1}
+                  flexDirection="column"
+                  justifyContent="center"
+                  alignItems="center"
+                  p={1}
+                >
+                  {isSmallerThan900px && (
+                    <Flex className="profileImg-mobile" flex={1}>
+                      <SkeletonCircle width="300px" height='300px' />
+                    </Flex>
+                  )}
+
+                  
+                  <Skeleton height="20px" width="200px" />
+                  
+                  <Text textAlign={"center"} color="gray.700" px={3}>
+                  <Skeleton height="20px" width="200px" />
+                  </Text>
+                  <Wrap justify="center">
+                      <WrapItem>
                       <Skeleton height="20px" width="200px" />
-                    </GridItem>
-                    <GridItem>
+                      </WrapItem>
+                      <WrapItem>
                       <Skeleton height="20px" width="200px" />
-                    </GridItem>
-                    <GridItem>
+                      </WrapItem>
+                      <WrapItem>
                       <Skeleton height="20px" width="200px" />
-                    </GridItem>
-                    <GridItem>
+                      </WrapItem>
+                      <WrapItem>
                       <Skeleton height="20px" width="200px" />
-                    </GridItem>
-                  </Grid>
-                </HStack>
-                <VStack>
-                  <Skeleton height="20px" width="400px" />
-                  <Skeleton height="20px" width="400px" />
-                  <Skeleton height="20px" width="400px" />
-                </VStack>
-              </VStack>
+                      </WrapItem>
+                  </Wrap>
+                </Stack>
+              </HStack>
             </>
+          
+          
+          
+          
+          
+          
+          
+          
+          
+          
+          
+          
+          
+          
+          
+          
+          
+          
+          
+          
+          
+          
+          
+          
+          
+          
+          
+          
+          
+          
+          
+          
+          
+          
+          
+          
+          
+          
+          
+          
+          
+          
+          
+          
+          
+          
+          
+          
+          
+          
+          
+          
+          
+          
+          
+          
           )}
 
           {!isLoading && (
@@ -179,7 +254,7 @@ export default function ProfilePage() {
                   p={1}
                 >
                   {isSmallerThan900px && (
-                    <Flex className="profileImg-mobile" flex={1} bg="blue.200">
+                    <Flex className="profileImg-mobile" flex={1}>
                       <Image
                         borderRadius="full"
                         objectFit="cover"
@@ -263,9 +338,7 @@ export default function ProfilePage() {
                 <Thead>
                   <Tr>
                     <Th color="secondary.600">Streamer</Th>
-                    <Th color="secondary.600">
-                      Ação
-                    </Th>
+                    <Th color="secondary.600">Ação</Th>
                   </Tr>
                 </Thead>
                 <Tbody>
@@ -277,7 +350,7 @@ export default function ProfilePage() {
                           <Td>{userInteraction.type}</Td>
                         </Tr>
                       );
-                    }
+                    },
                   )}
                 </Tbody>
               </Table>
