@@ -19,8 +19,6 @@ import {
   Icon,
   Skeleton,
   SkeletonCircle,
-  Grid,
-  GridItem,
   chakra,
   Table,
   Thead,
@@ -34,6 +32,7 @@ import Header from "../../component/header/Header";
 import "./ProfilePage.css";
 import React, { useEffect } from "react";
 import axios from "axios";
+import Raids from "../../component/raids/Raids";
 import Cookies from "universal-cookie";
 import { UserModel } from "../../model/UserModel";
 import UserForm from "../../component/userForm/UserForm";
@@ -143,89 +142,32 @@ export default function ProfilePage() {
                 >
                   {isSmallerThan900px && (
                     <Flex className="profileImg-mobile" flex={1}>
-                      <SkeletonCircle width="300px" height='300px' />
+                      <SkeletonCircle width="300px" height="300px" />
                     </Flex>
                   )}
 
-                  
                   <Skeleton height="20px" width="200px" />
-                  
+
                   <Text textAlign={"center"} color="gray.700" px={3}>
-                  <Skeleton height="20px" width="200px" />
+                    <Skeleton height="20px" width="200px" />
                   </Text>
                   <Wrap justify="center">
-                      <WrapItem>
+                    <WrapItem>
                       <Skeleton height="20px" width="200px" />
-                      </WrapItem>
-                      <WrapItem>
+                    </WrapItem>
+                    <WrapItem>
                       <Skeleton height="20px" width="200px" />
-                      </WrapItem>
-                      <WrapItem>
+                    </WrapItem>
+                    <WrapItem>
                       <Skeleton height="20px" width="200px" />
-                      </WrapItem>
-                      <WrapItem>
+                    </WrapItem>
+                    <WrapItem>
                       <Skeleton height="20px" width="200px" />
-                      </WrapItem>
+                    </WrapItem>
                   </Wrap>
                 </Stack>
               </HStack>
             </>
-          
-          
-          
-          
-          
-          
-          
-          
-          
-          
-          
-          
-          
-          
-          
-          
-          
-          
-          
-          
-          
-          
-          
-          
-          
-          
-          
-          
-          
-          
-          
-          
-          
-          
-          
-          
-          
-          
-          
-          
-          
-          
-          
-          
-          
-          
-          
-          
-          
-          
-          
-          
-          
-          
-          
-          
           )}
 
           {!isLoading && (
@@ -354,6 +296,11 @@ export default function ProfilePage() {
                   )}
                 </Tbody>
               </Table>
+
+              <Divider></Divider>
+              <Raids></Raids>
+
+
               {/*
               <Heading as="h3" size="lg" mb="20px">
                 Recompensas

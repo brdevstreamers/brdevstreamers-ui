@@ -43,8 +43,9 @@ export default function TagFilter(props: Props) {
                 cursor="pointer"
                 borderRadius="full"
                 variant="solid"
+                userSelect="none"
                 backgroundColor={
-                  selectedTags.includes(tag.id) ? "#1F2A3D" : "#717278"
+                  selectedTags.includes(tag.id) ? "rgb(79, 135, 255)" : "#1F2A3D"
                 }
               >
                 {tag.name}
