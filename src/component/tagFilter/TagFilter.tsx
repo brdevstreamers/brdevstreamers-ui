@@ -33,7 +33,7 @@ export default function TagFilter(props: Props) {
 
   return (
     <>
-      <Wrap mb="4" spacing={4}>
+      <Wrap mb="4" spacing={4} justify='center'>
         {tags.map((tag: TagModel) => {
           return (
             <WrapItem key={tag.id}>
