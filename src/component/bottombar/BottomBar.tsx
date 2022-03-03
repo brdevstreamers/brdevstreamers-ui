@@ -19,14 +19,18 @@ interface Props {
 export default function BottomBar(props: Props) {
   const { user, isAuthenticated } = useAuth0();
 
-
   const handleShuffleClick = () => {
     const user_name =
       props.streamingUrls[
         Math.floor(Math.random() * props.streamingUrls.length)
       ];
-    logUserInteraction(user_name, UserInteractionType.STREAM_CLICK, isAuthenticated,  user?.nickname);
-    window.open("https://www.twitch.tv/" + user_name, "_blank");
+    logUserInteraction(
+      user_name,
+      UserInteractionType.STREAM_CLICK,
+      isAuthenticated,
+      user?.nickname,
+    );
+    window.open("https://www.twitch.tv/ " + user_name, "_blank");
   };
 
   const handleClick = (hash: string) => {

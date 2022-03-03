@@ -75,14 +75,8 @@
     "cz-conventional-changelog": "3.3.0",
     "git-cz": "^4.8.0",
     "husky": "^7.0.4",
-    "lint-staged": ">=12",
     "serve": "^13.0.2",
     "start-server-and-test": "^1.14.0"
-  },
-  "lint-staged": {
-    "src/**/*": [
-      "yarn test --findRelatedTests --bail"
-    ]
   },
   "config": {
     "commitizen": {
