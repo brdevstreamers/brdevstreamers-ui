@@ -30,10 +30,12 @@ import { ptBR } from "date-fns/locale";
 type Props = {
   stream: Stream;
   isLive: boolean;
+  isMosaicMode: boolean;
 };
 
-export default function Card({ stream, isLive }: Props) {
+export default function Card({ stream, isLive, isMosaicMode }: Props) {
   const [showPreview, setShowPreview] = useState(false);
+  const [isSelected, setIsSelected] = useState(false);
   return (
     <Box
       bgColor={"whiteAlpha.100"}
@@ -43,6 +45,7 @@ export default function Card({ stream, isLive }: Props) {
       borderRadius={"sm"}
       overflow="hidden"
       boxShadow={["base"]}
+      position={"relative"}
     >
       <Box>
         <Box
@@ -180,6 +183,21 @@ export default function Card({ stream, isLive }: Props) {
           </HStack>
         </Box>
       </Box>
+      {isMosaicMode && (
+        <Box
+          position="absolute"
+          inset={0}
+          backdropFilter={isSelected ? "blur(0)" : "blur(2px)"}
+          cursor="pointer"
+          onClick={() => setIsSelected(!isSelected)}
+          backgroundColor={
+            isSelected ? "rgba(255,255,255,0.1)" : "rgba(255,255,255,0)"
+          }
+          borderColor={isSelected ? "#9D5CFF " : "#FFFFFF"}
+          shadow={isSelected ? "md" : "none"}
+          borderWidth={isSelected ? 2 : 0}
+        />
+      )}
     </Box>
   );
 }

@@ -32,39 +32,7 @@ export default function Header() {
           color={"primary.500"}
           _hover={{ textDecoration: "underline" }}
         >
-          Home
-        </Link>
-        <Link
-          as={NavLink}
-          to={"/sobre"}
-          color={"primary.500"}
-          _hover={{ textDecoration: "underline" }}
-        >
-          Ao vivo
-        </Link>
-        <Link
-          as={NavLink}
-          to={"/sobre"}
-          color={"primary.500"}
-          _hover={{ textDecoration: "underline" }}
-        >
-          Estou com sorte
-        </Link>
-        <Link
-          as={NavLink}
-          to={"/sobre"}
-          color={"primary.500"}
-          _hover={{ textDecoration: "underline" }}
-        >
-          Mosaico
-        </Link>
-        <Link
-          as={NavLink}
-          to={"/sobre"}
-          color={"primary.500"}
-          _hover={{ textDecoration: "underline" }}
-        >
-          Transmissões passadas
+          Assistir
         </Link>
       </HStack>
       <Spacer />
