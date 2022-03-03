@@ -23,7 +23,7 @@ export default function Home() {
       ) : (
         <SimpleGrid columns={{ sm: 2, md: 3, lg: 4 }} gap={4}>
           {streamers.data?.map((stream) => (
-            <Card stream={stream} />
+            <Card stream={stream} isLive={true} />
           ))}
         </SimpleGrid>
       )}
@@ -37,7 +37,7 @@ export default function Home() {
       ) : (
         <SimpleGrid columns={{ sm: 2, md: 3, lg: 4 }} gap={4}>
           {vods.data?.map((stream) => (
-            <Card stream={stream} />
+            <Card stream={stream} isLive={false} />
           ))}
         </SimpleGrid>
       )}

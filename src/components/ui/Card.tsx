@@ -29,9 +29,10 @@ import { ptBR } from "date-fns/locale";
 
 type Props = {
   stream: Stream;
+  isLive: boolean;
 };
 
-export default function Card({ stream }: Props) {
+export default function Card({ stream, isLive }: Props) {
   const [showPreview, setShowPreview] = useState(false);
   return (
     <Box
@@ -49,14 +50,27 @@ export default function Card({ stream }: Props) {
           onMouseEnter={() => setShowPreview(true)}
           onMouseLeave={() => setShowPreview(false)}
         >
-          <Image
-            src={stream.thumbnail_url
-              .replace("{width}", "640")
-              .replace("{height}", "360")}
-            position={"relative"}
-          />
-
-          {showPreview && <Preview stream={stream} />}
+          <Box bgColor={"whiteAlpha.100"}>
+            {isLive ? (
+              <>
+                <Image
+                  src={stream.thumbnail_url
+                    .replace("{width}", "640")
+                    .replace("{height}", "360")}
+                  position={"relative"}
+                />
+                {showPreview && <Preview stream={stream} />}
+              </>
+            ) : (
+              <Image
+                src={stream.thumbnail_url
+                  .replace("%{width}", "640")
+                  .replace("%{height}", "360")}
+                position={"relative"}
+                fallbackSrc="cover-no-image.png"
+              />
+            )}
+          </Box>
           <Box
             position={"absolute"}
             bottom={0}
@@ -69,11 +83,17 @@ export default function Card({ stream }: Props) {
                 <TagLeftIcon as={ViewIcon} />
                 <TagLabel>{stream.viewer_count}</TagLabel>
               </Tag>
-              <Tag rounded={"sm"} size={"sm"}>
-                {formatDistanceToNow(Date.parse(stream.started_at), {
-                  locale: ptBR,
-                })}
-              </Tag>
+              {isLive ? (
+                <Tag rounded={"sm"} size={"sm"}>
+                  {formatDistanceToNow(Date.parse(stream.started_at), {
+                    locale: ptBR,
+                  })}
+                </Tag>
+              ) : (
+                <Tag rounded={"sm"} size={"sm"}>
+                  {stream.duration}
+                </Tag>
+              )}
             </HStack>
           </Box>
         </Box>
