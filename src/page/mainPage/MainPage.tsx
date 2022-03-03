@@ -56,7 +56,7 @@ export default function MainPage() {
         </GridItem>
         <GridItem colSpan={5} w="100%">
           <Container maxW="container.lg">
-            <Center mt="30px">
+            <Center mt="10px">
               <Text
                 data-testid="livesAnchor"
                 id="lives"
