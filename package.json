@@ -45,7 +45,9 @@
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "test:debug": "react-scripts --inspect-brk test --runInBand --no-cache",
-    "test:e2e": "start-server-and-test start:ci http://localhost:3000 cy:run"
+    "test:e2e": "start-server-and-test start:ci http://localhost:3000 cy:run",
+    "postinstall": "husky install",
+    "prepare": "husky install"
   },
   "eslintConfig": {
     "extends": [
@@ -66,8 +68,19 @@
     ]
   },
   "devDependencies": {
+    "@commitlint/cli": "^16.2.1",
+    "@commitlint/config-conventional": "^16.2.1",
+    "commitizen": "^4.2.4",
     "cypress": "^9.5.0",
+    "cz-conventional-changelog": "3.3.0",
+    "git-cz": "^4.8.0",
+    "husky": "^7.0.4",
     "serve": "^13.0.2",
     "start-server-and-test": "^1.14.0"
+  },
+  "config": {
+    "commitizen": {
+      "path": "./node_modules/git-cz"
+    }
   }
 }
