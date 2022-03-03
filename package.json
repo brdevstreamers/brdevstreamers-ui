@@ -46,8 +46,8 @@
     "eject": "react-scripts eject",
     "test:debug": "react-scripts --inspect-brk test --runInBand --no-cache",
     "test:e2e": "start-server-and-test start:ci http://localhost:3000 cy:run",
-    "postinstall": "husky install && chmod ug+x .husky/*",
-    "prepare": "husky install && chmod ug+x .husky/*"
+    "postinstall": "husky install",
+    "prepare": "husky install"
   },
   "eslintConfig": {
     "extends": [
