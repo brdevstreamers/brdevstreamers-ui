@@ -30,7 +30,7 @@ export default function BottomBar(props: Props) {
       isAuthenticated,
       user?.nickname,
     );
-    window.open("https://www.twitch.tv/ " + user_name, "_blank");
+    window.open("https://www.twitch.tv/" + user_name, "_blank");
   };
 
   const handleClick = (hash: string) => {
