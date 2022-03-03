@@ -40,6 +40,8 @@
     "react-router-dom": "^6.2.1",
     "react-scripts": "5.0.0",
     "react-scroll": "^1.8.4",
+    "react-tree-graph": "^7.0.3",
+    "reaflow": "^4.2.15",
     "recharts": "^2.1.9",
     "typescript": "^4.4.2",
     "web-vitals": "^2.1.0"
