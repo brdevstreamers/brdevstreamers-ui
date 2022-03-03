@@ -9,7 +9,6 @@ body {
 h1  {
   font-family: 'Alfa Slab One', cursive;
   color: #B685FF;
-  font-size: 40px !important;
   cursor: default;
   user-select: none;
 }
@@ -17,7 +16,6 @@ h1  {
 h2  {
   font-family: 'Livvic', sans-serif;
   color: #FFF;
-  font-size: 22px !important;
   cursor: default;
   user-select: none;
 }

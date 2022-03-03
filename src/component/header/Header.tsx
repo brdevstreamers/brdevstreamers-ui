@@ -1,10 +1,8 @@
 import {
-  Box,
   Center,
   chakra,
   HStack,
   Image,
-  StackDivider,
   useMediaQuery,
   VStack,
 } from "@chakra-ui/react";
@@ -26,7 +24,7 @@ export default function Header(props: Props) {
         <HStack>
           <Link to="/">
             <Image
-              height={isSmallerThan720px ? "50vw" : "6vw"}
+              height={isSmallerThan720px ? "30vw" : "6vw"}
               width="auto"
               className="logo"
               src="/logo.svg"
@@ -35,17 +33,21 @@ export default function Header(props: Props) {
           </Link>
 
           <VStack spacing={4} width="100%" align="stretch">
-            <Center>
-              <chakra.h1 mb="0" lineHeight="10">
+              <chakra.h1
+                mb="0"
+                fontSize={isSmallerThan720px ? "20px !important" : "40px !important"}
+                lineHeight={isSmallerThan720px ? "3" : "10"}
+              >
                 {props.title}
               </chakra.h1>
-            </Center>
             {props.subtitle && (
-              <Center>
-                <chakra.h2 mt="0" lineHeight="8">
+                <chakra.h2 maxW='fit-content'
+                  fontSize={isSmallerThan720px ? "18px !important" : "22px !important"}
+                  mt="0"
+                  lineHeight={isSmallerThan720px ? "5" : "8"}
+                >
                   {props.subtitle}
                 </chakra.h2>
-              </Center>
             )}
           </VStack>
         </HStack>
