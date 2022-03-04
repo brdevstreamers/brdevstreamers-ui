@@ -10,4 +10,4 @@ RUN yarn run build
 FROM staticfloat/nginx-certbot
 ENV CERTBOT_EMAIL flaviojmendes@gmail.com
 COPY ./nginx.conf /etc/nginx/user.conf.d/
-COPY --from=build /usr/src/app/build /usr/share/nginx/html
+COPY --from=build /usr/src/app/.next /usr/share/nginx/html
