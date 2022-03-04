@@ -1,6 +1,5 @@
 import { ViewIcon } from "@chakra-ui/icons";
 
-import "./StreamerCard.css";
 import SocialLinks from "../socialLinks/SocialLinks";
 import { UserInteractionType } from "../../model/UserInteractionModel";
 import {

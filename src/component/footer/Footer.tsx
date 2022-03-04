@@ -1,5 +1,5 @@
-import { Center, Container, Link, Text, Wrap, WrapItem } from "@chakra-ui/react";
-import { Link as RouteLink } from "react-router-dom";
+import { Center, Container, Link as ExtLink, Text, Wrap, WrapItem } from "@chakra-ui/react";
+import Link from 'next/link'
 
 export default function Footer() {
   return (
@@ -10,7 +10,7 @@ export default function Footer() {
           <Wrap justify='center'>
             <WrapItem>
               <Text color="primary.500" fontWeight="semibold">
-                <RouteLink to="/">Home</RouteLink>
+                <Link href="/"><a>Home</a></Link>
               </Text>
               <Text color="primary.400" ml="2" fontWeight="semibold">
                 |
@@ -18,7 +18,7 @@ export default function Footer() {
             </WrapItem>
             <WrapItem>
               <Text color="primary.500" fontWeight="semibold">
-                <RouteLink to="/sobre">Sobre</RouteLink>
+                <Link href="/sobre"><a>Sobre</a></Link>
               </Text>
               <Text color="primary.400" ml="2" fontWeight="semibold">
                 |
@@ -26,7 +26,7 @@ export default function Footer() {
             </WrapItem>
             <WrapItem>
               <Text color="primary.500" fontWeight="semibold">
-                <RouteLink to="/stats">Estatísticas</RouteLink>
+                <Link href="/stats"><a>Estatísticas</a></Link>
               </Text>
               <Text color="primary.400" ml="2" fontWeight="semibold">
                 |
@@ -34,7 +34,7 @@ export default function Footer() {
             </WrapItem>
             <WrapItem>
               <Text color="primary.500" fontWeight="semibold">
-                <RouteLink to="/agradecimentos">Agradecimentos</RouteLink>
+                <Link href="/agradecimentos"><a>Agradecimentos</a></Link>
               </Text>
               <Text color="primary.400" ml="2" fontWeight="semibold">
                 |
@@ -44,7 +44,7 @@ export default function Footer() {
               <Text color="primary.400" ml="2" fontWeight="semibold">
                 feito com ♥ por
               </Text>
-              <Link
+              <ExtLink
                 ml="2"
                 fontWeight="semibold"
                 isExternal={true}
@@ -52,7 +52,7 @@ export default function Footer() {
                 color="primary.500"
               >
                 flaviojmendes
-              </Link>
+              </ExtLink>
             </WrapItem>
           </Wrap>
         </Center>

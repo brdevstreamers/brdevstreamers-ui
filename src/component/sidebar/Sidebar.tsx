@@ -34,7 +34,7 @@ import { AiOutlineClose } from "react-icons/ai";
 import { UserInteractionType } from "../../model/UserInteractionModel";
 import { logUserInteraction } from "../../service/StatsService";
 import { useAuth0 } from "@auth0/auth0-react";
-
+import { useRouter } from "next/router";
 interface Props {
   streamingUrls: string[];
   selectedStreams: string[];
@@ -44,6 +44,7 @@ interface Props {
 export default function Sidebar(props: Props) {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const { user, isAuthenticated } = useAuth0();
+  const router = useRouter();
 
   const [mosaicModeOn, setMosaicModeOn] = React.useState(false);
   const [selectedStream, setSelectedStream] = React.useState("");
@@ -83,7 +84,7 @@ export default function Sidebar(props: Props) {
         Math.floor(Math.random() * props.streamingUrls.length)
       ];
     logClick(user_name.toLowerCase());
-    window.open("https://www.twitch.tv/" + user_name, "_blank");
+    router.push("https://www.twitch.tv/" + user_name, "_blank");
   };
 
   const handleClick = (hash: string) => {

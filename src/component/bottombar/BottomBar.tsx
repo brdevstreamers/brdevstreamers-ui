@@ -11,6 +11,7 @@ import {
 import { BsBroadcast, BsCameraVideo, BsShuffle } from "react-icons/bs";
 import { UserInteractionType } from "../../model/UserInteractionModel";
 import { logUserInteraction } from "../../service/StatsService";
+import { useRouter } from "next/router";
 
 interface Props {
   streamingUrls: string[];
@@ -18,6 +19,7 @@ interface Props {
 
 export default function BottomBar(props: Props) {
   const { user, isAuthenticated } = useAuth0();
+  const router = useRouter();
 
 
   const handleShuffleClick = () => {
@@ -26,7 +28,7 @@ export default function BottomBar(props: Props) {
         Math.floor(Math.random() * props.streamingUrls.length)
       ];
     logUserInteraction(user_name, UserInteractionType.STREAM_CLICK, isAuthenticated,  user?.nickname);
-    window.open("https://www.twitch.tv/" + user_name, "_blank");
+    router.push("https://www.twitch.tv/" + user_name, "_blank");
   };
 
   const handleClick = (hash: string) => {

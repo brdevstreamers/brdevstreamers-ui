@@ -1,7 +1,7 @@
-import StreamerList from "../../component/streamerList/StreamerList";
-import BottomBar from "../../component/bottombar/BottomBar";
-import Sidebar from "../../component/sidebar/Sidebar";
-import "./MainPage.css";
+import StreamerList from "../component/streamerList/StreamerList";
+import BottomBar from "../component/bottombar/BottomBar";
+import Sidebar from "../component/sidebar/Sidebar";
+
 import {
   Center,
   chakra,
@@ -12,9 +12,9 @@ import {
   Spinner,
   Text,
 } from "@chakra-ui/react";
-import VodList from "../../component/vodList/VodList";
+import VodList from "../component/vodList/VodList";
 import React from "react";
-import Header from "../../component/header/Header";
+import Header from "../component/header/Header";
 
 export default function MainPage() {
   const [isReloading, setReloading] = React.useState(false);

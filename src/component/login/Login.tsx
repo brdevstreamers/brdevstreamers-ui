@@ -10,16 +10,15 @@ import {
   useMediaQuery,
 } from "@chakra-ui/react";
 import Cookies from "universal-cookie";
-import { useNavigate } from "react-router-dom";
-import "./Login.css";
+import { useRouter } from "next/router";
 
 const cookies = new Cookies();
 
 export default function Login() {
   const { user, isAuthenticated } = useAuth0();
-  const navigate = useNavigate();
   const { logout } = useAuth0();
   const [isSmallerThan720px] = useMediaQuery("(max-width: 720px)");
+  const router = useRouter();
 
   const LoginButton = () => {
     const { loginWithRedirect } = useAuth0();
@@ -46,7 +45,7 @@ export default function Login() {
   };
 
   const handleProfileClick = () => {
-    navigate("/profile");
+    router.push("/profile");
   };
 
   return (

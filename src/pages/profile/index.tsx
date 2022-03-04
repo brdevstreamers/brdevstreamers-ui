@@ -31,7 +31,6 @@ import {
 } from "@chakra-ui/react";
 import { useAuth0 } from "@auth0/auth0-react";
 import Header from "../../component/header/Header";
-import "./ProfilePage.css";
 import React, { useEffect } from "react";
 import axios from "axios";
 import Cookies from "universal-cookie";

@@ -1,5 +1,4 @@
 import { ViewIcon } from "@chakra-ui/icons";
-import './VodCard.css';
 import {
   Box,
   Divider,

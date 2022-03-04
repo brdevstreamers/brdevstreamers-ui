@@ -17,7 +17,6 @@ import {
   useDisclosure,
 } from "@chakra-ui/react";
 import { StreamerModel } from "../../model/StreamerModel";
-import "./StreamModal.css";
 import { logUserInteraction } from "../../service/StatsService";
 import { UserInteractionType } from "../../model/UserInteractionModel";
 import { useAuth0 } from "@auth0/auth0-react";
