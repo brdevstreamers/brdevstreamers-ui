@@ -1,9 +1,9 @@
-import FingerprintJS from "@fingerprintjs/fingerprintjs";
+// import FingerprintJS from "@fingerprintjs/fingerprintjs";
 import axios from "axios";
 import { UserInteractionType } from "../model/UserInteractionModel";
 import Cookies from "universal-cookie";
 
-const fpPromise = FingerprintJS.load();
+// const fpPromise = FingerprintJS.load();
 
 export const logUserInteraction = async (
   target_user: string,
@@ -15,7 +15,7 @@ export const logUserInteraction = async (
 
   (async () => {
     if (isLoggedIn) {
-      const fp = await fpPromise;
+      // const fp = await fpPromise;
       const result = await fp.get();
 
       axios.post(
@@ -25,7 +25,7 @@ export const logUserInteraction = async (
           target_user: target_user.toLowerCase(),
           date: new Date(),
           type: streamType,
-          interaction_fingerprint: result.visitorId,
+          interaction_fingerprint: 'result.visitorId',
         },
         {
           headers: {
