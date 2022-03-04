@@ -16,7 +16,7 @@ export const logUserInteraction = async (
   (async () => {
     if (isLoggedIn) {
       // const fp = await fpPromise;
-      const result = await fp.get();
+      // const result = await fp.get();
 
       axios.post(
         process.env.NEXT_PUBLIC_API_URL + "/api/userinteraction" || "",
