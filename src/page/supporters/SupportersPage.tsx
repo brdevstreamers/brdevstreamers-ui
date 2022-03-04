@@ -18,8 +18,6 @@ import { Link } from '@chakra-ui/react'
 import { ExternalLinkIcon } from '@chakra-ui/icons'
 import axios from "axios";
 import React from "react";
-import { Link as RouteLink } from "react-router-dom";
-
 import Header from "../../component/header/Header";
 import { SupporterModel } from "../../model/SupporterModel";
 
