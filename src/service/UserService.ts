@@ -4,7 +4,7 @@ import Cookies from "universal-cookie";
 export const getUser = async (nickname: string) => {
   const cookies = new Cookies();
 
-  await axios.get(process.env.REACT_APP_PRIVATE_API_URL + "/api/user/" + nickname, {
+  await axios.get(process.env.NEXT_PUBLIC_PRIVATE_API_URL + "/api/user/" + nickname, {
     headers: {
       "Content-Type": "application/json",
       Authorization: cookies.get("api_token"),
@@ -24,7 +24,7 @@ export const updateUser = async (
   const cookies = new Cookies();
 
   await axios.put(
-    process.env.REACT_APP_PRIVATE_API_URL + "/api/user" || "",
+    process.env.NEXT_PUBLIC_PRIVATE_API_URL + "/api/user" || "",
     {
       user_login: nickname,
       email: email,

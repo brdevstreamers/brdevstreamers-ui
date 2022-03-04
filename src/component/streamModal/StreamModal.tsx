@@ -90,7 +90,7 @@ export default function StreamModal(props: Props) {
                     "https://player.twitch.tv/?channel=" +
                     props.streamer.user_name +
                     "&parent=" +
-                    process.env.REACT_APP_DOMAIN +
+                    process.env.NEXT_PUBLIC_DOMAIN +
                     "&enableExtensions=false&muted=false&volume=1.0&quality=auto&controls=true&allowFullScreen=true"
                   }
                   height="100%"
@@ -105,7 +105,7 @@ export default function StreamModal(props: Props) {
                     "https://www.twitch.tv/embed/" +
                     props.streamer.user_name +
                     "/chat?parent=" +
-                    process.env.REACT_APP_DOMAIN
+                    process.env.NEXT_PUBLIC_DOMAIN
                   }
                   height="100%"
                   width="100%"

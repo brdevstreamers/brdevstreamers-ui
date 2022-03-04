@@ -318,7 +318,7 @@ export default function Sidebar(props: Props) {
                         "https://player.twitch.tv/?channel=" +
                         user_name +
                         "&parent=" +
-                        process.env.REACT_APP_DOMAIN +
+                        process.env.NEXT_PUBLIC_DOMAIN +
                         "&enableExtensions=false&muted=false&volume=1.0&quality=auto&controls=true&allowFullScreen=true"
                       }
                       height="100%"
@@ -343,7 +343,7 @@ export default function Sidebar(props: Props) {
                     "https://player.twitch.tv/?channel=" +
                     selectedStream +
                     "&parent=" +
-                    process.env.REACT_APP_DOMAIN +
+                    process.env.NEXT_PUBLIC_DOMAIN +
                     "&enableExtensions=false&muted=false&volume=1.0&quality=auto&controls=true&allowFullScreen=true"
                   }
                 />
@@ -359,7 +359,7 @@ export default function Sidebar(props: Props) {
                         w="100%"
                         title={streamer}
                         pointerEvents="none"
-                        src={`https://player.twitch.tv/?channel=${streamer}&parent=${process.env.REACT_APP_DOMAIN}&enableExtensions=false&muted=false&volume=1.0&quality=auto&controls=true&allowFullScreen=true`}
+                        src={`https://player.twitch.tv/?channel=${streamer}&parent=${process.env.NEXT_PUBLIC_DOMAIN}&enableExtensions=false&muted=false&volume=1.0&quality=auto&controls=true&allowFullScreen=true`}
                       />
                     </Box>
                   ))}

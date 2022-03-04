@@ -41,7 +41,7 @@ export default function Login() {
   const handleLogoutClick = () => {
     cookies.remove("api_token");
 
-    logout({ returnTo: process.env.REACT_APP_REDIRECT_URL });
+    logout({ returnTo: process.env.NEXT_PUBLIC_REDIRECT_URL });
   };
 
   const handleProfileClick = () => {

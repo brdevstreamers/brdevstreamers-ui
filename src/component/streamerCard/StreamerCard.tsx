@@ -70,7 +70,7 @@ export default function StreamerCard(props: Props) {
             "https://player.twitch.tv/?channel=" +
             streamer.user_name +
             "&parent=" +
-            process.env.REACT_APP_DOMAIN +
+            process.env.NEXT_PUBLIC_DOMAIN +
             "&enableExtensions=false&muted=true&quality=low&controls=false"
           }
           height="180"

@@ -19,7 +19,7 @@ export const logUserInteraction = async (
       const result = await fp.get();
 
       axios.post(
-        process.env.REACT_APP_API_URL + "/api/userinteraction" || "",
+        process.env.NEXT_PUBLIC_API_URL + "/api/userinteraction" || "",
         {
           user_login: user_login,
           target_user: target_user.toLowerCase(),

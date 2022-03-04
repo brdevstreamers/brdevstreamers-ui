@@ -15,8 +15,8 @@ The main purpose of this project is giving visibility to Brazilian Developers th
 Create a `.env` file with the following content:
 
 ```
-REACT_APP_API_URL=https://brstreamers.dev:8000 # You can use our production server 🖥
-REACT_APP_GA_ID="" # This is a Google Analytics Tracking code. You can keep it empty
+NEXT_PUBLIC_API_URL=https://brstreamers.dev:8000 # You can use our production server 🖥
+NEXT_PUBLIC_GA_ID="" # This is a Google Analytics Tracking code. You can keep it empty
 ```
 
 Then you can run:

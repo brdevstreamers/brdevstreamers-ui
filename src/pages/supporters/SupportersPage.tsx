@@ -20,7 +20,7 @@ import Header from "../../component/header/Header";
 import { SupporterModel } from "../../model/SupporterModel";
 
 export default function SupportersPage() {
-  const SUPPORTERS_URL = process.env.REACT_APP_SUPPORTERS || "";
+  const SUPPORTERS_URL = process.env.NEXT_PUBLIC_SUPPORTERS || "";
 
   const [supporters, setSupporters] = React.useState([]);
 
@@ -52,7 +52,7 @@ export default function SupportersPage() {
                             <Image
                               borderRadius="full"
                               boxSize="150px"
-                              src={`${process.env.REACT_APP_MAMACOS}/${supporter.user_name}.PNG`}
+                              src={`${process.env.NEXT_PUBLIC_MAMACOS}/${supporter.user_name}.PNG`}
                               alt={supporter.user_name}
                               p="0"
                               fallbackSrc="./mamaco_anon.png"

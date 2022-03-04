@@ -15,14 +15,14 @@ import { AppProps } from "next/app";
 export default function MyApp({ Component, pageProps }: AppProps) {
   
 
-  ReactGA.initialize(process.env.REACT_APP_GA_ID || "");
-  console.log(process.env.REACT_APP_GA_ID);
-
+  ReactGA.initialize(process.env.NEXT_PUBLIC_GA_ID || "");
+  console.log(process.env.NEXT_PUBLIC_GA_ID);
+  
   return (
     <Auth0Provider
       domain="zapperson.us.auth0.com"
-      clientId={process.env.REACT_APP_AUTH0_CLIENT_ID || ""}
-      redirectUri={process.env.REACT_APP_REDIRECT_URL + "/login"}
+      clientId={process.env.NEXT_PUBLIC_AUTH0_CLIENT_ID || ""}
+      redirectUri={process.env.NEXT_PUBLIC_REDIRECT_URL + "/login"}
       audience="BrStreamersApi"
     >
       <ChakraProvider theme={theme}>

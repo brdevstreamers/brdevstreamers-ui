@@ -56,7 +56,7 @@ export default function ProfilePage() {
       if (user) {
         setLoading(true);
         const res = await axios.get(
-          process.env.REACT_APP_PRIVATE_API_URL + "/api/user/" + user?.nickname,
+          process.env.NEXT_PUBLIC_PRIVATE_API_URL + "/api/user/" + user?.nickname,
           {
             headers: {
               "Content-Type": "application/json",
@@ -67,7 +67,7 @@ export default function ProfilePage() {
         setUserData(res.data.__data__);
 
         const userInteractionResponse = await axios.get(
-          process.env.REACT_APP_PRIVATE_API_URL +
+          process.env.NEXT_PUBLIC_PRIVATE_API_URL +
             "/api/userinteraction/" +
             user?.nickname,
           {
@@ -87,7 +87,7 @@ export default function ProfilePage() {
   const getUser = async () => {
     setLoading(true);
     const res = await axios.get(
-      process.env.REACT_APP_PRIVATE_API_URL + "/api/user/" + user?.nickname,
+      process.env.NEXT_PUBLIC_PRIVATE_API_URL + "/api/user/" + user?.nickname,
       {
         headers: {
           "Content-Type": "application/json",
