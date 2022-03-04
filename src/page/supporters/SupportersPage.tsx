@@ -14,8 +14,12 @@ import {
   Wrap,
   WrapItem,
 } from "@chakra-ui/react";
+import { Link } from '@chakra-ui/react'
+import { ExternalLinkIcon } from '@chakra-ui/icons'
 import axios from "axios";
 import React from "react";
+import { Link as RouteLink } from "react-router-dom";
+
 import Header from "../../component/header/Header";
 import { SupporterModel } from "../../model/SupporterModel";
 
@@ -43,9 +47,9 @@ export default function SupportersPage() {
                     <WrapItem key={supporter.user_name}>
                       <VStack>
                         <Center>
-                          <Text fontWeight="semibold" color="primary.400">
-                            {supporter.user_name}
-                          </Text>
+                          <Link href={`https://twitch.tv/${{supporter.user_name}}`} isExternal  fontWeight="semibold" color="primary.400">
+                            {supporter.user_name} <ExternalLinkIcon mx='2px' />
+                          </Link>
                         </Center>
                         <Center>
                           {supporter.mamaco && (
