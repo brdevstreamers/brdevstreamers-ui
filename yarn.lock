@@ -786,7 +786,7 @@
   resolved "https://registry.yarnpkg.com/@emotion/weak-memoize/-/weak-memoize-0.2.5.tgz#8eed982e2ee6f7f4e44c253e12962980791efd46"
   integrity sha512-6U71C2Wp7r5XtFtQzYrW5iKFT67OixrSxjI4MptCHzdSVlgabczzqLe0ZSgnub/5Kp4hSbpDB1tMytZY9pwxxA==
 
-"@fingerprintjs/fingerprintjs@^3.3.2":
+"@fingerprintjs/fingerprintjs@^3.3.3":
   version "3.3.3"
   resolved "https://registry.yarnpkg.com/@fingerprintjs/fingerprintjs/-/fingerprintjs-3.3.3.tgz#ead445032c92a79d5f585953019402ed223edc7d"
   integrity sha512-HH6KqZnopF3NIXypYG4f2qxoSRmGCSzp81wJMfWjSTtvsX3cAg12RFJcm+a6Az3XadcZUrXKW3p5Dv0wyCUeuA==

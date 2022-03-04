@@ -11,10 +11,17 @@ import {
 import { ApexOptions } from "apexcharts";
 import axios from "axios";
 import React from "react";
-import ReactApexChart from "react-apexcharts";
 import Header from "../../component/header/Header";
 
 import { StatsModel } from "../../model/StatsModel";
+import dynamic from 'next/dynamic'
+
+
+const ReactApexChart = dynamic(
+  () => import('react-apexcharts'),
+  { ssr: false }
+)
+
 
 export default function StatsPage() {
   const [stats, setStats] = React.useState([]);
