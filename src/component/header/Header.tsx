@@ -6,7 +6,7 @@ import {
   useMediaQuery,
   VStack,
 } from "@chakra-ui/react";
-import { Link } from "react-router-dom";
+import Link from "next/link";
 import Login from "../login/Login";
 
 interface Props {
@@ -22,7 +22,7 @@ export default function Header(props: Props) {
       <Login />
       <Center>
         <HStack>
-          <Link to="/">
+          <Link href="/">
             <Image
               height={isSmallerThan720px ? "30vw" : "6vw"}
               width="auto"

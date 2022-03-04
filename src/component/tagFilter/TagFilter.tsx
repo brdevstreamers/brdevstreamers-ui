@@ -12,7 +12,7 @@ export default function TagFilter(props: Props) {
   const [selectedTags, setSelectedTags] = React.useState<string[]>([]);
 
   React.useEffect(() => {
-    axios.get(process.env.REACT_APP_API_URL + "tags").then((response) => {
+    axios.get("https://brstreamers.dev:8000/public/tags").then((response) => {
       setTags(response.data);
     });
   }, []);
