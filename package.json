@@ -36,7 +36,7 @@
     "cy:run": "cypress run --browser chrome --headless",
     "cy:open": "cypress open",
     "dev": "next dev",
-    "build": "next build",
+    "build": "next build && next export",
     "start": "next start",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
