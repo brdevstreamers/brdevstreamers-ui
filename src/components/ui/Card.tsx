@@ -31,13 +31,20 @@ type Props = {
   stream: Stream;
   isLive: boolean;
   isMosaicMode: boolean;
+  handleStreamToMosaic?: (channelName: string) => void;
 };
 
-export default function Card({ stream, isLive, isMosaicMode }: Props) {
+export default function Card({
+  stream,
+  isLive,
+  isMosaicMode,
+  handleStreamToMosaic = () => {},
+}: Props) {
   const [showPreview, setShowPreview] = useState(false);
   const [isSelected, setIsSelected] = useState(false);
   return (
     <Box
+      onClick={() => handleStreamToMosaic(stream.user_name)}
       bgColor={"whiteAlpha.100"}
       maxW="sm"
       borderWidth="1px"
@@ -52,6 +59,7 @@ export default function Card({ stream, isLive, isMosaicMode }: Props) {
           position={"relative"}
           onMouseEnter={() => setShowPreview(true)}
           onMouseLeave={() => setShowPreview(false)}
+          rounded={"sm"}
         >
           <Box bgColor={"whiteAlpha.100"}>
             {isLive ? (
@@ -135,6 +143,7 @@ export default function Card({ stream, isLive, isMosaicMode }: Props) {
                 href={`https://twitter.com/${stream.twitter_url}`}
               >
                 <Tag
+                  rounded={"sm"}
                   size="md"
                   variant="solid"
                   backgroundColor="rgb(29, 155, 240)"
@@ -148,7 +157,12 @@ export default function Card({ stream, isLive, isMosaicMode }: Props) {
                 isExternal={true}
                 href={`https://github.com/${stream.github_url}`}
               >
-                <Tag size="md" variant="solid" backgroundColor="gray.700">
+                <Tag
+                  size="md"
+                  variant="solid"
+                  rounded={"sm"}
+                  backgroundColor="gray.700"
+                >
                   <Icon as={FaGithub} />
                 </Tag>
               </Link>
@@ -159,7 +173,12 @@ export default function Card({ stream, isLive, isMosaicMode }: Props) {
                 isExternal={true}
                 href={`https://linkedin.com/in/${stream.linkedin_url}`}
               >
-                <Tag size="md" variant="solid" backgroundColor="#0a66c2">
+                <Tag
+                  size="md"
+                  variant="solid"
+                  rounded={"sm"}
+                  backgroundColor="#0a66c2"
+                >
                   <Icon as={FaLinkedin} />
                 </Tag>
               </Link>
@@ -167,7 +186,12 @@ export default function Card({ stream, isLive, isMosaicMode }: Props) {
 
             {stream.discord_url && (
               <Link isExternal={true} href={stream.discord_url}>
-                <Tag size="md" variant="solid" backgroundColor="#7289da">
+                <Tag
+                  size="md"
+                  variant="solid"
+                  rounded={"sm"}
+                  backgroundColor="#7289da"
+                >
                   <Icon as={FaDiscord} />
                 </Tag>
               </Link>
@@ -175,7 +199,12 @@ export default function Card({ stream, isLive, isMosaicMode }: Props) {
 
             {stream.instagram_url && (
               <Link isExternal={true} href={stream.instagram_url}>
-                <Tag size="md" variant="solid" backgroundColor="#C13584">
+                <Tag
+                  size="md"
+                  variant="solid"
+                  rounded={"sm"}
+                  backgroundColor="#C13584"
+                >
                   <Icon as={FaInstagram} />
                 </Tag>
               </Link>
@@ -187,6 +216,7 @@ export default function Card({ stream, isLive, isMosaicMode }: Props) {
         <Box
           position="absolute"
           inset={0}
+          rounded={"sm"}
           backdropFilter={isSelected ? "blur(0)" : "blur(2px)"}
           cursor="pointer"
           onClick={() => setIsSelected(!isSelected)}
