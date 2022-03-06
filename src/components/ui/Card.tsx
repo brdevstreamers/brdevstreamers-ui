@@ -53,6 +53,14 @@ export default function Card({
       overflow="hidden"
       boxShadow={["base"]}
       position={"relative"}
+      _hover={{
+        transform: "scale(1.05)",
+      }}
+      sx={{
+        willChange: "transform",
+        transform: "scale(1)",
+        transition: "transform 300ms ease",
+      }}
     >
       <Box>
         <Box

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import useFetch from "react-fetch-hook";
 import {
   Box,
@@ -8,25 +8,28 @@ import {
   SimpleGrid,
   Spacer,
   Stack,
+  Tag as TagChakra,
   Text,
 } from "@chakra-ui/react";
 import LandingLayout from "../components/layouts/LandingLayout";
 import Card from "../components/ui/Card";
 import { Stream } from "../types/stream.types";
 import { FiGrid, FiCoffee } from "react-icons/fi";
-import { BsGrid1X2Fill, BsGridFill } from "react-icons/bs";
 import { SkeletonListCard } from "../components/sections/SkeletonListCard";
 import Mosaic from "../components/sections/Mosaic";
+import { Tag } from "../types/tag.types";
 
 export default function Home() {
   const [isMosaicMode, setIsMosaicMode] = useState(false);
   const [selectedStreams, setSelectedStreams] = useState<string[]>([]);
+  const [selectedTags, setSelectedTags] = useState<Array<string>>([]);
+  const [filteredStreamers, setFilteredStreamers] = useState<Stream[]>([]);
 
   const streamers = useFetch<Stream[]>(
     "https://brstreamers.dev:8000/public/streams",
   );
-
   const vods = useFetch<Stream[]>("https://brstreamers.dev:8000/public/vods");
+  const tags = useFetch<Tag[]>("https://brstreamers.dev:8000/public/tags");
 
   const handleStreamToMosaic = (channelName: string) => {
     const stream = selectedStreams.find((stream) => stream === channelName);
@@ -36,6 +39,33 @@ export default function Home() {
       setSelectedStreams([...selectedStreams, channelName]);
     }
   };
+
+  const handleTagClick = (tag: Tag) => {
+    if (selectedTags.includes(tag.id)) {
+      setSelectedTags(selectedTags.filter((t) => t !== tag.id));
+    } else {
+      setSelectedTags([...selectedTags, tag.id]);
+    }
+  };
+
+  const filterByTags = (tags: string[]) => {
+    if (tags.length > 0) {
+      const filteredStreams = streamers.data?.filter((streamer) => {
+        return tags.every((tag) => streamer.tags?.includes(tag));
+      });
+      setFilteredStreamers(filteredStreams ?? []);
+    } else {
+      setFilteredStreamers(streamers.data ?? []);
+    }
+  };
+
+  useEffect(() => {
+    setFilteredStreamers(streamers.data ?? []);
+  }, [streamers]);
+
+  useEffect(() => {
+    filterByTags(selectedTags);
+  }, [selectedTags]);
 
   return (
     <LandingLayout>
@@ -61,11 +91,27 @@ export default function Home() {
           </Stack>
         </Box>
       </HStack>
+      <Box mb={2}>
+        {tags.data?.map((tag) => (
+          <TagChakra
+            cursor="pointer"
+            onClick={() => handleTagClick(tag)}
+            key={tag.id}
+            m={1}
+            rounded={"sm"}
+            backgroundColor={
+              selectedTags.includes(tag.id) ? "primary.500" : "gray.200"
+            }
+          >
+            {tag.name}
+          </TagChakra>
+        ))}
+      </Box>
       {streamers.isLoading ? (
         <SkeletonListCard />
       ) : (
         <SimpleGrid columns={{ sm: 2, md: 3, lg: 4 }} gap={4}>
-          {streamers.data?.map((stream) => (
+          {filteredStreamers.map((stream) => (
             <Card
               key={stream.id}
               stream={stream}
