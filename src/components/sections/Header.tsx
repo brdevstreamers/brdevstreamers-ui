@@ -34,6 +34,30 @@ export default function Header() {
         >
           Assistir
         </Link>
+        <Link
+          as={NavLink}
+          to={"/sobre"}
+          color={"primary.500"}
+          _hover={{ textDecoration: "underline" }}
+        >
+          Sobre
+        </Link>
+        <Link
+          as={NavLink}
+          to={"/stats"}
+          color={"primary.500"}
+          _hover={{ textDecoration: "underline" }}
+        >
+          Estatísticas
+        </Link>
+        <Link
+          as={NavLink}
+          to={"/agradecimentos"}
+          color={"primary.500"}
+          _hover={{ textDecoration: "underline" }}
+        >
+          Agradecimentos
+        </Link>
       </HStack>
       <Spacer />
       <HStack gap={4}>

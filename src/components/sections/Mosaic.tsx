@@ -1,38 +1,35 @@
 import {
   Button,
   Center,
-  Heading,
   HStack,
   Modal,
   ModalBody,
-  ModalCloseButton,
   ModalContent,
-  ModalFooter,
-  ModalHeader,
   ModalOverlay,
-  Text,
   useDisclosure,
   useToast,
 } from "@chakra-ui/react";
 import { useState } from "react";
-import { BsGrid1X2Fill, BsGridFill } from "react-icons/bs";
+import { BsGrid1X2Fill, BsGridFill, BsX, BsXLg } from "react-icons/bs";
+import ButtonMosaicLayout from "../ui/ButtonMosaicLayout";
 import MosaicFocus from "../ui/MosaicFocus";
 import MosaicGrid from "../ui/MosaicGrid";
 
 type Props = {
-  selectedChannels: Array<string>;
+  channels: Array<string>;
 };
 
-export default function Mosaic({ selectedChannels }: Props) {
+export default function Mosaic({ channels }: Props) {
   const [mosaicLayout, setMosaicLayout] = useState<"grid" | "focus">("grid");
-  const [selectedChannel, setSelectedChannel] = useState<string>("");
-  const [availableChannels, setAvailableChannels] = useState(selectedChannels);
+  const [channelOnFocus, setChannelOnFocus] = useState<string>("");
+  const [channelsOffFocus, setChannelsOffFocus] = useState<Array<string>>([]);
+  const [activeLayout, setActiveLayout] = useState<boolean>(true);
 
   const { isOpen, onOpen, onClose } = useDisclosure();
   const toast = useToast();
 
   const openMosaic = (): void => {
-    if (selectedChannels.length <= 0) {
+    if (channels.length <= 0) {
       toast({
         title: `Você deve selecionar pelo menos duas streams`,
         isClosable: true,
@@ -48,31 +45,21 @@ export default function Mosaic({ selectedChannels }: Props) {
 
   const changeMosaicLayout = (layoutName: string): void => {
     if (layoutName === "focus") {
-      setSelectedChannel(selectedChannels[0]);
-      const channels = selectedChannels.filter(
-        (channel) => channel !== selectedChannels[0],
-      );
-      setAvailableChannels(channels);
+      setActiveLayout(false);
+      focusOnChannel(channels[0]);
       setMosaicLayout("focus");
     } else {
+      setActiveLayout(true);
       setMosaicLayout("grid");
     }
   };
 
   const focusOnChannel = (channelName: string): void => {
-    // Put all channel together.
-    setAvailableChannels([...availableChannels, selectedChannel]);
-
-    // Remove from the list of available channels.
-    const channels = selectedChannels.filter(
-      (channel) => channel !== channelName,
-    );
-
-    // Update list of available channels.
-    setAvailableChannels(channels);
-
     // Set focus on channel.
-    setSelectedChannel(channelName);
+    setChannelOnFocus(channelName);
+
+    // Set available channels excluding the current one.
+    setChannelsOffFocus(channels.filter((channel) => channel !== channelName));
   };
 
   return (
@@ -95,69 +82,40 @@ export default function Mosaic({ selectedChannels }: Props) {
           backgroundColor="secondary.600"
           overflow="auto"
         >
-          <ModalHeader>
-            <Heading>Ao vivo</Heading>
-            <Text color={"gray.500"}>Você está no modo simultâneo</Text>
-          </ModalHeader>
-          <ModalCloseButton
-            bgColor={"primary.500"}
-            rounded={"sm"}
-            _hover={{ bgColor: "primary.600", color: "primary.400" }}
-          />
           <ModalBody>
             <HStack justifyContent={"center"} mb={2}>
+              <ButtonMosaicLayout
+                isActive={activeLayout}
+                layout={"grid"}
+                changeMosaicLayout={changeMosaicLayout}
+                Icon={BsGridFill}
+              />
+              <ButtonMosaicLayout
+                isActive={!activeLayout}
+                layout={"focus"}
+                changeMosaicLayout={changeMosaicLayout}
+                Icon={BsGrid1X2Fill}
+              />
               <Button
-                onClick={() => changeMosaicLayout("grid")}
-                rounded={"sm"}
+                bgColor={"primary.500"}
+                borderRadius={"sm"}
                 _hover={{ bgColor: "primary.600", color: "primary.400" }}
-                bgColor={
-                  mosaicLayout === "grid" ? "primary.500" : "primary.100"
-                }
-                opacity={mosaicLayout === "grid" ? "1" : "0.5"}
+                onClick={onClose}
               >
-                <BsGridFill
-                  size={18}
-                  color={mosaicLayout === "grid" ? "white" : "black"}
-                  opacity={mosaicLayout === "grid" ? "1" : "0.5"}
-                />
-              </Button>
-              <Button
-                onClick={() => changeMosaicLayout("focus")}
-                rounded={"sm"}
-                _hover={{ bgColor: "primary.600", color: "primary.300" }}
-                bgColor={
-                  mosaicLayout === "focus" ? "primary.500" : "primary.100"
-                }
-                opacity={mosaicLayout === "focus" ? "1" : "0.5"}
-              >
-                <BsGrid1X2Fill
-                  size={18}
-                  color={mosaicLayout === "focus" ? "white" : "black"}
-                  opacity={mosaicLayout === "focus" ? "1" : "0.5"}
-                />
+                <BsXLg />
               </Button>
             </HStack>
 
             {mosaicLayout === "grid" ? (
-              <MosaicGrid channels={selectedChannels} />
+              <MosaicGrid channels={channels} />
             ) : (
               <MosaicFocus
-                channels={selectedChannels}
-                channelOnFocus={selectedChannel}
-                focusOnChannel={() => focusOnChannel}
+                channelsOffFocus={channelsOffFocus}
+                channelOnFocus={channelOnFocus}
+                focusOnChannel={focusOnChannel}
               />
             )}
           </ModalBody>
-          <ModalFooter>
-            <Button
-              bgColor={"primary.500"}
-              borderRadius={"sm"}
-              _hover={{ bgColor: "primary.600", color: "primary.400" }}
-              onClick={onClose}
-            >
-              Sair
-            </Button>
-          </ModalFooter>
         </ModalContent>
       </Modal>
     </>

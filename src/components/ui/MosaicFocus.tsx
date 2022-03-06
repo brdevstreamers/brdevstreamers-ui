@@ -2,12 +2,16 @@ import { Box, Flex } from "@chakra-ui/react";
 import { getEmbedUrl } from "../../utils/twitch";
 
 type Props = {
-  channels: Array<string>;
+  channelsOffFocus: Array<string>;
   channelOnFocus: string;
-  focusOnChannel: (channel: string) => void;
+  focusOnChannel: (channelName: string) => void;
 };
 
-const MosaicFocus = ({ channels, channelOnFocus, focusOnChannel }: Props) => {
+const MosaicFocus = ({
+  channelsOffFocus,
+  channelOnFocus,
+  focusOnChannel,
+}: Props) => {
   return (
     <Flex direction="column" justifyContent="center" alignItems="center">
       <Box
@@ -19,7 +23,7 @@ const MosaicFocus = ({ channels, channelOnFocus, focusOnChannel }: Props) => {
         src={getEmbedUrl(channelOnFocus)}
       />
       <Flex wrap="wrap" justify="center" gap={3}>
-        {channels.map((channel) => (
+        {channelsOffFocus.map((channel) => (
           <Box
             key={channel}
             onClick={() => focusOnChannel(channel)}

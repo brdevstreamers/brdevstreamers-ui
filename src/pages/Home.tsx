@@ -94,7 +94,7 @@ export default function Home() {
         </SimpleGrid>
       )}
 
-      {isMosaicMode && <Mosaic selectedChannels={selectedStreams} />}
+      {isMosaicMode && <Mosaic channels={selectedStreams} />}
     </LandingLayout>
   );
 }

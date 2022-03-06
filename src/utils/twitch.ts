@@ -4,6 +4,6 @@ export const getEmbedUrl = (channel: string): string => {
     channel +
     "&parent=" +
     process.env.REACT_APP_DOMAIN +
-    "&enableExtensions=false&muted=false&volume=1.0&quality=auto&controls=true&allowFullScreen=true&width=640&height=320"
+    "&enableExtensions=false&muted=false&volume=1.0&quality=auto&controls=true&allowFullScreen=true"
   );
 };
