@@ -44,6 +44,11 @@ export default function Card({
   const [isSelected, setIsSelected] = useState(false);
   return (
     <Box
+      {...(!isMosaicMode && {
+        as: "a",
+        href: `https://twitch.tv/${stream.user_name}`,
+        target: "_blank",
+      })}
       onClick={() => handleStreamToMosaic(stream.user_name)}
       bgColor={"whiteAlpha.100"}
       maxW="sm"
@@ -127,7 +132,7 @@ export default function Card({
             <Box>
               <Link
                 isExternal={true}
-                href={"https://twitch.tv/" + stream.user_name}
+                href={`https://twitch.tv/${stream.user_name}`}
                 color={"gray.500"}
                 fontWeight={"semibold"}
                 mt={-1}
