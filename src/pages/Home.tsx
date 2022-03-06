@@ -27,6 +27,7 @@ import Card from "../components/ui/Card";
 import { Stream } from "../types/stream.types";
 import { FiGrid, FiCoffee } from "react-icons/fi";
 import { BsGrid1X2Fill, BsGridFill } from "react-icons/bs";
+import { SkeletonListCard } from "../components/sections/SkeletonListCard";
 
 export default function Home() {
   const toast = useToast();
@@ -120,7 +121,7 @@ export default function Home() {
         </Box>
       </HStack>
       {streamers.isLoading ? (
-        <Text color={"gray.200"}>Carregando..</Text>
+        <SkeletonListCard />
       ) : (
         <SimpleGrid columns={{ sm: 2, md: 3, lg: 4 }} gap={4}>
           {streamers.data?.map((stream) => (
@@ -139,7 +140,7 @@ export default function Home() {
         <Text color={"gray.500"}>Veja o que deixaram gravado!</Text>
       </Box>
       {vods.isLoading ? (
-        <Text color={"gray.200"}>Carregando..</Text>
+        <SkeletonListCard />
       ) : (
         <SimpleGrid columns={{ sm: 2, md: 3, lg: 4 }} gap={4}>
           {vods.data?.map((stream) => (
