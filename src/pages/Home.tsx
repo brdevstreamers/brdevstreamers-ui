@@ -18,6 +18,7 @@ import { FiGrid, FiCoffee } from "react-icons/fi";
 import { SkeletonListCard } from "../components/sections/SkeletonListCard";
 import Mosaic from "../components/sections/Mosaic";
 import { Tag } from "../types/tag.types";
+import { SkeletonListTags } from "../components/sections/SkeletonListTags";
 
 export default function Home() {
   const [isMosaicMode, setIsMosaicMode] = useState(false);
@@ -95,19 +96,25 @@ export default function Home() {
         </Box>
       </HStack>
       <Box mb={4}>
-        {tags.data?.map((tag) => (
-          <TagChakra
-            cursor="pointer"
-            onClick={() => handleTagClick(tag)}
-            key={tag.id}
-            m={1}
-            rounded={"sm"}
-            color={selectedTags.includes(tag.id) ? "gray.100" : "gray.300"}
-            bgColor={selectedTags.includes(tag.id) ? "#8B3DFF" : "gray.800"}
-          >
-            {tag.name}
-          </TagChakra>
-        ))}
+        {tags.isLoading ? (
+          <SkeletonListTags />
+        ) : (
+          <>
+            {tags.data?.map((tag) => (
+              <TagChakra
+                cursor="pointer"
+                onClick={() => handleTagClick(tag)}
+                key={tag.id}
+                m={1}
+                rounded={"sm"}
+                color={selectedTags.includes(tag.id) ? "gray.100" : "gray.300"}
+                bgColor={selectedTags.includes(tag.id) ? "#8B3DFF" : "gray.800"}
+              >
+                {tag.name}
+              </TagChakra>
+            ))}
+          </>
+        )}
       </Box>
       {streamers.isLoading ? (
         <SkeletonListCard />
