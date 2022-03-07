@@ -1,20 +1,16 @@
+import { useState } from "react";
 import { ViewIcon } from "@chakra-ui/icons";
 import {
-  Badge,
   Box,
-  Flex,
   HStack,
   Icon,
   Image,
   Link,
-  Spacer,
   Tag,
   TagLabel,
   TagLeftIcon,
   Text,
-  VStack,
 } from "@chakra-ui/react";
-import { useState } from "react";
 import {
   FaDiscord,
   FaGithub,
@@ -42,6 +38,7 @@ export default function Card({
 }: Props) {
   const [showPreview, setShowPreview] = useState(false);
   const [isSelected, setIsSelected] = useState(false);
+
   return (
     <Box
       {...(!isMosaicMode && {

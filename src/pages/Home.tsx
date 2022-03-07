@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import useFetch from "react-fetch-hook";
 import {
   Box,
@@ -48,16 +48,19 @@ export default function Home() {
     }
   };
 
-  const filterByTags = (tags: string[]) => {
-    if (tags.length > 0) {
-      const filteredStreams = streamers.data?.filter((streamer) => {
-        return tags.every((tag) => streamer.tags?.includes(tag));
-      });
-      setFilteredStreamers(filteredStreams ?? []);
-    } else {
-      setFilteredStreamers(streamers.data ?? []);
-    }
-  };
+  const filterByTags = useCallback(
+    (tags: string[]) => {
+      if (tags.length > 0) {
+        const filteredStreams = streamers.data?.filter((streamer) => {
+          return tags.every((tag) => streamer.tags?.includes(tag));
+        });
+        setFilteredStreamers(filteredStreams ?? []);
+      } else {
+        setFilteredStreamers(streamers.data ?? []);
+      }
+    },
+    [streamers.data],
+  );
 
   useEffect(() => {
     setFilteredStreamers(streamers.data ?? []);
@@ -65,7 +68,7 @@ export default function Home() {
 
   useEffect(() => {
     filterByTags(selectedTags);
-  }, [selectedTags]);
+  }, [selectedTags, filterByTags]);
 
   return (
     <LandingLayout>
