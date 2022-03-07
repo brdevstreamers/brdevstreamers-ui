@@ -12,11 +12,34 @@ import { NavLink } from "react-router-dom";
 
 const Link = chakra(NavLink);
 
+const links = [
+  {
+    id: 1,
+    to: "/",
+    label: "Assistir",
+  },
+  {
+    id: 2,
+    to: "/sobre",
+    label: "Sobre",
+  },
+  {
+    id: 3,
+    to: "/stats",
+    label: "Estatísticas",
+  },
+  {
+    id: 4,
+    to: "/agradecimentos",
+    label: "Agradecimentos",
+  },
+];
+
 export default function Header() {
   return (
     <Flex p={4} borderBottomColor={"whiteAlpha.100"} borderBottomWidth={1}>
       <HStack>
-        <Image src="../../logo.svg" alt="Br Dev Streamers" height={50} />
+        <Image src="/logo.svg" alt="Br Dev Streamers" height={50} />
         <Box textAlign={"center"}>
           <Text className="logo-title">BR Dev Streamers</Text>
           <Text mt={-2} className="logo-subtitle">
@@ -26,53 +49,32 @@ export default function Header() {
       </HStack>
       <Spacer />
       <HStack gap={4}>
-        <Link
-          as={NavLink}
-          to={"/"}
-          color={"primary.500"}
-          _hover={{ textDecoration: "underline" }}
-        >
-          Assistir
-        </Link>
-        <Link
-          as={NavLink}
-          to={"/sobre"}
-          color={"primary.500"}
-          _hover={{ textDecoration: "underline" }}
-        >
-          Sobre
-        </Link>
-        <Link
-          as={NavLink}
-          to={"/stats"}
-          color={"primary.500"}
-          _hover={{ textDecoration: "underline" }}
-        >
-          Estatísticas
-        </Link>
-        <Link
-          as={NavLink}
-          to={"/agradecimentos"}
-          color={"primary.500"}
-          _hover={{ textDecoration: "underline" }}
-        >
-          Agradecimentos
-        </Link>
+        {links.map((link) => (
+          <Link
+            to={link.to}
+            key={link.id}
+            color={"gray.100"}
+            _activeLink={{
+              color: "primary.500",
+            }}
+            _hover={{ textDecoration: "underline" }}
+          >
+            {link.label}
+          </Link>
+        ))}
       </HStack>
       <Spacer />
       <HStack gap={4}>
         <Link
-          as={NavLink}
           to={"/sobre"}
-          color={"primary.500"}
+          color={"gray.100"}
           _hover={{ textDecoration: "underline" }}
         >
           GitHub
         </Link>
         <Link
-          as={NavLink}
           to={"/sobre"}
-          color={"primary.500"}
+          color={"gray.100"}
           _hover={{ textDecoration: "underline" }}
         >
           Discord

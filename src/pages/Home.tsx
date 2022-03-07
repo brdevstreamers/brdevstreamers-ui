@@ -25,11 +25,11 @@ export default function Home() {
   const [selectedTags, setSelectedTags] = useState<Array<string>>([]);
   const [filteredStreamers, setFilteredStreamers] = useState<Stream[]>([]);
 
+  const tags = useFetch<Tag[]>("https://brstreamers.dev:8000/public/tags");
   const streamers = useFetch<Stream[]>(
     "https://brstreamers.dev:8000/public/streams",
   );
   const vods = useFetch<Stream[]>("https://brstreamers.dev:8000/public/vods");
-  const tags = useFetch<Tag[]>("https://brstreamers.dev:8000/public/tags");
 
   const handleStreamToMosaic = (channelName: string) => {
     const stream = selectedStreams.find((stream) => stream === channelName);
@@ -75,7 +75,7 @@ export default function Home() {
       <HStack mt={8} mb={4}>
         <Box>
           <Heading>Ao vivo</Heading>
-          <Text color={"gray.500"}>Prestigie quem está ao vivo!</Text>
+          <Text color={"gray.400"}>Prestigie quem está ao vivo!</Text>
         </Box>
         <Spacer />
         <Box>
@@ -94,7 +94,7 @@ export default function Home() {
           </Stack>
         </Box>
       </HStack>
-      <Box mb={2}>
+      <Box mb={4}>
         {tags.data?.map((tag) => (
           <TagChakra
             cursor="pointer"
@@ -102,9 +102,8 @@ export default function Home() {
             key={tag.id}
             m={1}
             rounded={"sm"}
-            backgroundColor={
-              selectedTags.includes(tag.id) ? "primary.500" : "gray.200"
-            }
+            color={selectedTags.includes(tag.id) ? "gray.100" : "gray.300"}
+            bgColor={selectedTags.includes(tag.id) ? "#8B3DFF" : "gray.800"}
           >
             {tag.name}
           </TagChakra>
@@ -126,9 +125,9 @@ export default function Home() {
         </SimpleGrid>
       )}
 
-      <Box mt={8} mb={4}>
+      <Box mt={16} mb={4}>
         <Heading>Transmissões passadas</Heading>
-        <Text color={"gray.500"}>Veja o que deixaram gravado!</Text>
+        <Text color={"gray.400"}>Veja o que deixaram gravado!</Text>
       </Box>
       {vods.isLoading ? (
         <SkeletonListCard />
