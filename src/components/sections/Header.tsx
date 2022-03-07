@@ -38,15 +38,17 @@ const links = [
 export default function Header() {
   return (
     <Flex p={4} borderBottomColor={"whiteAlpha.100"} borderBottomWidth={1}>
-      <HStack>
-        <Image src="/logo.svg" alt="Br Dev Streamers" height={50} />
-        <Box textAlign={"center"}>
-          <Text className="logo-title">BR Dev Streamers</Text>
-          <Text mt={-2} className="logo-subtitle">
-            Unindo a comunidade de Live Coding
-          </Text>
-        </Box>
-      </HStack>
+      <Link to="/">
+        <HStack>
+          <Image src="/logo.svg" alt="Br Dev Streamers" height={50} />
+          <Box textAlign={"center"}>
+            <Text className="logo-title">BR Dev Streamers</Text>
+            <Text mt={-2} className="logo-subtitle">
+              Unindo a comunidade de Live Coding
+            </Text>
+          </Box>
+        </HStack>
+      </Link>
       <Spacer />
       <HStack gap={4}>
         {links.map((link) => (
