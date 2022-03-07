@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import useFetch from "react-fetch-hook";
 import {
   Box,
@@ -18,6 +18,7 @@ import { FiGrid, FiCoffee } from "react-icons/fi";
 import { SkeletonListCard } from "../components/sections/SkeletonListCard";
 import Mosaic from "../components/sections/Mosaic";
 import { Tag } from "../types/tag.types";
+import { SkeletonListTags } from "../components/sections/SkeletonListTags";
 
 export default function Home() {
   const [isMosaicMode, setIsMosaicMode] = useState(false);
@@ -25,11 +26,11 @@ export default function Home() {
   const [selectedTags, setSelectedTags] = useState<Array<string>>([]);
   const [filteredStreamers, setFilteredStreamers] = useState<Stream[]>([]);
 
+  const tags = useFetch<Tag[]>("https://brstreamers.dev:8000/public/tags");
   const streamers = useFetch<Stream[]>(
     "https://brstreamers.dev:8000/public/streams",
   );
   const vods = useFetch<Stream[]>("https://brstreamers.dev:8000/public/vods");
-  const tags = useFetch<Tag[]>("https://brstreamers.dev:8000/public/tags");
 
   const handleStreamToMosaic = (channelName: string) => {
     const stream = selectedStreams.find((stream) => stream === channelName);
@@ -48,16 +49,19 @@ export default function Home() {
     }
   };
 
-  const filterByTags = (tags: string[]) => {
-    if (tags.length > 0) {
-      const filteredStreams = streamers.data?.filter((streamer) => {
-        return tags.every((tag) => streamer.tags?.includes(tag));
-      });
-      setFilteredStreamers(filteredStreams ?? []);
-    } else {
-      setFilteredStreamers(streamers.data ?? []);
-    }
-  };
+  const filterByTags = useCallback(
+    (tags: string[]) => {
+      if (tags.length > 0) {
+        const filteredStreams = streamers.data?.filter((streamer) => {
+          return tags.every((tag) => streamer.tags?.includes(tag));
+        });
+        setFilteredStreamers(filteredStreams ?? []);
+      } else {
+        setFilteredStreamers(streamers.data ?? []);
+      }
+    },
+    [streamers.data],
+  );
 
   useEffect(() => {
     setFilteredStreamers(streamers.data ?? []);
@@ -65,25 +69,30 @@ export default function Home() {
 
   useEffect(() => {
     filterByTags(selectedTags);
-  }, [selectedTags]);
+  }, [selectedTags, filterByTags]);
 
   return (
     <LandingLayout>
       <HStack mt={8} mb={4}>
         <Box>
           <Heading>Ao vivo</Heading>
-          <Text color={"gray.500"}>Prestigie quem está ao vivo!</Text>
+          <Text color={"gray.400"}>Prestigie quem está ao vivo!</Text>
         </Box>
         <Spacer />
         <Box>
           <Stack direction="row" spacing={4}>
             <Button
               leftIcon={<FiGrid />}
-              variant="solid"
+              bgColor={isMosaicMode ? "#8B3DFF" : "gray.100"}
+              color={isMosaicMode ? "gray.100" : "gray.800"}
               rounded={"sm"}
+              _hover={{
+                bgColor: isMosaicMode ? "#8B3DFF" : "gray.200",
+                filter: "brightness(0.98)",
+              }}
               onClick={() => setIsMosaicMode(!isMosaicMode)}
             >
-              Simultaneo
+              Simultâneo
             </Button>
             <Button leftIcon={<FiCoffee />} variant="solid" rounded={"sm"}>
               Estou com sorte
@@ -91,21 +100,26 @@ export default function Home() {
           </Stack>
         </Box>
       </HStack>
-      <Box mb={2}>
-        {tags.data?.map((tag) => (
-          <TagChakra
-            cursor="pointer"
-            onClick={() => handleTagClick(tag)}
-            key={tag.id}
-            m={1}
-            rounded={"sm"}
-            backgroundColor={
-              selectedTags.includes(tag.id) ? "primary.500" : "gray.200"
-            }
-          >
-            {tag.name}
-          </TagChakra>
-        ))}
+      <Box mb={4}>
+        {tags.isLoading ? (
+          <SkeletonListTags />
+        ) : (
+          <>
+            {tags.data?.map((tag) => (
+              <TagChakra
+                cursor="pointer"
+                onClick={() => handleTagClick(tag)}
+                key={tag.id}
+                m={1}
+                rounded={"sm"}
+                color={selectedTags.includes(tag.id) ? "gray.100" : "gray.300"}
+                bgColor={selectedTags.includes(tag.id) ? "#8B3DFF" : "gray.800"}
+              >
+                {tag.name}
+              </TagChakra>
+            ))}
+          </>
+        )}
       </Box>
       {streamers.isLoading ? (
         <SkeletonListCard />
@@ -123,9 +137,9 @@ export default function Home() {
         </SimpleGrid>
       )}
 
-      <Box mt={8} mb={4}>
+      <Box mt={16} mb={4}>
         <Heading>Transmissões passadas</Heading>
-        <Text color={"gray.500"}>Veja o que deixaram gravado!</Text>
+        <Text color={"gray.400"}>Veja o que deixaram gravado!</Text>
       </Box>
       {vods.isLoading ? (
         <SkeletonListCard />
