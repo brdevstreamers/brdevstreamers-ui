@@ -1,6 +1,7 @@
 import {
   Button,
   Center,
+  chakra,
   HStack,
   Modal,
   ModalBody,
@@ -8,12 +9,16 @@ import {
   ModalOverlay,
   useDisclosure,
   useToast,
+  type ButtonProps,
 } from "@chakra-ui/react";
+import { motion } from "framer-motion";
 import { useState } from "react";
-import { BsGrid1X2Fill, BsGridFill, BsX, BsXLg } from "react-icons/bs";
+import { BsGrid1X2Fill, BsGridFill, BsXLg } from "react-icons/bs";
 import ButtonMosaicLayout from "../ui/ButtonMosaicLayout";
 import MosaicFocus from "../ui/MosaicFocus";
 import MosaicGrid from "../ui/MosaicGrid";
+
+const MotionButton = motion<ButtonProps>(chakra.button);
 
 type Props = {
   channels: Array<string>;
@@ -29,7 +34,7 @@ export default function Mosaic({ channels }: Props) {
   const toast = useToast();
 
   const openMosaic = (): void => {
-    if (channels.length <= 0) {
+    if (channels.length <= 1) {
       toast({
         title: `Você deve selecionar pelo menos duas streams`,
         isClosable: true,
@@ -65,14 +70,24 @@ export default function Mosaic({ channels }: Props) {
   return (
     <>
       <Center>
-        <Button
-          position={"fixed"}
+        <MotionButton
+          initial={{ y: 20, opacity: 0 }}
+          animate={{ y: 0, opacity: 1 }}
+          position="fixed"
+          bgColor="primary.500"
+          color="gray.800"
+          minW={10}
+          h={10}
+          paddingInlineStart={4}
+          paddingInlineEnd={4}
+          fontSize="md"
+          fontWeight="semibold"
           bottom={10}
-          rounded={"sm"}
+          rounded="sm"
           onClick={openMosaic}
         >
           Iniciar
-        </Button>
+        </MotionButton>
       </Center>
 
       <Modal onClose={onClose} size={"full"} isOpen={isOpen}>

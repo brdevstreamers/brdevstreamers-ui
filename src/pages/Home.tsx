@@ -83,11 +83,16 @@ export default function Home() {
           <Stack direction="row" spacing={4}>
             <Button
               leftIcon={<FiGrid />}
-              variant="solid"
+              bgColor={isMosaicMode ? "#8B3DFF" : "gray.100"}
+              color={isMosaicMode ? "gray.100" : "gray.800"}
               rounded={"sm"}
+              _hover={{
+                bgColor: isMosaicMode ? "#8B3DFF" : "gray.200",
+                filter: "brightness(0.98)",
+              }}
               onClick={() => setIsMosaicMode(!isMosaicMode)}
             >
-              Simultaneo
+              Simultâneo
             </Button>
             <Button leftIcon={<FiCoffee />} variant="solid" rounded={"sm"}>
               Estou com sorte
