@@ -7,8 +7,10 @@ import {
   Image,
   Spacer,
   Text,
+  Link as ChakraLink,
 } from "@chakra-ui/react";
 import { NavLink } from "react-router-dom";
+import Login from "../../component/login/Login";
 
 const Link = chakra(NavLink);
 
@@ -67,27 +69,30 @@ export default function Header() {
       </HStack>
       <Spacer />
       <HStack gap={4}>
-        <Link
-          to={"/sobre"}
+        <ChakraLink
+          isExternal={true}
+          href={"https://github.com/Br-Dev-Streamers"}
           color={"gray.100"}
           _hover={{ textDecoration: "underline" }}
         >
           GitHub
-        </Link>
-        <Link
-          to={"/sobre"}
+        </ChakraLink>
+        <ChakraLink
+          isExternal={true}
+          href={"https://discord.gg/collabcode"}
           color={"gray.100"}
           _hover={{ textDecoration: "underline" }}
         >
           Discord
-        </Link>
-        <Button
+        </ChakraLink>
+        {/* <Button
           bgColor={"primary.500"}
           borderRadius={"sm"}
           _hover={{ bgColor: "primary.600", color: "primary.400" }}
         >
           Logar com twitch
-        </Button>
+        </Button> */}
+        <Login />
       </HStack>
     </Flex>
   );

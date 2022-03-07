@@ -13,7 +13,6 @@ import Cookies from "universal-cookie";
 import { useNavigate } from "react-router-dom";
 import "./Login.css";
 
-
 const cookies = new Cookies();
 
 export default function Login() {
@@ -21,21 +20,18 @@ export default function Login() {
   const navigate = useNavigate();
   const { logout } = useAuth0();
 
-
   const LoginButton = () => {
     const { loginWithRedirect } = useAuth0();
     return (
       <Button
-        colorScheme="purple"
-        float="right"
-        mr="5"
-        top="40px"
-        variant="solid"
+        bgColor={"primary.500"}
+        borderRadius={"sm"}
+        _hover={{ bgColor: "primary.600", color: "primary.400" }}
         onClick={() => {
           loginWithRedirect();
         }}
       >
-        Login
+        Logar com twitch
       </Button>
     );
   };
@@ -57,12 +53,11 @@ export default function Login() {
         <>
           <Menu>
             <MenuButton
-              colorScheme="purple"
               as={Button}
               rightIcon={<ChevronDownIcon />}
-              position="absolute"
-              right="40px"
-              top="40px"
+              bgColor={"primary.500"}
+              borderRadius={"sm"}
+              _hover={{ bgColor: "primary.600", color: "primary.400" }}
             >
               <chakra.span className="login-label">
                 {user?.nickname}
