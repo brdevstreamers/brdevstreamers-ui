@@ -1,4 +1,4 @@
-import { Box, HStack, Text, Link } from "@chakra-ui/react";
+import { Box, Text, Link } from "@chakra-ui/react";
 
 export default function Footer() {
   return (
@@ -12,7 +12,7 @@ export default function Footer() {
           textAlign={"end"}
         >
           <Text color="primary.400" fontSize={"sm"}>
-            Feito com ♥ por{" "}
+            Idealizado por{" "}
             <Link
               isExternal={true}
               href={"https://twitch.tv/flaviojmendes"}
@@ -21,6 +21,7 @@ export default function Footer() {
             >
               flaviojmendes
             </Link>
+            , desenvolvido com ♥ pela comunidade.
           </Text>
         </Box>
       </Box>

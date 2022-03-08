@@ -11,30 +11,32 @@ import {
   Tr,
 } from "@chakra-ui/react";
 import { ApexOptions } from "apexcharts";
-import axios from "axios";
 import { useState, useEffect } from "react";
 import ReactApexChart from "react-apexcharts";
 import LandingLayout from "../components/layouts/LandingLayout";
 import { StatsModel } from "../model/StatsModel";
+import { useAxios } from "../hooks/useAxios";
+import { Stats, StatsSummary, StatsSummaryDefault } from "../types";
+import { endpoints } from "../service/api";
 
 export default function Supporters() {
-  const [stats, setStats] = useState([]);
-  const [statsSummary, setStatsSummary] = useState({
-    streams: 0,
-    vods: 0,
-    previews: 0,
-  });
+  const { apiGet } = useAxios();
+  const [stats, setStats] = useState<Stats[]>([]);
+  const [statsSummary, setStatsSummary] =
+    useState<StatsSummary>(StatsSummaryDefault);
+
+  const loadData = async () => {
+    const statsList = await apiGet<Stats[]>(endpoints.stats.url);
+    const statsSummaryList = await apiGet<StatsSummary>(
+      endpoints.stats_summary.url,
+    );
+
+    setStats(statsList);
+    setStatsSummary(statsSummaryList);
+  };
 
   useEffect(() => {
-    axios.get(process.env.REACT_APP_API_URL + "/stats").then((response) => {
-      setStats(response.data);
-    });
-
-    axios
-      .get(process.env.REACT_APP_API_URL + "/stats/summary")
-      .then((response) => {
-        setStatsSummary(response.data);
-      });
+    loadData();
   }, []);
 
   const options: ApexOptions = {

@@ -1,19 +1,22 @@
 import { Box, Heading, Image, Text, VStack, Wrap } from "@chakra-ui/react";
-import axios from "axios";
 import React, { useState, useEffect } from "react";
 import LandingLayout from "../components/layouts/LandingLayout";
-import { SupporterModel } from "../model/SupporterModel";
+import { Supporter } from "../types";
+import axios from "axios";
 
 export default function Supporters() {
-  const SUPPORTERS_URL = process.env.REACT_APP_SUPPORTERS || "";
+  const [supporters, setSupporters] = useState<Supporter[]>([]);
 
-  const [supporters, setSupporters] = useState<SupporterModel[]>([]);
+  const loadData = async () => {
+    const supportersUrl = process.env.REACT_APP_SUPPORTERS || "";
+    const { data } = await axios.get<Supporter[]>(supportersUrl);
+
+    setSupporters(data);
+  };
 
   useEffect(() => {
-    axios.get(SUPPORTERS_URL).then((response) => {
-      setSupporters(response.data);
-    });
-  }, [SUPPORTERS_URL]);
+    loadData();
+  }, []);
 
   return (
     <LandingLayout>

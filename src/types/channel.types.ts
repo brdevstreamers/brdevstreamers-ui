@@ -1,4 +1,4 @@
-export interface Stream {
+export interface Channel {
   user_login: string;
   github_url: string;
   twitter_url: string;

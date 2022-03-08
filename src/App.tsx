@@ -2,11 +2,7 @@ import React, { useEffect } from "react";
 import { Routes, Route } from "react-router-dom";
 import "./App.css";
 
-import MainPage from "./page/mainPage/MainPage";
-import StatsPage from "./page/stats/StatsPage";
-import AboutPage from "./page/about/AboutPage";
 import ProfilePage from "./page/profile/ProfilePage";
-import SupportersPage from "./page/supporters/SupportersPage";
 import LoginPage from "./page/login/LoginPage";
 import RedirectPage from "./page/redirect/RedirectPage";
 

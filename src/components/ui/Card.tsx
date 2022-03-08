@@ -22,22 +22,22 @@ import {
   VisuallyHidden,
 } from "@chakra-ui/react";
 
-import type { Stream } from "../../types/stream.types";
+import type { Channel } from "../../types/channel.types";
 
 import Preview from "./Preview";
 
 type Props = {
-  stream: Stream;
+  channel: Channel;
   isLive: boolean;
   isMosaicMode: boolean;
-  handleStreamToMosaic?: (channelName: string) => void;
+  handleChannelToMosaic?: (channelName: string) => void;
 };
 
 export default function Card({
-  stream,
+  channel,
   isLive,
   isMosaicMode,
-  handleStreamToMosaic = () => {},
+  handleChannelToMosaic = () => {},
 }: Props) {
   const [showPreview, setShowPreview] = useState(false);
   const [isSelected, setIsSelected] = useState(false);
@@ -46,10 +46,10 @@ export default function Card({
     <Box
       {...(!isMosaicMode && {
         as: "a",
-        href: `https://twitch.tv/${stream.user_name}`,
+        href: `https://twitch.tv/${channel.user_name}`,
         target: "_blank",
       })}
-      onClick={() => handleStreamToMosaic(stream.user_name)}
+      onClick={() => handleChannelToMosaic(channel.user_name)}
       bgColor={"whiteAlpha.100"}
       maxW="sm"
       borderWidth="1px"
@@ -80,22 +80,22 @@ export default function Card({
                 <Image
                   width="full"
                   height="full"
-                  src={stream.thumbnail_url
+                  src={channel.thumbnail_url
                     .replace("{width}", "640")
                     .replace("{height}", "360")}
-                  alt={`Preview da live de ${stream.user_name}`}
+                  alt={`Preview da live de ${channel.user_name}`}
                   position={"relative"}
                 />
-                {showPreview && <Preview stream={stream} />}
+                {showPreview && <Preview channel={channel} />}
               </>
             ) : (
               <Image
                 width="full"
                 height="full"
-                src={stream.thumbnail_url
+                src={channel.thumbnail_url
                   .replace("%{width}", "640")
                   .replace("%{height}", "360")}
-                alt={`Preview da live de ${stream.user_name}`}
+                alt={`Preview da live de ${channel.user_name}`}
                 position={"relative"}
                 fallbackSrc="cover-no-image.png"
               />
@@ -111,17 +111,17 @@ export default function Card({
             <HStack justify={"space-between"} m={2}>
               <Tag rounded={"sm"} size={"sm"}>
                 <TagLeftIcon as={ViewIcon} />
-                <TagLabel>{stream.viewer_count}</TagLabel>
+                <TagLabel>{channel.viewer_count}</TagLabel>
               </Tag>
               {isLive ? (
                 <Tag rounded={"sm"} size={"sm"}>
-                  {formatDistanceToNow(Date.parse(stream.started_at), {
+                  {formatDistanceToNow(Date.parse(channel.started_at), {
                     locale: ptBR,
                   })}
                 </Tag>
               ) : (
                 <Tag rounded={"sm"} size={"sm"}>
-                  {stream.duration}
+                  {channel.duration}
                 </Tag>
               )}
             </HStack>
@@ -134,13 +134,13 @@ export default function Card({
               height="full"
               w={{ base: 8, md: 10 }}
               borderRadius="full"
-              src={stream.profile_image_url}
-              alt={stream.user_name}
+              src={channel.profile_image_url}
+              alt={channel.user_name}
             />
             <Box>
               <Link
                 isExternal={true}
-                href={`https://twitch.tv/${stream.user_name}`}
+                href={`https://twitch.tv/${channel.user_name}`}
                 color={"gray.500"}
                 fontWeight={"semibold"}
                 mt={-1}
@@ -149,19 +149,19 @@ export default function Card({
                   textDecoration: "underline",
                 }}
               >
-                {stream.user_login}
+                {channel.user_login}
               </Link>
 
               <Text color={"gray.100"} fontSize={"sm"} mt={-1}>
-                {stream.title}
+                {channel.title}
               </Text>
             </Box>
           </HStack>
           <HStack gap={0.3} mt={4} justify={"end"}>
-            {stream.twitter_url && (
+            {channel.twitter_url && (
               <Link
                 isExternal={true}
-                href={`https://twitter.com/${stream.twitter_url}`}
+                href={`https://twitter.com/${channel.twitter_url}`}
               >
                 <Tag
                   aria-label="twitter"
@@ -179,10 +179,10 @@ export default function Card({
               </Link>
             )}
 
-            {stream.github_url && (
+            {channel.github_url && (
               <Link
                 isExternal={true}
-                href={`https://github.com/${stream.github_url}`}
+                href={`https://github.com/${channel.github_url}`}
               >
                 <Tag
                   size="md"
@@ -199,10 +199,10 @@ export default function Card({
               </Link>
             )}
 
-            {stream.linkedin_url && (
+            {channel.linkedin_url && (
               <Link
                 isExternal={true}
-                href={`https://linkedin.com/in/${stream.linkedin_url}`}
+                href={`https://linkedin.com/in/${channel.linkedin_url}`}
               >
                 <Tag
                   size="md"
@@ -219,8 +219,8 @@ export default function Card({
               </Link>
             )}
 
-            {stream.discord_url && (
-              <Link isExternal={true} href={stream.discord_url}>
+            {channel.discord_url && (
+              <Link isExternal={true} href={channel.discord_url}>
                 <Tag
                   size="md"
                   variant="solid"
@@ -236,8 +236,8 @@ export default function Card({
               </Link>
             )}
 
-            {stream.instagram_url && (
-              <Link isExternal={true} href={stream.instagram_url}>
+            {channel.instagram_url && (
+              <Link isExternal={true} href={channel.instagram_url}>
                 <Tag
                   size="md"
                   variant="solid"

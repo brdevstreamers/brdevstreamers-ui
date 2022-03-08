@@ -1,13 +1,13 @@
-import { Box, Link, Text } from "@chakra-ui/react";
-import { Stream } from "../../types/stream.types";
+import { Box, Link } from "@chakra-ui/react";
+import { Channel } from "../../types/channel.types";
 
 type Props = {
-  stream: Stream;
+  channel: Channel;
 };
 
-const Preview = ({ stream }: Props) => (
+const Preview = ({ channel }: Props) => (
   <Link
-    href={"https://twitch.tv/" + stream.user_name}
+    href={"https://twitch.tv/" + channel.user_name}
     isExternal={true}
     position={"absolute"}
     inset={0}
@@ -16,10 +16,10 @@ const Preview = ({ stream }: Props) => (
       pointerEvents={"none"}
       as={"iframe"}
       position={"relative"}
-      title={stream.user_login}
+      title={channel.user_login}
       src={
         "https://player.twitch.tv/?channel=" +
-        stream.user_name +
+        channel.user_name +
         "&parent=" +
         process.env.REACT_APP_DOMAIN +
         "&enableExtensions=false&muted=true&quality=low&controls=false"

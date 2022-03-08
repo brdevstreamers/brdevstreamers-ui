@@ -1,5 +1,4 @@
 import { useCallback, useEffect, useState } from "react";
-import useFetch from "react-fetch-hook";
 import { FiGrid, FiCoffee } from "react-icons/fi";
 import {
   Box,
@@ -8,41 +7,43 @@ import {
   Heading,
   SimpleGrid,
   Spacer,
+  Spinner,
   Stack,
   Tag as TagChakra,
   Text,
   useBreakpointValue,
 } from "@chakra-ui/react";
 
-import type { Stream } from "../types/stream.types";
-import type { Tag } from "../types/tag.types";
+import type { Channel, Tag } from "../types";
 
 import LandingLayout from "../components/layouts/LandingLayout";
 import { SkeletonListCard } from "../components/sections/SkeletonListCard";
 import { SkeletonListTags } from "../components/sections/SkeletonListTags";
 import Card from "../components/ui/Card";
 import Mosaic from "../components/sections/Mosaic";
+import { useAxios } from "../hooks/useAxios";
+import { endpoints } from "../service/api";
 
 export default function Home() {
+  const REFRESH_TIME_IN_SECONDS = 30;
+  const { apiGet } = useAxios();
   const buttonSize = useBreakpointValue({ base: "sm", md: "md" });
 
   const [isMosaicMode, setIsMosaicMode] = useState(false);
-  const [selectedStreams, setSelectedStreams] = useState<string[]>([]);
+  const [channels, setChannels] = useState<Channel[]>([]);
+  const [tags, setTags] = useState<Tag[]>([]);
+  const [vods, setVods] = useState<Channel[]>([]);
+  const [filteredChannels, setFilteredChannels] = useState<Channel[]>([]);
+  const [isLoading, setIsLoading] = useState<boolean>(true);
+  const [selectedChannels, setSelectedChannels] = useState<string[]>([]);
   const [selectedTags, setSelectedTags] = useState<Array<string>>([]);
-  const [filteredStreamers, setFilteredStreamers] = useState<Stream[]>([]);
 
-  const tags = useFetch<Tag[]>("https://brstreamers.dev:8000/public/tags");
-  const streamers = useFetch<Stream[]>(
-    "https://brstreamers.dev:8000/public/streams",
-  );
-  const vods = useFetch<Stream[]>("https://brstreamers.dev:8000/public/vods");
-
-  const handleStreamToMosaic = (channelName: string) => {
-    const stream = selectedStreams.find((stream) => stream === channelName);
-    if (stream) {
-      setSelectedStreams(selectedStreams.filter((item) => item !== stream));
+  const handleChannelToMosaic = (channelName: string) => {
+    const channel = selectedChannels.find((channel) => channel === channelName);
+    if (channel) {
+      setSelectedChannels(selectedChannels.filter((item) => item !== channel));
     } else {
-      setSelectedStreams([...selectedStreams, channelName]);
+      setSelectedChannels([...selectedChannels, channelName]);
     }
   };
 
@@ -57,24 +58,52 @@ export default function Home() {
   const filterByTags = useCallback(
     (tags: string[]) => {
       if (tags.length > 0) {
-        const filteredStreams = streamers.data?.filter((streamer) => {
-          return tags.every((tag) => streamer.tags?.includes(tag));
+        const filteredChannels = channels.filter((channel) => {
+          return tags.every((tag) => channel.tags?.includes(tag));
         });
-        setFilteredStreamers(filteredStreams ?? []);
+        setFilteredChannels(filteredChannels ?? []);
       } else {
-        setFilteredStreamers(streamers.data ?? []);
+        setFilteredChannels(channels);
       }
     },
-    [streamers.data],
+    [channels],
   );
-
-  useEffect(() => {
-    setFilteredStreamers(streamers.data ?? []);
-  }, [streamers]);
 
   useEffect(() => {
     filterByTags(selectedTags);
   }, [selectedTags, filterByTags]);
+
+  const loadData = async () => {
+    setIsLoading(true);
+
+    const channelsList = await apiGet<Channel[]>(endpoints.channels.url);
+    const tagsList = await apiGet<Tag[]>(endpoints.tags.url);
+    const vodsList = await apiGet<Channel[]>(endpoints.vods.url);
+
+    setChannels(channelsList);
+    setTags(tagsList);
+    setVods(vodsList);
+
+    setIsLoading(false);
+  };
+
+  useEffect(() => {
+    loadData();
+
+    const reloadInterval = setInterval(() => {
+      loadData();
+    }, REFRESH_TIME_IN_SECONDS * 1000);
+
+    return () => clearInterval(reloadInterval);
+  }, []);
+
+  const handleShuffleClick = () => {
+    const channelNames = channels.map((channel) => channel.user_name);
+    const channelName =
+      channelNames[Math.floor(Math.random() * channelNames.length)];
+
+    window.open(`https://www.twitch.tv/${channelName}`, "_blank");
+  };
 
   return (
     <LandingLayout>
@@ -83,6 +112,8 @@ export default function Home() {
           <Heading>Ao vivo</Heading>
           <Text color={"gray.400"}>Prestigie quem está ao vivo!</Text>
         </Box>
+
+        {isLoading && <Spinner />}
 
         <Spacer />
 
@@ -107,6 +138,7 @@ export default function Home() {
               variant="solid"
               rounded={"sm"}
               leftIcon={<FiCoffee />}
+              onClick={handleShuffleClick}
             >
               Estou com sorte
             </Button>
@@ -128,11 +160,11 @@ export default function Home() {
           },
         }}
       >
-        {tags.isLoading ? (
+        {isLoading ? (
           <SkeletonListTags />
         ) : (
           <>
-            {tags.data?.map((tag) => (
+            {tags.map((tag) => (
               <TagChakra
                 flexShrink="0"
                 cursor="pointer"
@@ -149,17 +181,17 @@ export default function Home() {
           </>
         )}
       </Flex>
-      {streamers.isLoading ? (
+      {isLoading ? (
         <SkeletonListCard />
       ) : (
         <SimpleGrid columns={{ sm: 2, md: 3, lg: 4 }} gap={4}>
-          {filteredStreamers.map((stream) => (
+          {filteredChannels.map((channel) => (
             <Card
-              key={stream.id}
-              stream={stream}
+              key={channel.id}
+              channel={channel}
               isLive={true}
               isMosaicMode={isMosaicMode}
-              handleStreamToMosaic={handleStreamToMosaic}
+              handleChannelToMosaic={handleChannelToMosaic}
             />
           ))}
         </SimpleGrid>
@@ -169,14 +201,14 @@ export default function Home() {
         <Heading>Transmissões passadas</Heading>
         <Text color={"gray.400"}>Veja o que deixaram gravado!</Text>
       </Box>
-      {vods.isLoading ? (
+      {isLoading ? (
         <SkeletonListCard />
       ) : (
         <SimpleGrid columns={{ sm: 2, md: 3, lg: 4 }} gap={4}>
-          {vods.data?.map((stream) => (
+          {vods.map((channel) => (
             <Card
-              key={stream.id}
-              stream={stream}
+              key={channel.id}
+              channel={channel}
               isLive={false}
               isMosaicMode={false}
             />
@@ -184,7 +216,7 @@ export default function Home() {
         </SimpleGrid>
       )}
 
-      {isMosaicMode && <Mosaic channels={selectedStreams} />}
+      {isMosaicMode && <Mosaic channels={selectedChannels} />}
     </LandingLayout>
   );
 }

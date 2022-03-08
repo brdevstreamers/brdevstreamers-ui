@@ -30,7 +30,6 @@ import {
   Td,
 } from "@chakra-ui/react";
 import { useAuth0 } from "@auth0/auth0-react";
-import Header from "../../component/header/Header";
 import "./ProfilePage.css";
 import React, { useEffect } from "react";
 import axios from "axios";
@@ -63,18 +62,20 @@ export default function ProfilePage() {
               "Content-Type": "application/json",
               Authorization: cookies.get("api_token"),
             },
-          }
+          },
         );
         setUserData(res.data.__data__);
 
         const userInteractionResponse = await axios.get(
-          process.env.REACT_APP_API_URL + "/api/userinteraction/" + user?.nickname,
+          process.env.REACT_APP_API_URL +
+            "/api/userinteraction/" +
+            user?.nickname,
           {
             headers: {
               "Content-Type": "application/json",
               Authorization: cookies.get("api_token"),
             },
-          }
+          },
         );
         setUserInteractionData(userInteractionResponse.data);
 
@@ -92,7 +93,7 @@ export default function ProfilePage() {
           "Content-Type": "application/json",
           Authorization: cookies.get("api_token"),
         },
-      }
+      },
     );
     setUserData(res.data.__data__);
     setLoading(false);
@@ -105,7 +106,6 @@ export default function ProfilePage() {
 
   return (
     <>
-      <Header title="Meu Perfil" />
       <Container maxW="60vw">
         <Box w="100%">
           <Button mb="5" colorScheme="purple" float="right" onClick={onToggle}>
@@ -263,9 +263,7 @@ export default function ProfilePage() {
                 <Thead>
                   <Tr>
                     <Th color="secondary.600">Streamer</Th>
-                    <Th color="secondary.600">
-                      Ação
-                    </Th>
+                    <Th color="secondary.600">Ação</Th>
                   </Tr>
                 </Thead>
                 <Tbody>
@@ -277,7 +275,7 @@ export default function ProfilePage() {
                           <Td>{userInteraction.type}</Td>
                         </Tr>
                       );
-                    }
+                    },
                   )}
                 </Tbody>
               </Table>
