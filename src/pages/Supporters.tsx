@@ -1,11 +1,4 @@
-import {
-  Box,
-  Heading,
-  Image,
-  SimpleGrid,
-  Text,
-  VStack,
-} from "@chakra-ui/react";
+import { Box, Heading, Image, Text, VStack, Wrap } from "@chakra-ui/react";
 import axios from "axios";
 import React, { useState, useEffect } from "react";
 import LandingLayout from "../components/layouts/LandingLayout";
@@ -28,7 +21,8 @@ export default function Supporters() {
         <Heading>Agradecimentos</Heading>
         <Text color={"gray.500"}>Saiba mais sobre o projeto!</Text>
       </Box>
-      <SimpleGrid columns={5} spacing={10}>
+
+      <Wrap justify="center" spacing="50px" mt="10">
         {supporters.map((supporter, index) => (
           <React.Fragment key={index}>
             {supporter.redeemed && (
@@ -57,7 +51,7 @@ export default function Supporters() {
             )}
           </React.Fragment>
         ))}
-      </SimpleGrid>
+      </Wrap>
     </LandingLayout>
   );
 }

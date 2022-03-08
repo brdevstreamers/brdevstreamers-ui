@@ -10,7 +10,7 @@ import {
 export const SkeletonListCard = () => {
   return (
     <SimpleGrid minChildWidth="300px" columns={{ sm: 2, md: 3, lg: 4 }} gap={4}>
-      {[...new Array(8)].map((el, index) => (
+      {[...new Array(8)].map((_el, index) => (
         <Box
           key={index}
           maxW="sm"

@@ -1,7 +1,6 @@
 import {
   Box,
   Center,
-  Container,
   Heading,
   Table,
   Tbody,
@@ -27,14 +26,12 @@ export default function Supporters() {
   });
 
   useEffect(() => {
-    axios
-      .get(process.env.REACT_APP_API_URL + "/public/stats")
-      .then((response) => {
-        setStats(response.data);
-      });
+    axios.get(process.env.REACT_APP_API_URL + "/stats").then((response) => {
+      setStats(response.data);
+    });
 
     axios
-      .get(process.env.REACT_APP_API_URL + "/public/stats/summary")
+      .get(process.env.REACT_APP_API_URL + "/stats/summary")
       .then((response) => {
         setStatsSummary(response.data);
       });

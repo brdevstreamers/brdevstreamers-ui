@@ -1,26 +1,31 @@
 import { useCallback, useEffect, useState } from "react";
 import useFetch from "react-fetch-hook";
+import { FiGrid, FiCoffee } from "react-icons/fi";
 import {
   Box,
   Button,
+  Flex,
   Heading,
-  HStack,
   SimpleGrid,
   Spacer,
   Stack,
   Tag as TagChakra,
   Text,
+  useBreakpointValue,
 } from "@chakra-ui/react";
+
+import type { Stream } from "../types/stream.types";
+import type { Tag } from "../types/tag.types";
+
 import LandingLayout from "../components/layouts/LandingLayout";
-import Card from "../components/ui/Card";
-import { Stream } from "../types/stream.types";
-import { FiGrid, FiCoffee } from "react-icons/fi";
 import { SkeletonListCard } from "../components/sections/SkeletonListCard";
-import Mosaic from "../components/sections/Mosaic";
-import { Tag } from "../types/tag.types";
 import { SkeletonListTags } from "../components/sections/SkeletonListTags";
+import Card from "../components/ui/Card";
+import Mosaic from "../components/sections/Mosaic";
 
 export default function Home() {
+  const buttonSize = useBreakpointValue({ base: "sm", md: "md" });
+
   const [isMosaicMode, setIsMosaicMode] = useState(false);
   const [selectedStreams, setSelectedStreams] = useState<string[]>([]);
   const [selectedTags, setSelectedTags] = useState<Array<string>>([]);
@@ -73,15 +78,18 @@ export default function Home() {
 
   return (
     <LandingLayout>
-      <HStack mt={8} mb={4}>
+      <Flex mt={8} mb={4} gap={2} alignItems="center" wrap="wrap">
         <Box>
           <Heading>Ao vivo</Heading>
           <Text color={"gray.400"}>Prestigie quem está ao vivo!</Text>
         </Box>
+
         <Spacer />
+
         <Box>
           <Stack direction="row" spacing={4}>
             <Button
+              size={buttonSize}
               leftIcon={<FiGrid />}
               bgColor={isMosaicMode ? "#8B3DFF" : "gray.100"}
               color={isMosaicMode ? "gray.100" : "gray.800"}
@@ -94,19 +102,39 @@ export default function Home() {
             >
               Simultâneo
             </Button>
-            <Button leftIcon={<FiCoffee />} variant="solid" rounded={"sm"}>
+            <Button
+              size={buttonSize}
+              variant="solid"
+              rounded={"sm"}
+              leftIcon={<FiCoffee />}
+            >
               Estou com sorte
             </Button>
           </Stack>
         </Box>
-      </HStack>
-      <Box mb={4}>
+      </Flex>
+
+      <Flex
+        mb={4}
+        wrap={{ base: "nowrap", md: "wrap" }}
+        overflow="auto"
+        sx={{
+          scrollbarWidth: "none",
+          "::-webkit-scrollbar": {
+            display: "none",
+          },
+          "-ms-scrollbar-track-color": {
+            display: "none",
+          },
+        }}
+      >
         {tags.isLoading ? (
           <SkeletonListTags />
         ) : (
           <>
             {tags.data?.map((tag) => (
               <TagChakra
+                flexShrink="0"
                 cursor="pointer"
                 onClick={() => handleTagClick(tag)}
                 key={tag.id}
@@ -120,7 +148,7 @@ export default function Home() {
             ))}
           </>
         )}
-      </Box>
+      </Flex>
       {streamers.isLoading ? (
         <SkeletonListCard />
       ) : (
