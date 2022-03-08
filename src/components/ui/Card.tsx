@@ -1,5 +1,14 @@
 import { useState } from "react";
+import { formatDistanceToNow } from "date-fns";
+import { ptBR } from "date-fns/locale";
 import { ViewIcon } from "@chakra-ui/icons";
+import {
+  FaDiscord,
+  FaGithub,
+  FaInstagram,
+  FaLinkedin,
+  FaTwitter,
+} from "react-icons/fa";
 import {
   Box,
   HStack,
@@ -10,18 +19,12 @@ import {
   TagLabel,
   TagLeftIcon,
   Text,
+  VisuallyHidden,
 } from "@chakra-ui/react";
-import {
-  FaDiscord,
-  FaGithub,
-  FaInstagram,
-  FaLinkedin,
-  FaTwitter,
-} from "react-icons/fa";
-import { Stream } from "../../types/stream.types";
+
+import type { Stream } from "../../types/stream.types";
+
 import Preview from "./Preview";
-import { formatDistanceToNow } from "date-fns";
-import { ptBR } from "date-fns/locale";
 
 type Props = {
   stream: Stream;
@@ -75,18 +78,24 @@ export default function Card({
             {isLive ? (
               <>
                 <Image
+                  width="full"
+                  height="full"
                   src={stream.thumbnail_url
                     .replace("{width}", "640")
                     .replace("{height}", "360")}
+                  alt={`Preview da live de ${stream.user_name}`}
                   position={"relative"}
                 />
                 {showPreview && <Preview stream={stream} />}
               </>
             ) : (
               <Image
+                width="full"
+                height="full"
                 src={stream.thumbnail_url
                   .replace("%{width}", "640")
                   .replace("%{height}", "360")}
+                alt={`Preview da live de ${stream.user_name}`}
                 position={"relative"}
                 fallbackSrc="cover-no-image.png"
               />
@@ -121,7 +130,9 @@ export default function Card({
         <Box m={4}>
           <HStack alignItems={"start"}>
             <Image
-              w={{ sm: 8, md: 10, lg: 10 }}
+              width="full"
+              height="full"
+              w={{ base: 8, md: 10 }}
               borderRadius="full"
               src={stream.profile_image_url}
               alt={stream.user_name}
@@ -153,15 +164,21 @@ export default function Card({
                 href={`https://twitter.com/${stream.twitter_url}`}
               >
                 <Tag
+                  aria-label="twitter"
                   rounded={"sm"}
                   size="md"
                   variant="solid"
                   backgroundColor="rgb(29, 155, 240)"
+                  _hover={{
+                    filter: "brightness(0.9)",
+                  }}
                 >
+                  <VisuallyHidden>Twitter</VisuallyHidden>
                   <Icon as={FaTwitter} />
                 </Tag>
               </Link>
             )}
+
             {stream.github_url && (
               <Link
                 isExternal={true}
@@ -172,7 +189,11 @@ export default function Card({
                   variant="solid"
                   rounded={"sm"}
                   backgroundColor="gray.700"
+                  _hover={{
+                    filter: "brightness(0.9)",
+                  }}
                 >
+                  <VisuallyHidden>GitHub</VisuallyHidden>
                   <Icon as={FaGithub} />
                 </Tag>
               </Link>
@@ -188,7 +209,11 @@ export default function Card({
                   variant="solid"
                   rounded={"sm"}
                   backgroundColor="#0a66c2"
+                  _hover={{
+                    filter: "brightness(0.9)",
+                  }}
                 >
+                  <VisuallyHidden>LinkedIn</VisuallyHidden>
                   <Icon as={FaLinkedin} />
                 </Tag>
               </Link>
@@ -201,7 +226,11 @@ export default function Card({
                   variant="solid"
                   rounded={"sm"}
                   backgroundColor="#7289da"
+                  _hover={{
+                    filter: "brightness(0.9)",
+                  }}
                 >
+                  <VisuallyHidden>Discord</VisuallyHidden>
                   <Icon as={FaDiscord} />
                 </Tag>
               </Link>
@@ -214,7 +243,11 @@ export default function Card({
                   variant="solid"
                   rounded={"sm"}
                   backgroundColor="#C13584"
+                  _hover={{
+                    filter: "brightness(0.9)",
+                  }}
                 >
+                  <VisuallyHidden>Instagram</VisuallyHidden>
                   <Icon as={FaInstagram} />
                 </Tag>
               </Link>
