@@ -1,3 +1,4 @@
+import { ExternalLinkIcon } from "@chakra-ui/icons";
 import {
   Accordion,
   AccordionButton,
@@ -6,7 +7,10 @@ import {
   AccordionPanel,
   Box,
   Heading,
+  HStack,
   Link,
+  Tag,
+  TagRightIcon,
   Text,
 } from "@chakra-ui/react";
 import LandingLayout from "../components/layouts/LandingLayout";
@@ -18,33 +22,52 @@ export default function About() {
         <Heading>Sobre</Heading>
         <Text color={"gray.500"}>Saiba mais sobre o projeto!</Text>
       </Box>
-      <Accordion>
-        <AccordionItem>
-          <AccordionButton>
-            <Box flex="1" textAlign="left">
-              <Heading>O que é?</Heading>
-            </Box>
-            <AccordionIcon />
-          </AccordionButton>
 
-          <AccordionPanel pb={4}>
-            <Text color={"gray.500"}>
+      <Accordion defaultIndex={[0, 1, 2]} allowMultiple>
+        <AccordionItem
+          border="none"
+          bgColor="blackAlpha.300"
+          color="gray.100"
+          fontWeight="semibold"
+          rounded="sm"
+          mb={4}
+        >
+          <h2>
+            <AccordionButton color="gray.100">
+              <Box flex="1" textAlign="left">
+                O que é?
+              </Box>
+              <AccordionIcon />
+            </AccordionButton>
+          </h2>
+
+          <AccordionPanel pb={4} bgColor="blackAlpha.400" rounded="sm">
+            <Text>
               O Br Dev Streamers surgiu com a ideia de agregar todas as pessoas
               que fazem live coding em português na Twitch.
             </Text>
           </AccordionPanel>
         </AccordionItem>
 
-        <AccordionItem>
-          <AccordionButton>
-            <Box flex="1" textAlign="left">
-              <Heading>Como Participar?</Heading>
-            </Box>
-            <AccordionIcon />
-          </AccordionButton>
+        <AccordionItem
+          border="none"
+          bgColor="blackAlpha.300"
+          color="gray.100"
+          fontWeight="semibold"
+          rounded="sm"
+          mb={4}
+        >
+          <h2>
+            <AccordionButton color="gray.100">
+              <Box flex="1" textAlign="left">
+                Como Participar?
+              </Box>
+              <AccordionIcon />
+            </AccordionButton>
+          </h2>
 
-          <AccordionPanel pb={4}>
-            <Text color={"gray.500"}>
+          <AccordionPanel pb={4} bgColor="blackAlpha.400" rounded="sm">
+            <Text>
               Basta começar uma stream dentro da categoria de "Software e
               Desenvolvimento de Jogos" com a língua em português e você
               aparecerá na lista.
@@ -52,35 +75,72 @@ export default function About() {
           </AccordionPanel>
         </AccordionItem>
 
-        <AccordionItem>
-          <AccordionButton>
-            <Box flex="1" textAlign="left">
-              <Heading>É verdade que este é um projeto open source?</Heading>
-            </Box>
-            <AccordionIcon />
-          </AccordionButton>
+        <AccordionItem
+          border="none"
+          bgColor="blackAlpha.300"
+          color="gray.100"
+          fontWeight="semibold"
+          rounded="sm"
+          mb={4}
+        >
+          <h2>
+            <AccordionButton color="gray.100">
+              <Box flex="1" textAlign="left">
+                É verdade que este é um projeto open source?
+              </Box>
+              <AccordionIcon />
+            </AccordionButton>
+          </h2>
 
-          <AccordionPanel pb={4}>
-            <Text color={"gray.500"}>
+          <AccordionPanel pb={4} bgColor="blackAlpha.400" rounded="sm">
+            <Text>
               Sim, o projeto é open source e você pode acessá-lo (e abrir um PR)
-              no Github em:
+              no GitHub em:
             </Text>
-            <Text color={"gray.500"}>
+
+            <Box as="br" />
+
+            <HStack>
               <Link
                 href="https://github.com/Br-Dev-Streamers/brdevstreamers-ui"
                 target={"_blank"}
               >
-                Frontend: https://github.com/flaviojmendes/brdevstreamers-ui
+                <Tag rounded="sm" _hover={{ bgColor: "gray.200" }}>
+                  Frontend
+                  <TagRightIcon as={ExternalLinkIcon} />
+                </Tag>
               </Link>
-            </Text>
-            <Text color={"gray.500"}>
+
               <Link
                 href="https://github.com/Br-Dev-Streamers/brdevstreamers"
                 target={"_blank"}
               >
-                Backend: https://github.com/flaviojmendes/brdevstreamers
+                <Tag rounded="sm" _hover={{ bgColor: "gray.200" }}>
+                  Backend
+                  <TagRightIcon as={ExternalLinkIcon} />
+                </Tag>
               </Link>
-            </Text>
+
+              <Link
+                href="https://github.com/Br-Dev-Streamers/brdevstreamers-bot"
+                target={"_blank"}
+              >
+                <Tag rounded="sm" _hover={{ bgColor: "gray.200" }}>
+                  Bot
+                  <TagRightIcon as={ExternalLinkIcon} />
+                </Tag>
+              </Link>
+
+              <Link
+                href="https://github.com/Br-Dev-Streamers/brdevstreamers-docs"
+                target={"_blank"}
+              >
+                <Tag rounded="sm" _hover={{ bgColor: "gray.200" }}>
+                  Documentação
+                  <TagRightIcon as={ExternalLinkIcon} />
+                </Tag>
+              </Link>
+            </HStack>
           </AccordionPanel>
         </AccordionItem>
       </Accordion>
