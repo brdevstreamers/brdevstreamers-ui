@@ -35,8 +35,45 @@ export default function Home() {
   const [vods, setVods] = useState<Channel[]>([]);
   const [filteredChannels, setFilteredChannels] = useState<Channel[]>([]);
   const [isLoading, setIsLoading] = useState<boolean>(true);
+  const [isRefetching, setIsReFetching] = useState<boolean>(false);
   const [selectedChannels, setSelectedChannels] = useState<string[]>([]);
   const [selectedTags, setSelectedTags] = useState<Array<string>>([]);
+
+  const loadData = useCallback(async () => {
+    setIsLoading(true);
+
+    const channelsList = await apiGet<Channel[]>(endpoints.channels.url);
+    const tagsList = await apiGet<Tag[]>(endpoints.tags.url);
+    const vodsList = await apiGet<Channel[]>(endpoints.vods.url);
+
+    setChannels(channelsList);
+    setTags(tagsList);
+    setVods(vodsList);
+
+    setIsLoading(false);
+  }, [apiGet]);
+
+  const refetchData = useCallback(async () => {
+    setIsReFetching(true);
+
+    const channelsList = await apiGet<Channel[]>(endpoints.channels.url);
+    const tagsList = await apiGet<Tag[]>(endpoints.tags.url);
+    const vodsList = await apiGet<Channel[]>(endpoints.vods.url);
+
+    setChannels(channelsList);
+    setTags(tagsList);
+    setVods(vodsList);
+
+    setIsReFetching(false);
+  }, [apiGet]);
+
+  const handleShuffleClick = () => {
+    const channelNames = channels.map((channel) => channel.user_name);
+    const channelName =
+      channelNames[Math.floor(Math.random() * channelNames.length)];
+
+    window.open(`https://www.twitch.tv/${channelName}`, "_blank");
+  };
 
   const handleChannelToMosaic = (channelName: string) => {
     const channel = selectedChannels.find((channel) => channel === channelName);
@@ -70,50 +107,29 @@ export default function Home() {
   );
 
   useEffect(() => {
-    filterByTags(selectedTags);
-  }, [selectedTags, filterByTags]);
-
-  const loadData = async () => {
-    setIsLoading(true);
-
-    const channelsList = await apiGet<Channel[]>(endpoints.channels.url);
-    const tagsList = await apiGet<Tag[]>(endpoints.tags.url);
-    const vodsList = await apiGet<Channel[]>(endpoints.vods.url);
-
-    setChannels(channelsList);
-    setTags(tagsList);
-    setVods(vodsList);
-
-    setIsLoading(false);
-  };
-
-  useEffect(() => {
     loadData();
 
     const reloadInterval = setInterval(() => {
-      loadData();
+      refetchData();
     }, REFRESH_TIME_IN_SECONDS * 1000);
 
     return () => clearInterval(reloadInterval);
-  }, []);
+  }, [loadData, refetchData]);
 
-  const handleShuffleClick = () => {
-    const channelNames = channels.map((channel) => channel.user_name);
-    const channelName =
-      channelNames[Math.floor(Math.random() * channelNames.length)];
-
-    window.open(`https://www.twitch.tv/${channelName}`, "_blank");
-  };
+  useEffect(() => {
+    filterByTags(selectedTags);
+  }, [selectedTags, filterByTags]);
 
   return (
     <LandingLayout>
       <Flex mt={8} mb={4} gap={2} alignItems="center" wrap="wrap">
         <Box>
-          <Heading>Ao vivo</Heading>
+          <Heading>
+            Ao vivo
+            {isRefetching && <Spinner ml={3} size="sm" />}
+          </Heading>
           <Text color={"gray.400"}>Prestigie quem está ao vivo!</Text>
         </Box>
-
-        {isLoading && <Spinner />}
 
         <Spacer />
 
