@@ -2,9 +2,9 @@ import React, { useEffect } from "react";
 import { Routes, Route } from "react-router-dom";
 import "./App.css";
 
-import ProfilePage from "./page/profile/ProfilePage";
-import LoginPage from "./page/login/LoginPage";
-import RedirectPage from "./page/redirect/RedirectPage";
+import ProfilePage from "./pages/WIP/profile/ProfilePage";
+import LoginPage from "./pages/WIP/login/LoginPage";
+import RedirectPage from "./pages/WIP/redirect/RedirectPage";
 
 import Home from "./pages/Home";
 import About from "./pages/About";

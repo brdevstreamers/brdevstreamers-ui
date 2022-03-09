@@ -16,10 +16,10 @@ import {
   Tag,
   useDisclosure,
 } from "@chakra-ui/react";
-import { StreamerModel } from "../../model/StreamerModel";
+import { StreamerModel } from "../../../model/StreamerModel";
 import "./StreamModal.css";
-import { logUserInteraction } from "../../service/StatsService";
-import { UserInteractionType } from "../../model/UserInteractionModel";
+import { logUserInteraction } from "../../../service/StatsService";
+import { UserInteractionType } from "../../../model/UserInteractionModel";
 import { useAuth0 } from "@auth0/auth0-react";
 
 interface Props {
@@ -30,7 +30,6 @@ interface Props {
 export default function StreamModal(props: Props) {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const { isAuthenticated } = useAuth0();
-
 
   return (
     <>
@@ -64,7 +63,13 @@ export default function StreamModal(props: Props) {
                 <Link
                   href={"https://twitch.tv/" + props.streamer.user_name}
                   isExternal={true}
-                  onClick={() => logUserInteraction(props.streamer.user_login, UserInteractionType.STREAM_CLICK, isAuthenticated)}
+                  onClick={() =>
+                    logUserInteraction(
+                      props.streamer.user_login,
+                      UserInteractionType.STREAM_CLICK,
+                      isAuthenticated,
+                    )
+                  }
                 >
                   {props.streamer.user_name}
                 </Link>

@@ -34,10 +34,10 @@ import "./ProfilePage.css";
 import React, { useEffect } from "react";
 import axios from "axios";
 import Cookies from "universal-cookie";
-import { UserModel } from "../../model/UserModel";
-import UserForm from "../../component/userForm/UserForm";
+import { UserModel } from "../../../model/UserModel";
+import UserForm from "../../../components/WIP/userForm/UserForm";
 import { FaDiscord, FaGithub, FaLinkedin, FaTwitter } from "react-icons/fa";
-import { UserInteractionModel } from "../../model/UserInteractionModel";
+import { UserInteractionModel } from "../../../model/UserInteractionModel";
 
 const cookies = new Cookies();
 

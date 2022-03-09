@@ -19,7 +19,6 @@ import {
   DrawerCloseButton,
 } from "@chakra-ui/react";
 import { HamburgerIcon } from "@chakra-ui/icons";
-import Login from "../../component/login/Login";
 
 const Link = chakra(NavLink);
 
@@ -118,7 +117,6 @@ export default function Header() {
         >
           Logar com twitch
         </Button> */}
-              <Login />
             </HStack>
           </>
         )}
@@ -194,7 +192,6 @@ export default function Header() {
             >
               Discord
             </ChakraLink>
-            <Login />
           </VStack>
         </DrawerContent>
       </Drawer>
