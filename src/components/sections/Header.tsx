@@ -130,6 +130,9 @@ export default function Header() {
             rounded="sm"
             bgColor="blackAlpha.500"
             color="gray.100"
+            _hover={{
+              filter: "brightness(0.9)",
+            }}
             leftIcon={<HamburgerIcon />}
             onClick={onOpen}
           >
@@ -172,6 +175,7 @@ export default function Header() {
               isExternal={true}
               href={"https://github.com/Br-Dev-Streamers"}
               color={"gray.100"}
+              w="full"
               p={2}
               rounded="sm"
               _hover={{ bgColor: "blackAlpha.500" }}
@@ -183,6 +187,7 @@ export default function Header() {
               isExternal={true}
               href={"https://discord.gg/collabcode"}
               p={2}
+              w="full"
               rounded="sm"
               color={"gray.100"}
               _hover={{ bgColor: "blackAlpha.500" }}

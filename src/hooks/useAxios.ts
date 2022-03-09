@@ -1,4 +1,5 @@
 import axios, { AxiosRequestConfig, AxiosResponse } from "axios";
+import { useCallback } from "react";
 import { endpoints } from "../service/api";
 
 const api = axios.create({
@@ -6,17 +7,20 @@ const api = axios.create({
 });
 
 export function useAxios() {
-  const apiGet = async <Response, Data = void>(
-    endpoint: string,
-    config?: AxiosRequestConfig<Data>,
-  ) => {
-    const { data } = await api.get<
-      Response,
-      AxiosResponse<Response, Data>,
-      Data
-    >(endpoint, config);
-    return data;
-  };
+  const apiGet = useCallback(
+    async <Response, Data = void>(
+      endpoint: string,
+      config?: AxiosRequestConfig<Data>,
+    ) => {
+      const { data } = await api.get<
+        Response,
+        AxiosResponse<Response, Data>,
+        Data
+      >(endpoint, config);
+      return data;
+    },
+    [],
+  );
 
   return { apiGet };
 }

@@ -7,11 +7,11 @@ import {
   AccordionPanel,
   Box,
   Heading,
-  HStack,
   Link,
   Tag,
   TagRightIcon,
   Text,
+  Wrap,
 } from "@chakra-ui/react";
 import LandingLayout from "../components/layouts/LandingLayout";
 
@@ -100,7 +100,7 @@ export default function About() {
 
             <Box as="br" />
 
-            <HStack>
+            <Wrap>
               <Link
                 href="https://github.com/Br-Dev-Streamers/brdevstreamers-ui"
                 target={"_blank"}
@@ -140,7 +140,7 @@ export default function About() {
                   <TagRightIcon as={ExternalLinkIcon} />
                 </Tag>
               </Link>
-            </HStack>
+            </Wrap>
           </AccordionPanel>
         </AccordionItem>
       </Accordion>
