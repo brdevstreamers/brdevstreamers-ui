@@ -30,15 +30,14 @@ import {
   Td,
 } from "@chakra-ui/react";
 import { useAuth0 } from "@auth0/auth0-react";
-import Header from "../../component/header/Header";
 import "./ProfilePage.css";
 import React, { useEffect } from "react";
 import axios from "axios";
 import Cookies from "universal-cookie";
-import { UserModel } from "../../model/UserModel";
-import UserForm from "../../component/userForm/UserForm";
+import { UserModel } from "../../../model/UserModel";
+import UserForm from "../../../components/WIP/userForm/UserForm";
 import { FaDiscord, FaGithub, FaLinkedin, FaTwitter } from "react-icons/fa";
-import { UserInteractionModel } from "../../model/UserInteractionModel";
+import { UserInteractionModel } from "../../../model/UserInteractionModel";
 
 const cookies = new Cookies();
 
@@ -68,7 +67,7 @@ export default function ProfilePage() {
         setUserData(res.data.__data__);
 
         const userInteractionResponse = await axios.get(
-          process.env.REACT_APP_PRIVATE_API_URL +
+          process.env.REACT_APP_API_URL +
             "/api/userinteraction/" +
             user?.nickname,
           {
@@ -107,8 +106,7 @@ export default function ProfilePage() {
 
   return (
     <>
-      <Header title="Meu Perfil" />
-      <Container maxW={isSmallerThan900px ? "90vw" : "60vw"}>
+      <Container maxW="60vw">
         <Box w="100%">
           <Button mb="5" colorScheme="purple" float="right" onClick={onToggle}>
             Editar Perfil
