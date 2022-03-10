@@ -4,7 +4,7 @@ import "./App.css";
 
 import ProfilePage from "./pages/WIP/profile/ProfilePage";
 import LoginPage from "./pages/WIP/login/LoginPage";
-import RedirectPage from "./pages/WIP/redirect/RedirectPage";
+import ToPage from "./pages/to/ToPage";
 
 import Home from "./pages/Home";
 import About from "./pages/About";
@@ -25,8 +25,8 @@ function App() {
       <Route path="/sobre" element={<About />} />
       <Route path="/agradecimentos" element={<Supporters />} />
       {/* <Route path="/profile" element={<ProfilePage />} />
-      <Route path="/login" element={<LoginPage />} />
-      <Route path="/to/:username" element={<RedirectPage />} /> */}
+      <Route path="/login" element={<LoginPage />} /> */} 
+      <Route path="/to/:username" element={<ToPage />} />
     </Routes>
   );
 }

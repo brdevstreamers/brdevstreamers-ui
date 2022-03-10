@@ -1,5 +1,7 @@
 import { useCallback, useEffect, useState } from "react";
 import { FiGrid, FiCoffee } from "react-icons/fi";
+import { chakra } from '@chakra-ui/react'
+
 import {
   Box,
   Button,
@@ -9,6 +11,7 @@ import {
   Spacer,
   Spinner,
   Stack,
+  HStack,
   Tag as TagChakra,
   Text,
   useBreakpointValue,
@@ -26,11 +29,10 @@ import { useAxios } from "../hooks/useAxios";
 import { endpoints } from "../service/api";
 
 export default function Home() {
-  const REFRESH_TIME_IN_SECONDS = 120;
+  const REFRESH_TIME_IN_SECONDS = 10;
   const { apiGet } = useAxios();
   const buttonSize = useBreakpointValue({ base: "sm", md: "md" });
-  const [isLargerThan1000px] = useMediaQuery('(min-width: 1000px)')
-
+  const [isLargerThan1000px] = useMediaQuery("(min-width: 1000px)");
 
   const [isMosaicMode, setIsMosaicMode] = useState(false);
   const [channels, setChannels] = useState<Channel[]>([]);
@@ -72,8 +74,7 @@ export default function Home() {
 
   const handleShuffleClick = () => {
     const channelNames = channels.map((channel) => channel.user_name);
-    const channelName =
-      channelNames[Math.floor(Math.random() * channelNames.length)];
+    const channelName = channelNames[Math.floor(Math.random() * channelNames.length)];
 
     window.open(`https://www.twitch.tv/${channelName}`, "_blank");
   };
@@ -127,8 +128,21 @@ export default function Home() {
     <LandingLayout>
       <Flex mt={8} mb={4} gap={2} alignItems="center" wrap="wrap">
         <Box>
-          <Heading>
+          <Heading display="flex" flexDirection="row" alignItems="center">
             Ao vivo
+            {!isRefetching && <chakra.span ml='2' mt='1'><svg width="24px" height="24px">
+              <circle fill="#ff0000" stroke="none" cx="50%" cy="50%" r="10">
+                <animate
+                  attributeName="opacity"
+                  dur="3s"
+                  values="0;0.6;0"
+                  repeatCount="indefinite"
+                  begin="0.1"
+                />
+              </circle>
+              <circle fill="#ff0000" stroke="none" cx="50%" cy="50%" r="6"></circle>
+            </svg>
+            </chakra.span>}
             {isRefetching && <Spinner ml={3} size="sm" />}
           </Heading>
           <Text color={"gray.400"}>Prestigie quem está ao vivo!</Text>
@@ -138,20 +152,22 @@ export default function Home() {
 
         <Box>
           <Stack direction="row" spacing={4}>
-            {isLargerThan1000px && (<Button
-              size={buttonSize}
-              leftIcon={<FiGrid />}
-              bgColor={isMosaicMode ? "#8B3DFF" : "gray.100"}
-              color={isMosaicMode ? "gray.100" : "gray.800"}
-              rounded={"sm"}
-              _hover={{
-                bgColor: isMosaicMode ? "#8B3DFF" : "gray.200",
-                filter: "brightness(0.98)",
-              }}
-              onClick={() => setIsMosaicMode(!isMosaicMode)}
-            >
-              Simultâneo
-            </Button>)}
+            {isLargerThan1000px && (
+              <Button
+                size={buttonSize}
+                leftIcon={<FiGrid />}
+                bgColor={isMosaicMode ? "#8B3DFF" : "gray.100"}
+                color={isMosaicMode ? "gray.100" : "gray.800"}
+                rounded={"sm"}
+                _hover={{
+                  bgColor: isMosaicMode ? "#8B3DFF" : "gray.200",
+                  filter: "brightness(0.98)",
+                }}
+                onClick={() => setIsMosaicMode(!isMosaicMode)}
+              >
+                Simultâneo
+              </Button>
+            )}
             <Button
               size={buttonSize}
               variant="solid"
@@ -225,12 +241,7 @@ export default function Home() {
       ) : (
         <SimpleGrid columns={{ sm: 2, md: 3, lg: 4 }} gap={4}>
           {vods.map((channel) => (
-            <Card
-              key={channel.id}
-              channel={channel}
-              isLive={false}
-              isMosaicMode={false}
-            />
+            <Card key={channel.id} channel={channel} isLive={false} isMosaicMode={false} />
           ))}
         </SimpleGrid>
       )}
