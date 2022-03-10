@@ -19,22 +19,19 @@ export default function Login() {
   const { user, isAuthenticated } = useAuth0();
   const navigate = useNavigate();
   const { logout } = useAuth0();
-  const [isSmallerThan720px] = useMediaQuery("(max-width: 720px)");
 
   const LoginButton = () => {
     const { loginWithRedirect } = useAuth0();
     return (
       <Button
-        colorScheme="purple"
-        float="right"
-        right={isSmallerThan720px ? "10px" : "40px"}
-        top={isSmallerThan720px ? "10px" : "40px"}
-        variant="solid"
+        bgColor={"primary.500"}
+        borderRadius={"sm"}
+        _hover={{ bgColor: "primary.600", color: "primary.400" }}
         onClick={() => {
           loginWithRedirect();
         }}
       >
-        Login
+        Logar com twitch
       </Button>
     );
   };
@@ -56,12 +53,11 @@ export default function Login() {
         <>
           <Menu>
             <MenuButton
-              colorScheme="purple"
               as={Button}
               rightIcon={<ChevronDownIcon />}
-              position="absolute"
-              right={isSmallerThan720px ? "10px" : "40px"}
-              top={isSmallerThan720px ? "10px" : "40px"}
+              bgColor={"primary.500"}
+              borderRadius={"sm"}
+              _hover={{ bgColor: "primary.600", color: "primary.400" }}
             >
               <chakra.span className="login-label">
                 {user?.nickname}

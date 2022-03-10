@@ -14,8 +14,8 @@ import {
   WrapItem,
 } from "@chakra-ui/react";
 import React, { useEffect } from "react";
-import { UserModel } from "../../model/UserModel";
-import { updateUser } from "../../service/UserService";
+import { UserModel } from "../../../model/UserModel";
+import { updateUser } from "../../../service/UserService";
 
 interface Props {
   isOpen: boolean;
@@ -51,7 +51,7 @@ export default function UserForm(props: Props) {
           linkedin,
           twitter,
           github,
-          bio
+          bio,
         );
         props.onSubmit();
       }

@@ -6,9 +6,22 @@ body {
   padding-bottom: 200px;
 }
 
+.logo-title {
+  font-family: 'Alfa Slab One', cursive;
+  color: #B685FF;
+  font-size: 20px;
+}
+
+.logo-subtitle {
+  font-family: 'Livvic', sans-serif;
+  color: #FFFFFF;
+  font-size: 11px !important;
+}
+
 h1  {
   font-family: 'Alfa Slab One', cursive;
   color: #B685FF;
+  font-size: 20px !important;
   cursor: default;
   user-select: none;
 }
@@ -19,7 +32,6 @@ h2  {
   cursor: default;
   user-select: none;
 }
-
 
 h4  {
   font-family: 'Livvic', sans-serif;
