@@ -12,6 +12,7 @@ import {
   Tag as TagChakra,
   Text,
   useBreakpointValue,
+  useMediaQuery,
 } from "@chakra-ui/react";
 
 import type { Channel, Tag } from "../types";
@@ -25,9 +26,11 @@ import { useAxios } from "../hooks/useAxios";
 import { endpoints } from "../service/api";
 
 export default function Home() {
-  const REFRESH_TIME_IN_SECONDS = 30;
+  const REFRESH_TIME_IN_SECONDS = 120;
   const { apiGet } = useAxios();
   const buttonSize = useBreakpointValue({ base: "sm", md: "md" });
+  const [isLargerThan1000px] = useMediaQuery('(min-width: 1000px)')
+
 
   const [isMosaicMode, setIsMosaicMode] = useState(false);
   const [channels, setChannels] = useState<Channel[]>([]);
@@ -135,7 +138,7 @@ export default function Home() {
 
         <Box>
           <Stack direction="row" spacing={4}>
-            <Button
+            {isLargerThan1000px && (<Button
               size={buttonSize}
               leftIcon={<FiGrid />}
               bgColor={isMosaicMode ? "#8B3DFF" : "gray.100"}
@@ -148,7 +151,7 @@ export default function Home() {
               onClick={() => setIsMosaicMode(!isMosaicMode)}
             >
               Simultâneo
-            </Button>
+            </Button>)}
             <Button
               size={buttonSize}
               variant="solid"
