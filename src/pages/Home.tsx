@@ -29,7 +29,7 @@ import { useAxios } from "../hooks/useAxios";
 import { endpoints } from "../service/api";
 
 export default function Home() {
-  const REFRESH_TIME_IN_SECONDS = 10;
+  const REFRESH_TIME_IN_SECONDS = 120;
   const { apiGet } = useAxios();
   const buttonSize = useBreakpointValue({ base: "sm", md: "md" });
   const [isLargerThan1000px] = useMediaQuery("(min-width: 1000px)");
