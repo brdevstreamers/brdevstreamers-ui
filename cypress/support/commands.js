@@ -25,3 +25,7 @@
 // Cypress.Commands.overwrite('visit', (originalFn, url, options) => { ... })
 
 Cypress.on("uncaught:exception", () => false);
+
+Cypress.Commands.add("getByData", (selector, ...args) =>
+  cy.get(`[data-test=${selector}]`, ...args),
+);

@@ -2,13 +2,7 @@ import { useState } from "react";
 import { formatDistanceToNow } from "date-fns";
 import { ptBR } from "date-fns/locale";
 import { ViewIcon } from "@chakra-ui/icons";
-import {
-  FaDiscord,
-  FaGithub,
-  FaInstagram,
-  FaLinkedin,
-  FaTwitter,
-} from "react-icons/fa";
+import { FaDiscord, FaGithub, FaInstagram, FaLinkedin, FaTwitter } from "react-icons/fa";
 import {
   Box,
   HStack,
@@ -31,6 +25,7 @@ type Props = {
   isLive: boolean;
   isMosaicMode: boolean;
   handleChannelToMosaic?: (channelName: string) => void;
+  "data-test"?: string;
 };
 
 export default function Card({
@@ -38,6 +33,7 @@ export default function Card({
   isLive,
   isMosaicMode,
   handleChannelToMosaic = () => {},
+  "data-test": dataTest,
 }: Props) {
   const [showPreview, setShowPreview] = useState(false);
   const [isSelected, setIsSelected] = useState(false);
@@ -66,6 +62,7 @@ export default function Card({
         transform: "scale(1)",
         transition: "transform 300ms ease",
       }}
+      data-test={dataTest}
     >
       <Box>
         <Box
@@ -80,9 +77,7 @@ export default function Card({
                 <Image
                   width="full"
                   height="full"
-                  src={channel.thumbnail_url
-                    .replace("{width}", "640")
-                    .replace("{height}", "360")}
+                  src={channel.thumbnail_url.replace("{width}", "640").replace("{height}", "360")}
                   alt={`Preview da live de ${channel.user_name}`}
                   position={"relative"}
                 />
@@ -92,22 +87,14 @@ export default function Card({
               <Image
                 width="full"
                 height="full"
-                src={channel.thumbnail_url
-                  .replace("%{width}", "640")
-                  .replace("%{height}", "360")}
+                src={channel.thumbnail_url.replace("%{width}", "640").replace("%{height}", "360")}
                 alt={`Preview da live de ${channel.user_name}`}
                 position={"relative"}
                 fallbackSrc="cover-no-image.png"
               />
             )}
           </Box>
-          <Box
-            position={"absolute"}
-            bottom={0}
-            right={0}
-            left={0}
-            pointerEvents={"none"}
-          >
+          <Box position={"absolute"} bottom={0} right={0} left={0} pointerEvents={"none"}>
             <HStack justify={"space-between"} m={2}>
               <Tag rounded={"sm"} size={"sm"}>
                 <TagLeftIcon as={ViewIcon} />
@@ -138,9 +125,7 @@ export default function Card({
               alt={channel.user_name}
             />
             <Box>
-              <Link
-                isExternal={true}
-                href={`https://twitch.tv/${channel.user_name}`}
+              <Text
                 color={"gray.500"}
                 fontWeight={"semibold"}
                 mt={-1}
@@ -150,7 +135,7 @@ export default function Card({
                 }}
               >
                 {channel.user_login}
-              </Link>
+              </Text>
 
               <Text color={"gray.100"} fontSize={"sm"} mt={-1}>
                 {channel.title}
@@ -159,10 +144,7 @@ export default function Card({
           </HStack>
           <HStack gap={0.3} mt={4} justify={"end"}>
             {channel.twitter_url && (
-              <Link
-                isExternal={true}
-                href={`https://twitter.com/${channel.twitter_url}`}
-              >
+              <Link isExternal={true} href={`https://twitter.com/${channel.twitter_url}`}>
                 <Tag
                   aria-label="twitter"
                   rounded={"sm"}
@@ -180,10 +162,7 @@ export default function Card({
             )}
 
             {channel.github_url && (
-              <Link
-                isExternal={true}
-                href={`https://github.com/${channel.github_url}`}
-              >
+              <Link isExternal={true} href={`https://github.com/${channel.github_url}`}>
                 <Tag
                   size="md"
                   variant="solid"
@@ -200,10 +179,7 @@ export default function Card({
             )}
 
             {channel.linkedin_url && (
-              <Link
-                isExternal={true}
-                href={`https://linkedin.com/in/${channel.linkedin_url}`}
-              >
+              <Link isExternal={true} href={`https://linkedin.com/in/${channel.linkedin_url}`}>
                 <Tag
                   size="md"
                   variant="solid"
@@ -263,9 +239,7 @@ export default function Card({
           backdropFilter={isSelected ? "blur(0)" : "blur(2px)"}
           cursor="pointer"
           onClick={() => setIsSelected(!isSelected)}
-          backgroundColor={
-            isSelected ? "rgba(255,255,255,0.1)" : "rgba(255,255,255,0)"
-          }
+          backgroundColor={isSelected ? "rgba(255,255,255,0.1)" : "rgba(255,255,255,0)"}
           borderColor={isSelected ? "#9D5CFF " : "#FFFFFF"}
           shadow={isSelected ? "md" : "none"}
           borderWidth={isSelected ? 2 : 0}

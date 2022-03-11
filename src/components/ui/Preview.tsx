@@ -6,12 +6,7 @@ type Props = {
 };
 
 const Preview = ({ channel }: Props) => (
-  <Link
-    href={"https://twitch.tv/" + channel.user_name}
-    isExternal={true}
-    position={"absolute"}
-    inset={0}
-  >
+  <Box position={"absolute"} inset={0}>
     <Box
       pointerEvents={"none"}
       as={"iframe"}
@@ -27,7 +22,7 @@ const Preview = ({ channel }: Props) => (
       h={"full"}
       w={"full"}
     />
-  </Link>
+  </Box>
 );
 
 export default Preview;
