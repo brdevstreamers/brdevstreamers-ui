@@ -1,0 +1,6 @@
+{
+  "plugins": ["cypress"],
+  "parserOptions": {
+    "ecmaVersion": 6
+  }
+}

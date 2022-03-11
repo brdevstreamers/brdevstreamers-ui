@@ -1,0 +1,22 @@
+[
+  { "name": "Português", "id": "39ee8140-901a-4762-bfca-8260dea1310f" },
+  { "name": "Desenvolvimento na web", "id": "c23ce252-cf78-4b98-8c11-8769801aaf3a" },
+  { "name": "Desenvolvimento para desktop", "id": "a106f013-6e26-4f27-9a4b-01e9d76084e2" },
+  {
+    "name": "Desenvolvimento para dispositivos móveis",
+    "id": "6e23d976-33ec-47e8-b22b-3727acd41862"
+  },
+  { "name": "Desenvolvimento de software", "id": "6f86127d-6051-4a38-94bb-f7b475dde109" },
+  { "name": "Programação", "id": "a59f1e4e-257b-4bd0-90c7-189c3efbf917" },
+  { "name": "JavaScript", "id": "b741fd1d-e96d-49b8-9f2d-03a631c33e04" },
+  { "name": "Brasil", "id": "988c8c1b-b991-4b66-9a6d-b36f60363f6d" },
+  { "name": "LGBTQIA+", "id": "8bbdb07d-df18-4f82-a928-04a9003e9a7e" },
+  { "name": "Desenvolvimento de jogos", "id": "f588bd74-e496-4d11-9169-3597f38a5d25" },
+  { "name": "Sem palpites", "id": "69318d09-f132-4853-b4b6-09a0580f7092" },
+  { "name": "Bissexual", "id": "ede26632-aa15-4a55-af9b-d2775b00c4c3" },
+  { "name": "Relaxada", "id": "81e9d348-82e5-4c4f-a140-d2b3779b912d" },
+  { "name": "AMA", "id": "67259b26-ff83-444e-9d3c-faab390df16f" },
+  { "name": "PvP", "id": "8486f56b-8677-44f7-8004-000295391524" },
+  { "name": "PHP", "id": "60a9f03f-4c87-4307-be57-31c85347f0b6" },
+  { "name": "Para toda a família", "id": "e90b5f6e-4c6e-4003-885b-4d0d5adeb580" }
+]
