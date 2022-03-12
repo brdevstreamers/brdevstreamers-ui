@@ -1,0 +1,13 @@
+name: Checks & Deploy
+on:
+  push:
+    branches:
+      - "!main"
+
+jobs:
+  checks:
+    uses: ./.github/workflows/_checks.yml
+  deploy:
+    uses: ./.github/workflows/_deploy.yml
+    needs:
+      - checks

@@ -36,19 +36,21 @@
     "react-scripts": "5.0.0",
     "react-scroll": "^1.8.4",
     "recharts": "^2.1.9",
+    "serve": "^13.0.2",
     "typescript": "^4.4.2",
     "web-vitals": "^2.1.0"
   },
   "scripts": {
     "cy:run": "cypress run --browser chrome --headless",
     "cy:open": "cypress open",
-    "start": "react-scripts start",
-    "start:ci": "serve -s build -p 3000",
+    "start": "serve build",
+    "start:dev": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "test:debug": "react-scripts --inspect-brk test --runInBand --no-cache",
-    "test:e2e": "start-server-and-test start:ci http://localhost:3000 cy:run"
+    "type-check": "tsc --pretty --noEmit",
+    "lint": "eslint . --ext .js,.jsx,.ts,.tsx",
+    "test:debug": "react-scripts --inspect-brk test --runInBand --no-cache"
   },
   "eslintConfig": {
     "extends": [
@@ -69,10 +71,9 @@
     ]
   },
   "devDependencies": {
-    "cypress": "^9.5.0",
+    "@typescript-eslint/parser": "^5.14.0",
+    "cypress": "8.3.0",
     "eslint-plugin-cypress": "^2.12.1",
-    "prettier": "^2.5.1",
-    "serve": "^13.0.2",
-    "start-server-and-test": "^1.14.0"
+    "prettier": "^2.5.1"
   }
 }
