@@ -2,7 +2,7 @@ name: Checks & Deploy
 on:
   push:
     branches:
-      - "!main"
+      - "main"
 
 jobs:
   checks:
