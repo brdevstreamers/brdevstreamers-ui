@@ -21,4 +21,6 @@ jobs:
     uses: ./.github/workflows/_deploy.yml
     needs:
       - checks
+    secrets:
+      GCP_SA_KEY: ${{ secrets.GCP_SA_KEY }}
 
