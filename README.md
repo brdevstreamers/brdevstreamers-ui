@@ -1,4 +1,4 @@
-[![Install & Tests](https://github.com/Br-Dev-Streamers/brdevstreamers-ui/actions/workflows/main.yml/badge.svg)](https://github.com/Br-Dev-Streamers/brdevstreamers-ui/actions/workflows/main.yml)
+[![Checks & Deploy](https://github.com/Br-Dev-Streamers/brdevstreamers-ui/actions/workflows/checks-deploy.yml/badge.svg)](https://github.com/Br-Dev-Streamers/brdevstreamers-ui/actions/workflows/checks-deploy.yml)
 
 # Welcome to BR Dev Streamers 👋
 
