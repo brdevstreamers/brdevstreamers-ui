@@ -181,6 +181,7 @@ export default function Home() {
                   filter: "brightness(0.98)",
                 }}
                 onClick={() => setIsMosaicMode(!isMosaicMode)}
+                data-test="simultaneous-button"
               >
                 Simultâneo
               </Button>
