@@ -1,3 +1,5 @@
+[![Checks & Deploy](https://github.com/Br-Dev-Streamers/brdevstreamers-ui/actions/workflows/checks-deploy.yml/badge.svg)](https://github.com/Br-Dev-Streamers/brdevstreamers-ui/actions/workflows/checks-deploy.yml)
+
 # Welcome to BR Dev Streamers 👋
 
 O Br Dev Streamers surgiu com a ideia de agregar todas as pessoas que fazem live coding em português na Twitch.
@@ -90,6 +92,7 @@ And:
 ```
 
 ## Contributors
+
 <a href="https://github.com/Br-Dev-Streamers/brdevstreamers-ui/graphs/contributors">
   <img src="https://contrib.rocks/image?repo=Br-Dev-Streamers/brdevstreamers-ui" />
 </a>
