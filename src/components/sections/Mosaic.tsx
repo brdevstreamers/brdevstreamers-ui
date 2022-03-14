@@ -85,6 +85,7 @@ export default function Mosaic({ channels }: Props) {
           bottom={10}
           rounded="sm"
           onClick={openMosaic}
+          data-test="start-simultaneous-button"
         >
           Iniciar
         </MotionButton>
@@ -92,11 +93,7 @@ export default function Mosaic({ channels }: Props) {
 
       <Modal onClose={onClose} size={"full"} isOpen={isOpen}>
         <ModalOverlay />
-        <ModalContent
-          rounded={"none"}
-          backgroundColor="secondary.600"
-          overflow="auto"
-        >
+        <ModalContent rounded={"none"} backgroundColor="secondary.600" overflow="auto">
           <ModalBody>
             <HStack justifyContent={"center"} mb={2}>
               <ButtonMosaicLayout
