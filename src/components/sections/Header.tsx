@@ -19,6 +19,7 @@ import {
   DrawerCloseButton,
 } from "@chakra-ui/react";
 import { HamburgerIcon } from "@chakra-ui/icons";
+import Login from "../WIP/login/Login";
 
 const Link = chakra(NavLink);
 
@@ -52,20 +53,10 @@ export default function Header() {
 
   return (
     <>
-      <Flex
-        p={4}
-        borderBottomColor={"whiteAlpha.100"}
-        borderBottomWidth={1}
-        alignItems="center"
-      >
+      <Flex p={4} borderBottomColor={"whiteAlpha.100"} borderBottomWidth={1} alignItems="center">
         <Link to="/">
           <HStack>
-            <Image
-              src="/logo.svg"
-              alt="Br Dev Streamers"
-              height={50}
-              width={50}
-            />
+            <Image src="/logo.svg" alt="Br Dev Streamers" height={50} width={50} />
             <Box textAlign={"center"}>
               <Text className="logo-title">BR Dev Streamers</Text>
               <Text mt={-2} className="logo-subtitle">
@@ -110,13 +101,7 @@ export default function Header() {
               >
                 Discord
               </ChakraLink>
-              {/* <Button
-          bgColor={"primary.500"}
-          borderRadius={"sm"}
-          _hover={{ bgColor: "primary.600", color: "primary.400" }}
-        >
-          Logar com twitch
-        </Button> */}
+              <Login />
             </HStack>
           </>
         )}
@@ -139,12 +124,7 @@ export default function Header() {
         )}
       </Flex>
 
-      <Drawer
-        isOpen={isOpen}
-        placement="right"
-        onClose={onClose}
-        finalFocusRef={buttonRef}
-      >
+      <Drawer isOpen={isOpen} placement="right" onClose={onClose} finalFocusRef={buttonRef}>
         <DrawerOverlay />
 
         <DrawerContent bgColor="secondary.600" color="gray.100" px={4} pt={16}>

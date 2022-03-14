@@ -1,40 +1,18 @@
 import { useAuth0 } from "@auth0/auth0-react";
 import { ChevronDownIcon } from "@chakra-ui/icons";
-import {
-  Button,
-  chakra,
-  Menu,
-  MenuButton,
-  MenuItem,
-  MenuList,
-  useMediaQuery,
-} from "@chakra-ui/react";
+import { Button, chakra, Menu, MenuButton, MenuItem, MenuList } from "@chakra-ui/react";
 import Cookies from "universal-cookie";
 import { useNavigate } from "react-router-dom";
 import "./Login.css";
+import LoginButton from "../../ui/LoginButton";
+import { useEffect } from "react";
 
 const cookies = new Cookies();
 
 export default function Login() {
-  const { user, isAuthenticated } = useAuth0();
+  const { user, isAuthenticated, isLoading, getAccessTokenSilently } = useAuth0();
   const navigate = useNavigate();
   const { logout } = useAuth0();
-
-  const LoginButton = () => {
-    const { loginWithRedirect } = useAuth0();
-    return (
-      <Button
-        bgColor={"primary.500"}
-        borderRadius={"sm"}
-        _hover={{ bgColor: "primary.600", color: "primary.400" }}
-        onClick={() => {
-          loginWithRedirect();
-        }}
-      >
-        Logar com twitch
-      </Button>
-    );
-  };
 
   const handleLogoutClick = () => {
     cookies.remove("api_token");
@@ -45,6 +23,20 @@ export default function Login() {
   const handleProfileClick = () => {
     navigate("/profile");
   };
+
+  const getToken = async () => {
+    if (!isLoading && isAuthenticated) {
+      const token = await getAccessTokenSilently({
+        audience: "BrStreamersApi",
+      });
+
+      cookies.set("api_token", token);
+    }
+  };
+
+  useEffect(() => {
+    getToken();
+  }, []);
 
   return (
     <>
@@ -59,9 +51,7 @@ export default function Login() {
               borderRadius={"sm"}
               _hover={{ bgColor: "primary.600", color: "primary.400" }}
             >
-              <chakra.span className="login-label">
-                {user?.nickname}
-              </chakra.span>
+              <chakra.span className="login-label">{user?.nickname}</chakra.span>
             </MenuButton>
             <MenuList>
               <MenuItem onClick={handleProfileClick}>Perfil</MenuItem>

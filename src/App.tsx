@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import { Routes, Route } from "react-router-dom";
 import "./App.css";
 
-import ProfilePage from "./pages/WIP/profile/ProfilePage";
+// import ProfilePage from "./pages/WIP/profile/ProfilePage";
 import LoginPage from "./pages/WIP/login/LoginPage";
 import ToPage from "./pages/to/ToPage";
 
@@ -10,6 +10,7 @@ import Home from "./pages/Home";
 import About from "./pages/About";
 import Stats from "./pages/Stats";
 import Supporters from "./pages/Supporters";
+import Profile from "./pages/Profile";
 
 import ReactGA from "react-ga";
 
@@ -24,8 +25,8 @@ function App() {
       <Route path="/stats" element={<Stats />} />
       <Route path="/sobre" element={<About />} />
       <Route path="/agradecimentos" element={<Supporters />} />
-      {/* <Route path="/profile" element={<ProfilePage />} />
-      <Route path="/login" element={<LoginPage />} /> */} 
+      <Route path="/profile" element={<Profile />} />
+      {/* <Route path="/login" element={<LoginPage />} /> */}
       <Route path="/to/:username" element={<ToPage />} />
     </Routes>
   );

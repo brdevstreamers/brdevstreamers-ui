@@ -36,7 +36,7 @@ ReactDOM.render(
     <Auth0Provider
       domain="zapperson.us.auth0.com"
       clientId={process.env.REACT_APP_AUTH0_CLIENT_ID || ""}
-      redirectUri={process.env.REACT_APP_REDIRECT_URL + "/login"}
+      redirectUri={process.env.REACT_APP_REDIRECT_URL}
       audience="BrStreamersApi"
     >
       <ChakraProvider theme={theme}>
@@ -49,7 +49,4 @@ ReactDOM.render(
   document.getElementById("root"),
 );
 
-// If you want to start measuring performance in your app, pass a function
-// to log results (for example: reportWebVitals(console.log))
-// or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
 reportWebVitals();
