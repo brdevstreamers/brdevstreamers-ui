@@ -44,7 +44,6 @@ export default function Home() {
   const [selectedChannels, setSelectedChannels] = useState<string[]>([]);
   const [selectedTags, setSelectedTags] = useState<Array<Tag>>([]);
   const [searchParams, setSearchParams] = useSearchParams();
-  const [text, setText] = useState<string>("teste");
 
   const loadData = useCallback(async () => {
     setIsLoading(true);
@@ -143,15 +142,8 @@ export default function Home() {
     <LandingLayout>
       <Flex mt={8} mb={4} gap={2} alignItems="center" wrap="wrap">
         <Box>
-          <Heading
-            display="flex"
-            flexDirection="row"
-            alignItems="center"
-            onClick={() => {
-              setText(text === "teste" ? "teste2" : "teste");
-            }}
-          >
-            Ao vivo {text}
+          <Heading display="flex" flexDirection="row" alignItems="center">
+            Ao vivo
             {!isRefetching && (
               <chakra.span ml="2" mt="1">
                 <svg width="24px" height="24px">
@@ -189,6 +181,7 @@ export default function Home() {
                   filter: "brightness(0.98)",
                 }}
                 onClick={() => setIsMosaicMode(!isMosaicMode)}
+                data-test="simultaneous-button"
               >
                 Simultâneo
               </Button>

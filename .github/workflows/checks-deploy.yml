@@ -1,0 +1,26 @@
+name: Checks & Deploy
+on:
+  push:
+    branches:
+      - "main"
+
+jobs:
+  checks:
+    uses: ./.github/workflows/_checks.yml
+    secrets:
+      REACT_APP_API_URL: ${{ secrets.REACT_APP_API_URL }}
+      REACT_REDIRECT_URL: ${{ secrets.REACT_REDIRECT_URL }}
+      REACT_APP_DOMAIN: ${{ secrets.REACT_APP_DOMAIN }}
+      REACT_APP_GA_ID: ${{ secrets.REACT_APP_GA_ID }}
+      REACT_APP_SUPPORTERS: ${{ secrets.REACT_APP_SUPPORTERS }}
+      REACT_APP_MAMACOS: ${{ secrets.REACT_APP_MAMACOS }}
+      REACT_APP_AUTH0_CLIENT_ID: ${{ secrets.REACT_APP_AUTH0_CLIENT_ID }}
+      REACT_APP_AUTH0_CLIENT_SECRET: ${{ secrets.REACT_APP_AUTH0_CLIENT_SECRET }}
+
+  deploy:
+    uses: ./.github/workflows/_deploy.yml
+    needs:
+      - checks
+    secrets:
+      GCP_SA_KEY: ${{ secrets.GCP_SA_KEY }}
+

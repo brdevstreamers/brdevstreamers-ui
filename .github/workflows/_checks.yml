@@ -1,0 +1,140 @@
+name: Check
+
+on:
+  workflow_call:
+    secrets:
+      REACT_APP_API_URL:
+        required: true
+      REACT_REDIRECT_URL:
+        required: true
+      REACT_APP_DOMAIN:
+        required: true
+      REACT_APP_GA_ID:
+        required: true
+      REACT_APP_SUPPORTERS:
+        required: true
+      REACT_APP_MAMACOS:
+        required: true
+      REACT_APP_AUTH0_CLIENT_ID:
+        required: true
+      REACT_APP_AUTH0_CLIENT_SECRET:
+        required: true
+
+env:
+  REACT_APP_API_URL: ${{ secrets.REACT_APP_API_URL }}
+  REACT_REDIRECT_URL: ${{ secrets.REACT_REDIRECT_URL }}
+  REACT_APP_DOMAIN: ${{ secrets.REACT_APP_DOMAIN }}
+  REACT_APP_GA_ID: ${{ secrets.REACT_APP_GA_ID }}
+  REACT_APP_SUPPORTERS: ${{ secrets.REACT_APP_SUPPORTERS }}
+  REACT_APP_MAMACOS: ${{ secrets.REACT_APP_MAMACOS }}
+  REACT_APP_AUTH0_CLIENT_ID: ${{ secrets.REACT_APP_AUTH0_CLIENT_ID }}
+  REACT_APP_AUTH0_CLIENT_SECRET: ${{ secrets.REACT_APP_AUTH0_CLIENT_SECRET }}
+
+jobs:
+  install:
+    runs-on: ubuntu-20.04
+    steps:
+      - uses: actions/checkout@v2
+      - name: Cache node modules
+        uses: actions/cache@v2
+        env:
+          cache-name: cache-node-modules
+        with:
+          path: ~/.npm
+          key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-build-${{ env.cache-name }}-
+            ${{ runner.os }}-build-
+            ${{ runner.os }}-
+      - name: Install Dependencies
+        run: npm install
+
+  build:
+    runs-on: ubuntu-20.04
+    needs:
+      - install
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: Cache node modules
+        uses: actions/cache@v2
+        env:
+          cache-name: cache-node-modules
+        with:
+          path: ~/.npm
+          key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-build-${{ env.cache-name }}-
+            ${{ runner.os }}-build-
+            ${{ runner.os }}-
+      - name: Install Dependencies
+        run: npm install
+      - name: Build
+        run: npm run build
+      - name: Save built folders
+        uses: actions/upload-artifact@v2
+        with:
+          name: built
+          path: build
+
+  lint:
+    runs-on: ubuntu-20.04
+    needs:
+      - install
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: Cache node modules
+        uses: actions/cache@v2
+        env:
+          cache-name: cache-node-modules
+        with:
+          path: ~/.npm
+          key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-build-${{ env.cache-name }}-
+            ${{ runner.os }}-build-
+            ${{ runner.os }}-
+      - name: Install Dependencies
+        run: npm install
+      - name: Lint
+        run: npm run lint
+
+  type-check:
+    runs-on: ubuntu-20.04
+    needs:
+      - install
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: Cache node modules
+        uses: actions/cache@v2
+        env:
+          cache-name: cache-node-modules
+        with:
+          path: ~/.npm
+          key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-build-${{ env.cache-name }}-
+            ${{ runner.os }}-build-
+            ${{ runner.os }}-
+      - name: Install Dependencies
+        run: npm install
+      - name: TypeScript Check
+        run: npm run type-check
+
+  cypress:
+    runs-on: ubuntu-20.04
+    needs:
+      - install
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: Cypress run
+        uses: cypress-io/github-action@v2
+        with:
+          start: yarn start:dev
+          wait-on: "http://localhost:3000"
+          browser: chrome
+          headless: true
+          record: false

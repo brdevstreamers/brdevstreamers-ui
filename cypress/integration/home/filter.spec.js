@@ -17,7 +17,7 @@ describe("Home > Filter", () => {
     const LGBTQIA_TEXT = "LGBTQIA+";
     const LGBTQIA_TEXT_ENCODED = encodeURIComponent("LGBTQIA+");
 
-    cy.visit("http://localhost:3000");
+    cy.visit(Cypress.env("hostUrl"));
     cy.wait("@streams");
     cy.wait("@tags");
 

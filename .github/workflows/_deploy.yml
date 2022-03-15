@@ -1,0 +1,26 @@
+name: Deploy
+
+on:
+  workflow_call:
+    secrets:
+      GCP_SA_KEY:
+        required: true
+
+jobs:
+  deploy:
+    runs-on: ubuntu-20.04
+    steps:
+      - uses: actions/checkout@v2
+      - name: Authenticate on GCP
+        id: "auth"
+        uses: "google-github-actions/auth@v0"
+        with:
+          credentials_json: ${{ secrets.GCP_SA_KEY }}
+      - name: Download built folders
+        uses: actions/download-artifact@v2
+        with:
+          name: built
+          path: build
+      - name: Deploy
+        id: "deploy"
+        uses: "google-github-actions/deploy-appengine@v0"
