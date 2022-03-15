@@ -34,16 +34,6 @@ const links = [
     to: "/sobre",
     label: "Sobre",
   },
-  {
-    id: 3,
-    to: "/stats",
-    label: "Estatísticas",
-  },
-  {
-    id: 4,
-    to: "/agradecimentos",
-    label: "Agradecimentos",
-  },
 ];
 
 export default function Header() {

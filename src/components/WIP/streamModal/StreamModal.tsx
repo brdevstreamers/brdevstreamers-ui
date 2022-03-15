@@ -18,7 +18,7 @@ import {
 } from "@chakra-ui/react";
 import { StreamerModel } from "../../../model/StreamerModel";
 import "./StreamModal.css";
-import { logUserInteraction } from "../../../service/StatsService";
+import { logUserInteraction } from "../../../services/StatsService";
 import { UserInteractionType } from "../../../model/UserInteractionModel";
 import { useAuth0 } from "@auth0/auth0-react";
 
@@ -74,14 +74,7 @@ export default function StreamModal(props: Props) {
                   {props.streamer.user_name}
                 </Link>
               </chakra.span>
-              <Tag
-                size="sm"
-                ml="5"
-                mt="auto"
-                mb="auto"
-                variant="solid"
-                bg="red.500"
-              >
+              <Tag size="sm" ml="5" mt="auto" mb="auto" variant="solid" bg="red.500">
                 {props.timeStreaming}
               </Tag>
             </Flex>

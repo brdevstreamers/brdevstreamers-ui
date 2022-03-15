@@ -26,7 +26,7 @@ import { SkeletonListTags } from "../components/sections/SkeletonListTags";
 import Card from "../components/ui/Card";
 import Mosaic from "../components/sections/Mosaic";
 import { useAxios } from "../hooks/useAxios";
-import { endpoints } from "../service/api";
+import { endpoints } from "../services/api";
 import { useSearchParams } from "react-router-dom";
 
 export default function Home() {

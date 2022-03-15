@@ -3,7 +3,7 @@ import { Text } from "@chakra-ui/react";
 import React from "react";
 import { useParams } from "react-router-dom";
 import { UserInteractionType } from "../../../model/UserInteractionModel";
-import { logUserInteraction } from "../../../service/StatsService";
+import { logUserInteraction } from "../../../services/StatsService";
 
 export default function RedirectPage() {
   const { username } = useParams();

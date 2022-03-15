@@ -15,7 +15,7 @@ import {
 } from "@chakra-ui/react";
 import React, { useEffect } from "react";
 import { UserModel } from "../../../model/UserModel";
-import { updateUser } from "../../../service/UserService";
+import { updateUser } from "../../../services/UserService";
 
 interface Props {
   isOpen: boolean;
