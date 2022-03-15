@@ -1,12 +1,15 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import App from "./App";
-import reportWebVitals from "./reportWebVitals";
-import { ChakraProvider } from "@chakra-ui/react";
-import ReactGA from "react-ga";
+
 import { Auth0Provider } from "@auth0/auth0-react";
 import { BrowserRouter } from "react-router-dom";
+import { ChakraProvider } from "@chakra-ui/react";
+
+import ReactGA from "react-ga";
 import theme from "./theme";
+import reportWebVitals from "./reportWebVitals";
+import { AuthProvider } from "./hooks/useAuth";
 
 ReactGA.initialize(process.env.REACT_APP_GA_ID || "");
 
@@ -19,9 +22,11 @@ ReactDOM.render(
       audience="BrStreamersApi"
     >
       <ChakraProvider theme={theme}>
-        <BrowserRouter>
-          <App />
-        </BrowserRouter>
+        <AuthProvider>
+          <BrowserRouter>
+            <App />
+          </BrowserRouter>
+        </AuthProvider>
       </ChakraProvider>
     </Auth0Provider>
   </React.StrictMode>,
