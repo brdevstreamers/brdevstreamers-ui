@@ -1,13 +1,19 @@
+import { streamsRegex, tagsRegex, vodsRegex } from "../../consts/urlRegexes";
+
 describe("Home > Filter", () => {
   beforeEach(() => {
-    cy.intercept("GET", "https://brstreamers.dev:8000/public/streams", {
+    cy.intercept(streamsRegex, {
       statusCode: 200,
       fixture: "streams",
     }).as("streams");
-    cy.intercept("GET", "https://brstreamers.dev:8000/public/tags", {
+    cy.intercept(tagsRegex, {
       statusCode: 200,
       fixture: "tags",
     }).as("tags");
+    cy.intercept(vodsRegex, {
+      statusCode: 200,
+      fixture: "vods",
+    }).as("vods");
   });
 
   it("should filter out streams by tags change the URL", () => {
@@ -18,8 +24,7 @@ describe("Home > Filter", () => {
     const LGBTQIA_TEXT_ENCODED = encodeURIComponent("LGBTQIA+");
 
     cy.visit(Cypress.env("hostUrl"));
-    cy.wait("@streams");
-    cy.wait("@tags");
+    cy.wait(["@streams", "@tags", "@vods"]);
 
     cy.getByData("card-online").should("have.length", 13);
 
@@ -77,8 +82,7 @@ describe("Home > Filter", () => {
     const JAVASCRIPT_TEXT = "JavaScript";
 
     cy.visit(`http://localhost:3000/?tags=${JAVASCRIPT_TEXT}`);
-    cy.wait("@streams");
-    cy.wait("@tags");
+    cy.wait(["@streams", "@tags", "@vods"]);
 
     cy.getByData("tag-filter-item-selected")
       .contains(JAVASCRIPT_TEXT)

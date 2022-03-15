@@ -1,16 +1,21 @@
-describe("Home > Filter", () => {
+import { streamsRegex, tagsRegex, vodsRegex } from "../../consts/urlRegexes";
+
+describe("Home > Simultaneous", () => {
   it("You must select at least two streams", () => {
-    cy.intercept("GET", "https://brstreamers.dev:8000/public/streams", {
+    cy.intercept(streamsRegex, {
       statusCode: 200,
       fixture: "streams",
     }).as("streams");
-    cy.intercept("GET", "https://brstreamers.dev:8000/public/tags", {
+    cy.intercept(tagsRegex, {
       statusCode: 200,
       fixture: "tags",
     }).as("tags");
+    cy.intercept(vodsRegex, {
+      statusCode: 200,
+      fixture: "vods",
+    }).as("vods");
     cy.visit(Cypress.env("hostUrl"));
-    cy.wait("@streams");
-    cy.wait("@tags");
+    cy.wait(["@streams", "@tags", "@vods"]);
 
     cy.getByData("simultaneous-button").click();
     cy.getByData("start-simultaneous-button").click();
