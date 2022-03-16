@@ -153,7 +153,7 @@ export default function Card({
               alt={channel.user_name}
             />
             <Box flex="1">
-              <HStack mb="2">
+              <HStack mb="3">
                 <Text
                   color={"gray.500"}
                   fontWeight={"semibold"}
