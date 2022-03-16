@@ -38,40 +38,31 @@ export default function Home() {
   const [channels, setChannels] = useState<Channel[]>([]);
   const [tags, setTags] = useState<Tag[]>([]);
   const [vods, setVods] = useState<Channel[]>([]);
-  const [isLoading, setIsLoading] = useState<boolean>(true);
-  const [isRefetching, setIsReFetching] = useState<boolean>(false);
   const [selectedChannels, setSelectedChannels] = useState<string[]>([]);
   const [selectedTags, setSelectedTags] = useState<Array<Tag>>([]);
   const [searchParams, setSearchParams] = useSearchParams();
 
+  const [isFetching, setIsFetching] = useState<boolean>(true);
+  const hasData = !!channels.length || !!tags.length || !!vods.length;
+  const isLoading = isFetching && !hasData;
+  const isRefetching = isLoading && hasData;
+  
   const loadData = useCallback(async () => {
-    setIsLoading(true);
-
-    const channelsList = await apiGet<Channel[]>(endpoints.channels.url);
-    const tagsList = await apiGet<Tag[]>(endpoints.tags.url);
-    const vodsList = await apiGet<Channel[]>(endpoints.vods.url);
-
+    setIsFetching(true)
+    
+    const [channelsList, tagsList, vodsList] = await Promise.all([
+      apiGet<Channel[]>(endpoints.channels.url),
+      apiGet<Tag[]>(endpoints.tags.url),
+      apiGet<Channel[]>(endpoints.vods.url)
+    ])
+    
     setChannels(channelsList);
     setTags(tagsList);
     setVods(vodsList);
-
-    setIsLoading(false);
-  }, [apiGet]);
-
-  const refetchData = useCallback(async () => {
-    setIsReFetching(true);
-
-    const channelsList = await apiGet<Channel[]>(endpoints.channels.url);
-    const tagsList = await apiGet<Tag[]>(endpoints.tags.url);
-    const vodsList = await apiGet<Channel[]>(endpoints.vods.url);
-
-    setChannels(channelsList);
-    setTags(tagsList);
-    setVods(vodsList);
-
-    setIsReFetching(false);
-  }, [apiGet]);
-
+    
+    setIsFetching(false)
+  }, [apiGet])
+  
   const handleShuffleClick = () => {
     const channelNames = channels.map((channel) => channel.user_name);
     const channelName = channelNames[Math.floor(Math.random() * channelNames.length)];
@@ -103,11 +94,11 @@ export default function Home() {
     loadData();
 
     const reloadInterval = setInterval(() => {
-      refetchData();
+      loadData();
     }, REFRESH_TIME_IN_SECONDS * 1000);
 
     return () => clearInterval(reloadInterval);
-  }, [loadData, refetchData]);
+  }, [loadData]);
 
   useEffect(() => {
     const tagNames = searchParams.get("tags");
