@@ -114,10 +114,7 @@ export default function Home() {
     const tagNames = searchParams.get("tags");
     if (tagNames && tags.length) {
       const tagsNamesArray = decodeURIComponent(tagNames).split(",");
-      const newSelectedTags = tagsNamesArray.map((tag) => {
-        tags.find((t) => t.name === tag);
-        return tags.find((t) => t.name === tag);
-      }) as Tag[];
+      const newSelectedTags = tagsNamesArray.map((tag) => tags.find((t) => t.name === tag)) as Tag[]; 
       setSelectedTags(newSelectedTags);
     }
   }, [searchParams, tags]);
