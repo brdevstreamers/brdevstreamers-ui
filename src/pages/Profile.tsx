@@ -28,32 +28,39 @@ export default function Profile() {
         <Heading>Perfil</Heading>
         <Text color={"gray.500"}>Aqui estão suas informações pessoais</Text>
       </Box>
-      <HStack>
-        <Box>
-          <Image rounded={"full"} boxSize={"xs"} src={user?.picture} />
-        </Box>
-        <VStack>
-          <FormControl>
-            <FormLabel htmlFor="email">Bio</FormLabel>
-            <Input id="email" type="email" />
-          </FormControl>
-          <FormControl>
-            <FormLabel htmlFor="email">GitHub</FormLabel>
-            <Input id="email" type="email" />
-          </FormControl>
-          <FormControl>
-            <FormLabel htmlFor="email">LinkedIn</FormLabel>
-            <Input id="email" type="email" />
-          </FormControl>
-          <FormControl>
-            <FormLabel htmlFor="email">Twitter</FormLabel>
-            <Input id="email" type="email" />
-          </FormControl>
-          <FormControl>
-            <FormLabel htmlFor="email">Discord</FormLabel>
-            <Input id="email" type="email" />
-          </FormControl>
-        </VStack>
+      <HStack gap={4}>
+        <Box minW={"xs"}>Menu</Box>
+        <HStack gap={4}>
+          <Box>
+            <Image rounded={"full"} boxSize={"xs"} src={user?.picture} />
+          </Box>
+          <VStack>
+            <FormControl>
+              <FormLabel htmlFor="email">Bio</FormLabel>
+              <Input id="email" type="email" />
+            </FormControl>
+            <HStack gap={4}>
+              <FormControl>
+                <FormLabel htmlFor="email">GitHub</FormLabel>
+                <Input id="email" type="email" />
+              </FormControl>
+              <FormControl>
+                <FormLabel htmlFor="email">LinkedIn</FormLabel>
+                <Input id="email" type="email" />
+              </FormControl>
+            </HStack>
+            <HStack gap={4}>
+              <FormControl>
+                <FormLabel htmlFor="email">Twitter</FormLabel>
+                <Input id="email" type="email" />
+              </FormControl>
+              <FormControl>
+                <FormLabel htmlFor="email">Discord</FormLabel>
+                <Input id="email" type="email" />
+              </FormControl>
+            </HStack>
+          </VStack>
+        </HStack>
       </HStack>
     </LandingLayout>
   );
