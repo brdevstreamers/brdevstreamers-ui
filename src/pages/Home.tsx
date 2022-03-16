@@ -39,14 +39,17 @@ export default function Home() {
   const [channels, setChannels] = useState<Channel[]>([]);
   const [tags, setTags] = useState<Tag[]>([]);
   const [vods, setVods] = useState<Channel[]>([]);
-  const [isLoading, setIsLoading] = useState<boolean>(true);
-  const [isRefetching, setIsReFetching] = useState<boolean>(false);
   const [selectedChannels, setSelectedChannels] = useState<string[]>([]);
   const [selectedTags, setSelectedTags] = useState<Array<Tag>>([]);
   const [searchParams, setSearchParams] = useSearchParams();
 
-  const loadData = useCallback(async (loader: typeof setIsLoading) => {
-    loader(true)
+  const [isFetching, setIsFetching] = useState<boolean>(true);
+  const hasData = !!channels.length || !!tags.length || !!vods.length;
+  const isLoading = isFetching && !hasData;
+  const isRefetching = isLoading && hasData;
+  
+  const loadData = useCallback(async () => {
+    setIsFetching(true)
     
     const [channelsList, tagsList, vodsList] = await Promise.all([
       apiGet<Channel[]>(endpoints.channels.url),
@@ -58,7 +61,7 @@ export default function Home() {
     setTags(tagsList);
     setVods(vodsList);
     
-    loader(false)
+    setIsFetching(false)
   }, [apiGet])
   
   const handleShuffleClick = () => {
@@ -89,10 +92,10 @@ export default function Home() {
   };
 
   useEffect(() => {
-    loadData(setIsLoading);
+    loadData();
 
     const reloadInterval = setInterval(() => {
-      loadData(setIsReFetching);
+      loadData();
     }, REFRESH_TIME_IN_SECONDS * 1000);
 
     return () => clearInterval(reloadInterval);
