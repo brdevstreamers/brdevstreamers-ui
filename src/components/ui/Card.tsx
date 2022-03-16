@@ -5,14 +5,17 @@ import { ViewIcon } from "@chakra-ui/icons";
 import { FaDiscord, FaGithub, FaInstagram, FaLinkedin, FaTwitter } from "react-icons/fa";
 import {
   Box,
+  Button,
   HStack,
   Icon,
   Image,
   Link,
+  Spacer,
   Tag,
   TagLabel,
   TagLeftIcon,
   Text,
+  useToast,
   VisuallyHidden,
 } from "@chakra-ui/react";
 
@@ -37,6 +40,30 @@ export default function Card({
 }: Props) {
   const [showPreview, setShowPreview] = useState(false);
   const [isSelected, setIsSelected] = useState(false);
+  const toast = useToast();
+
+  const copyToClipboard = async (event: React.MouseEvent) => {
+    event.preventDefault();
+
+    try {
+      await navigator.clipboard.writeText(`/raid ${channel.user_login}`);
+      toast({
+        title: `Comando "/raid ${channel.user_login}" copiado!`,
+        status: "success",
+        isClosable: true,
+        position: "top",
+        variant: "left-accent",
+      });
+    } catch (error) {
+      toast({
+        title: "Não foi possível copiar o comando",
+        status: "error",
+        isClosable: true,
+        position: "top",
+        variant: "left-accent",
+      });
+    }
+  };
 
   return (
     <Box
@@ -115,7 +142,7 @@ export default function Card({
           </Box>
         </Box>
         <Box m={4}>
-          <HStack alignItems={"start"}>
+          <HStack alignItems="start">
             <Image
               width="full"
               height="full"
@@ -124,18 +151,34 @@ export default function Card({
               src={channel.profile_image_url}
               alt={channel.user_name}
             />
-            <Box>
-              <Text
-                color={"gray.500"}
-                fontWeight={"semibold"}
-                mt={-1}
-                _hover={{
-                  color: "gray.200",
-                  textDecoration: "underline",
-                }}
-              >
-                {channel.user_login}
-              </Text>
+            <Box flex="1">
+              <HStack mb="1">
+                <Text
+                  color={"gray.500"}
+                  fontWeight={"semibold"}
+                  mt={-1}
+                  _hover={{
+                    color: "gray.200",
+                    textDecoration: "underline",
+                  }}
+                >
+                  {channel.user_login}
+                </Text>
+                <Spacer />
+                <Button
+                  data-test="raid-button"
+                  size="xs"
+                  rounded="sm"
+                  onClick={copyToClipboard}
+                  bgColor="primary.500"
+                  color="secondary.800"
+                  _hover={{
+                    bgColor: "primary.700",
+                  }}
+                >
+                  Raid
+                </Button>
+              </HStack>
 
               <Text color={"gray.100"} fontSize={"sm"} mt={-1}>
                 {channel.title}
