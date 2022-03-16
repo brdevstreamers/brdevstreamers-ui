@@ -21,7 +21,7 @@ export default function RedirectPage() {
         window.location.href = `https://twitch.tv/${username}`;
       })();
     }
-  }, [isAuthenticated]);
+  }, [isAuthenticated, user?.nickname, username]);
 
   return (
     <>

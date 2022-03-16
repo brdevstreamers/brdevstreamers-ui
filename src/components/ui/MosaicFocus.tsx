@@ -7,11 +7,7 @@ type Props = {
   focusOnChannel: (channelName: string) => void;
 };
 
-const MosaicFocus = ({
-  channelsOffFocus,
-  channelOnFocus,
-  focusOnChannel,
-}: Props) => {
+const MosaicFocus = ({ channelsOffFocus, channelOnFocus, focusOnChannel }: Props) => {
   return (
     <Flex direction="column" justifyContent="center" alignItems="center">
       <Box
@@ -24,11 +20,7 @@ const MosaicFocus = ({
       />
       <Flex wrap="wrap" justify="center" gap={3}>
         {channelsOffFocus.map((channel) => (
-          <Box
-            key={channel}
-            onClick={() => focusOnChannel(channel)}
-            cursor="pointer"
-          >
+          <Box key={channel} onClick={() => focusOnChannel(channel)} cursor="pointer">
             <Box
               as="iframe"
               w="100%"

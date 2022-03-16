@@ -1,4 +1,4 @@
-import { Box, Link } from "@chakra-ui/react";
+import { Box } from "@chakra-ui/react";
 import { Channel } from "../../types/channel.types";
 
 type Props = {

@@ -11,25 +11,19 @@ export default function LoginPage() {
 
   useEffect(() => {
     if (isAuthenticated) {
-      
-
       (async () => {
-
         const token = await getAccessTokenSilently({
           audience: "BrStreamersApi",
         });
         cookies.set("api_token", `Bearer ${token}`);
 
         try {
-          await axios.get(
-            process.env.REACT_APP_PRIVATE_API_URL + "/api/user/" + user?.nickname,
-            {
-              headers: {
-                "Content-Type": "application/json",
-                Authorization: cookies.get("api_token"),
-              },
-            }
-          );
+          await axios.get(process.env.REACT_APP_PRIVATE_API_URL + "/api/user/" + user?.nickname, {
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: cookies.get("api_token"),
+            },
+          });
         } catch (e) {
           await axios.post(
             process.env.REACT_APP_PRIVATE_API_URL + "/api/user" || "",
@@ -42,23 +36,18 @@ export default function LoginPage() {
                 "Content-Type": "application/json",
                 Authorization: cookies.get("api_token"),
               },
-            }
+            },
           );
         }
         document.location.href = "/";
       })();
     }
-  }, [isAuthenticated]);
+  }, [getAccessTokenSilently, isAuthenticated, user?.email, user?.nickname]);
 
   return (
     <>
       <Container centerContent>
-        <CircularProgress
-          mt="10"
-          isIndeterminate
-          color="primary.500"
-          size="120px"
-        />
+        <CircularProgress mt="10" isIndeterminate color="primary.500" size="120px" />
       </Container>
     </>
   );

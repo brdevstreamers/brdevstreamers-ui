@@ -32,7 +32,7 @@ export default function Card({
   channel,
   isLive,
   isMosaicMode,
-  handleChannelToMosaic = () => {},
+  handleChannelToMosaic = () => null,
   "data-test": dataTest,
 }: Props) {
   const [showPreview, setShowPreview] = useState(false);

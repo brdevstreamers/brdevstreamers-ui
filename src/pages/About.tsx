@@ -43,8 +43,8 @@ export default function About() {
 
           <AccordionPanel pb={4} bgColor="blackAlpha.400" rounded="sm">
             <Text>
-              O Br Dev Streamers surgiu com a ideia de agregar todas as pessoas
-              que fazem live coding em português na Twitch.
+              O Br Dev Streamers surgiu com a ideia de agregar todas as pessoas que fazem live
+              coding em português na Twitch.
             </Text>
           </AccordionPanel>
         </AccordionItem>
@@ -68,9 +68,8 @@ export default function About() {
 
           <AccordionPanel pb={4} bgColor="blackAlpha.400" rounded="sm">
             <Text>
-              Basta começar uma stream dentro da categoria de "Software e
-              Desenvolvimento de Jogos" com a língua em português e você
-              aparecerá na lista.
+              Basta começar uma stream dentro da categoria de "Software e Desenvolvimento de Jogos"
+              com a língua em português e você aparecerá na lista.
             </Text>
           </AccordionPanel>
         </AccordionItem>
@@ -94,37 +93,27 @@ export default function About() {
 
           <AccordionPanel pb={4} bgColor="blackAlpha.400" rounded="sm">
             <Text>
-              Sim, o projeto é open source e você pode acessá-lo (e abrir um PR)
-              no GitHub em:
+              Sim, o projeto é open source e você pode acessá-lo (e abrir um PR) no GitHub em:
             </Text>
 
             <Box as="br" />
 
             <Wrap>
-              <Link
-                href="https://github.com/Br-Dev-Streamers/brdevstreamers-ui"
-                target={"_blank"}
-              >
+              <Link href="https://github.com/Br-Dev-Streamers/brdevstreamers-ui" target={"_blank"}>
                 <Tag rounded="sm" _hover={{ bgColor: "gray.200" }}>
                   Frontend
                   <TagRightIcon as={ExternalLinkIcon} />
                 </Tag>
               </Link>
 
-              <Link
-                href="https://github.com/Br-Dev-Streamers/brdevstreamers"
-                target={"_blank"}
-              >
+              <Link href="https://github.com/Br-Dev-Streamers/brdevstreamers" target={"_blank"}>
                 <Tag rounded="sm" _hover={{ bgColor: "gray.200" }}>
                   Backend
                   <TagRightIcon as={ExternalLinkIcon} />
                 </Tag>
               </Link>
 
-              <Link
-                href="https://github.com/Br-Dev-Streamers/brdevstreamers-bot"
-                target={"_blank"}
-              >
+              <Link href="https://github.com/Br-Dev-Streamers/brdevstreamers-bot" target={"_blank"}>
                 <Tag rounded="sm" _hover={{ bgColor: "gray.200" }}>
                   Bot
                   <TagRightIcon as={ExternalLinkIcon} />
