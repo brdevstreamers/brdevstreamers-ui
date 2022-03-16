@@ -19,6 +19,7 @@ import {
 import type { Channel } from "../../types/channel.types";
 
 import Preview from "./Preview";
+import { TagLink } from "./TagLink";
 
 type Props = {
   channel: Channel;
@@ -144,89 +145,48 @@ export default function Card({
           </HStack>
           <HStack gap={0.3} mt={4} justify={"end"}>
             {channel.twitter_url && (
-              <Link isExternal={true} href={`https://twitter.com/${channel.twitter_url}`}>
-                <Tag
-                  aria-label="twitter"
-                  rounded={"sm"}
-                  size="md"
-                  variant="solid"
-                  backgroundColor="rgb(29, 155, 240)"
-                  _hover={{
-                    filter: "brightness(0.9)",
-                  }}
-                >
-                  <VisuallyHidden>Twitter</VisuallyHidden>
-                  <Icon as={FaTwitter} />
-                </Tag>
-              </Link>
+              <TagLink
+                url={`https://twitter.com/${channel.twitter_url}`}
+                name="Twitter"
+                backgroundColor="rgb(29, 155, 240)"
+                icon={FaTwitter}
+              />
             )}
 
             {channel.github_url && (
-              <Link isExternal={true} href={`https://github.com/${channel.github_url}`}>
-                <Tag
-                  size="md"
-                  variant="solid"
-                  rounded={"sm"}
-                  backgroundColor="gray.700"
-                  _hover={{
-                    filter: "brightness(0.9)",
-                  }}
-                >
-                  <VisuallyHidden>GitHub</VisuallyHidden>
-                  <Icon as={FaGithub} />
-                </Tag>
-              </Link>
+              <TagLink
+                name="GitHub"
+                url={`https://github.com/${channel.github_url}`}
+                icon={FaGithub}
+                backgroundColor="gray.700"
+              />
             )}
 
             {channel.linkedin_url && (
-              <Link isExternal={true} href={`https://linkedin.com/in/${channel.linkedin_url}`}>
-                <Tag
-                  size="md"
-                  variant="solid"
-                  rounded={"sm"}
-                  backgroundColor="#0a66c2"
-                  _hover={{
-                    filter: "brightness(0.9)",
-                  }}
-                >
-                  <VisuallyHidden>LinkedIn</VisuallyHidden>
-                  <Icon as={FaLinkedin} />
-                </Tag>
-              </Link>
+              <TagLink
+                name="Linkedin"
+                url={`https://linkedin.com/in/${channel.linkedin_url}`}
+                icon={FaLinkedin}
+                backgroundColor="#0a66c2"
+              />
             )}
 
             {channel.discord_url && (
-              <Link isExternal={true} href={channel.discord_url}>
-                <Tag
-                  size="md"
-                  variant="solid"
-                  rounded={"sm"}
-                  backgroundColor="#7289da"
-                  _hover={{
-                    filter: "brightness(0.9)",
-                  }}
-                >
-                  <VisuallyHidden>Discord</VisuallyHidden>
-                  <Icon as={FaDiscord} />
-                </Tag>
-              </Link>
+              <TagLink
+                name="Discord"
+                url={channel.discord_url}
+                icon={FaDiscord}
+                backgroundColor="#7289da"
+              />
             )}
 
             {channel.instagram_url && (
-              <Link isExternal={true} href={channel.instagram_url}>
-                <Tag
-                  size="md"
-                  variant="solid"
-                  rounded={"sm"}
-                  backgroundColor="#C13584"
-                  _hover={{
-                    filter: "brightness(0.9)",
-                  }}
-                >
-                  <VisuallyHidden>Instagram</VisuallyHidden>
-                  <Icon as={FaInstagram} />
-                </Tag>
-              </Link>
+              <TagLink
+                name="Instagram"
+                url={channel.instagram_url}
+                icon={FaInstagram}
+                backgroundColor="#C13584"
+              />
             )}
           </HStack>
         </Box>
