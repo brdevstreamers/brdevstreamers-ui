@@ -1,20 +1,16 @@
+import config from "../../utils/config";
+
 export const endpoints = {
   base: {
-    url: process.env.REACT_APP_API_URL || "http://localhost:8080",
+    url: config.baseUrl,
   },
   channels: {
-    url: "streams",
+    url: "public/streams",
   },
   vods: {
-    url: "vods",
+    url: "public/vods",
   },
   tags: {
-    url: "tags",
-  },
-  stats: {
-    url: "stats",
-  },
-  stats_summary: {
-    url: "stats/summary",
+    url: "public/tags",
   },
 };

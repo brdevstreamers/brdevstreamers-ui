@@ -1,10 +1,27 @@
-import { useAuth0 } from "@auth0/auth0-react";
-import { Box, Heading, HStack, Text, Image } from "@chakra-ui/react";
+import {
+  Box,
+  Heading,
+  HStack,
+  Text,
+  Image,
+  FormControl,
+  FormHelperText,
+  FormLabel,
+  Input,
+  VStack,
+} from "@chakra-ui/react";
+import { useEffect } from "react";
 import LandingLayout from "../components/layouts/LandingLayout";
-import { TwitchUser } from "../types/twitch-user.types";
+import { useAuth } from "../hooks/useAuth";
 
 export default function Profile() {
-  const { user, isLoading } = useAuth0<TwitchUser>();
+  const { user, authenticated } = useAuth();
+
+  useEffect(() => {
+    if (!authenticated) {
+      document.location.href = "/";
+    }
+  });
   return (
     <LandingLayout>
       <Box mt={8} mb={4}>
@@ -15,7 +32,28 @@ export default function Profile() {
         <Box>
           <Image rounded={"full"} boxSize={"xs"} src={user?.picture} />
         </Box>
-        <Box>Form</Box>
+        <VStack>
+          <FormControl>
+            <FormLabel htmlFor="email">Bio</FormLabel>
+            <Input id="email" type="email" />
+          </FormControl>
+          <FormControl>
+            <FormLabel htmlFor="email">GitHub</FormLabel>
+            <Input id="email" type="email" />
+          </FormControl>
+          <FormControl>
+            <FormLabel htmlFor="email">LinkedIn</FormLabel>
+            <Input id="email" type="email" />
+          </FormControl>
+          <FormControl>
+            <FormLabel htmlFor="email">Twitter</FormLabel>
+            <Input id="email" type="email" />
+          </FormControl>
+          <FormControl>
+            <FormLabel htmlFor="email">Discord</FormLabel>
+            <Input id="email" type="email" />
+          </FormControl>
+        </VStack>
       </HStack>
     </LandingLayout>
   );

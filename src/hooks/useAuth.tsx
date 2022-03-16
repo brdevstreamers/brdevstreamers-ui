@@ -1,8 +1,9 @@
-import React, { createContext, useContext, useState } from "react";
+import { useState, createContext, useContext } from "react";
 import { AuthContextInterface, AuthState } from "../types/api/auth.types";
 
 const AuthContext = createContext<AuthContextInterface | null>(null);
-const STORAGE_KEY = "root";
+
+const STORAGE_KEY = "__auth_provider_token__";
 
 export function useAuth() {
   const context = useContext(AuthContext);

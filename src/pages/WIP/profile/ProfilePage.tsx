@@ -43,9 +43,7 @@ const cookies = new Cookies();
 
 export default function ProfilePage() {
   const [userData, setUserData] = React.useState<UserModel>({} as UserModel);
-  const [userInteractionData, setUserInteractionData] = React.useState<
-    UserInteractionModel[]
-  >([]);
+  const [userInteractionData, setUserInteractionData] = React.useState<UserInteractionModel[]>([]);
   const [isSmallerThan900px] = useMediaQuery("(max-width: 900px)");
   const [isLoading, setLoading] = React.useState(true);
   const { isOpen, onToggle } = useDisclosure();
@@ -67,9 +65,7 @@ export default function ProfilePage() {
         setUserData(res.data.__data__);
 
         const userInteractionResponse = await axios.get(
-          process.env.REACT_APP_API_URL +
-            "/api/userinteraction/" +
-            user?.nickname,
+          process.env.REACT_APP_API_URL + "/api/userinteraction/" + user?.nickname,
           {
             headers: {
               "Content-Type": "application/json",
@@ -141,98 +137,37 @@ export default function ProfilePage() {
                 >
                   {isSmallerThan900px && (
                     <Flex className="profileImg-mobile" flex={1}>
-                      <SkeletonCircle width="300px" height='300px' />
+                      <SkeletonCircle width="300px" height="300px" />
                     </Flex>
                   )}
 
-                  
                   <Skeleton height="20px" width="200px" />
-                  
+
                   <Text textAlign={"center"} color="gray.700" px={3}>
-                  <Skeleton height="20px" width="200px" />
+                    <Skeleton height="20px" width="200px" />
                   </Text>
                   <Wrap justify="center">
-                      <WrapItem>
+                    <WrapItem>
                       <Skeleton height="20px" width="200px" />
-                      </WrapItem>
-                      <WrapItem>
+                    </WrapItem>
+                    <WrapItem>
                       <Skeleton height="20px" width="200px" />
-                      </WrapItem>
-                      <WrapItem>
+                    </WrapItem>
+                    <WrapItem>
                       <Skeleton height="20px" width="200px" />
-                      </WrapItem>
-                      <WrapItem>
+                    </WrapItem>
+                    <WrapItem>
                       <Skeleton height="20px" width="200px" />
-                      </WrapItem>
+                    </WrapItem>
                   </Wrap>
                 </Stack>
               </HStack>
             </>
-          
-          
-          
-          
-          
-          
-          
-          
-          
-          
-          
-          
-          
-          
-          
-          
-          
-          
-          
-          
-          
-          
-          
-          
-          
-          
-          
-          
-          
-          
-          
-          
-          
-          
-          
-          
-          
-          
-          
-          
-          
-          
-          
-          
-          
-          
-          
-          
-          
-          
-          
-          
-          
-          
-          
-          
           )}
 
           {!isLoading && (
             <>
-              <UserForm
-                isOpen={isOpen}
-                userData={userData}
-                onSubmit={onSubmit}
-              />
+              <UserForm isOpen={isOpen} userData={userData} onSubmit={onSubmit} />
               <HStack>
                 {!isSmallerThan900px && (
                   <chakra.div justifyContent="center">
@@ -262,11 +197,7 @@ export default function ProfilePage() {
                     </Flex>
                   )}
 
-                  <Heading
-                    fontSize={"2xl"}
-                    color="secondary.700"
-                    fontFamily={"body"}
-                  >
+                  <Heading fontSize={"2xl"} color="secondary.700" fontFamily={"body"}>
                     @{userData.user_login}
                   </Heading>
                   <Text textAlign={"center"} color="gray.700" px={3}>

@@ -1,45 +1,27 @@
-import { useAuth0 } from "@auth0/auth0-react";
 import { ChevronDownIcon } from "@chakra-ui/icons";
 import { Button, chakra, Menu, MenuButton, MenuItem, MenuList } from "@chakra-ui/react";
 import { useNavigate } from "react-router-dom";
 import "./Login.css";
 import LoginButton from "../../ui/LoginButton";
-import { useEffect } from "react";
+import { useAuth } from "../../../hooks/useAuth";
 
 export default function Login() {
-  const { user, isAuthenticated, isLoading, getAccessTokenSilently } = useAuth0();
+  const { authenticated, user, logout } = useAuth();
   const navigate = useNavigate();
-  const { logout } = useAuth0();
 
   const handleLogoutClick = () => {
-    localStorage.removeItem("token");
-    localStorage.removeItem("user");
-
-    logout({ returnTo: process.env.REACT_APP_REDIRECT_URL });
+    logout();
+    document.location.href = "/";
   };
 
   const handleProfileClick = () => {
     navigate("/profile");
   };
 
-  const getToken = async () => {
-    if (!isLoading && isAuthenticated) {
-      const token = await getAccessTokenSilently({
-        audience: "BrStreamersApi",
-      });
-
-      localStorage.setItem("token", token);
-    }
-  };
-
-  useEffect(() => {
-    getToken();
-  }, []);
-
   return (
     <>
-      {!isAuthenticated && <LoginButton />}
-      {isAuthenticated && (
+      {!authenticated && <LoginButton />}
+      {authenticated && (
         <Menu>
           <MenuButton
             as={Button}
