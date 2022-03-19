@@ -54,6 +54,17 @@ To run tests in CI:
   yarn build && yarn test:e2e
 ```
 
+## Commit
+
+Add files to **staged files** and run the following command
+
+```bash
+  git commit
+
+```
+
+This command will check lint errors in your files and will guide you through the commit process.
+
 ## 🤝 Contributing
 
 Contributions, issues and feature requests are welcome!
@@ -78,7 +89,6 @@ server {
     }
 }
 ```
-
 
 Then:
 
