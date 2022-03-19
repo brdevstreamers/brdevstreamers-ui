@@ -137,7 +137,7 @@ export default function Card({
                 {channel.user_login}
               </Text>
 
-              <Text color={"gray.100"} fontSize={"sm"} mt={-1}>
+              <Text color={"gray.100"} fontSize={"sm"} mt={-1} noOfLines={2}>
                 {channel.title}
               </Text>
             </Box>
