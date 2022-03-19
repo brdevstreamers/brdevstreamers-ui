@@ -250,18 +250,26 @@ export default function Home() {
       {isLoading ? (
         <SkeletonListCard />
       ) : (
-        <SimpleGrid columns={{ sm: 2, md: 3, lg: 4 }} gap={4}>
-          {filteredChannels.map((channel) => (
-            <Card
-              key={channel.id}
-              channel={channel}
-              isLive={true}
-              isMosaicMode={isMosaicMode}
-              handleChannelToMosaic={handleChannelToMosaic}
-              data-test="card-online"
-            />
-          ))}
-        </SimpleGrid>
+        <>
+          {filteredChannels.length > 0 ? (
+            <SimpleGrid columns={{ sm: 2, md: 3, lg: 4 }} gap={4}>
+              {filteredChannels.map((channel) => (
+                <Card
+                  key={channel.id}
+                  channel={channel}
+                  isLive={true}
+                  isMosaicMode={isMosaicMode}
+                  handleChannelToMosaic={handleChannelToMosaic}
+                  data-test="card-online"
+                />
+              ))}
+            </SimpleGrid>
+          ) : (
+            <Text color={"gray.100"} fontSize={"xl"} align={"center"}>
+              Nenhum canal disponível :/
+            </Text>
+          )}
+        </>
       )}
 
       <Box mt={16} mb={4}>
