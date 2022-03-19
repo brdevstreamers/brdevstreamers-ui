@@ -19,8 +19,6 @@ import {
   Icon,
   Skeleton,
   SkeletonCircle,
-  Grid,
-  GridItem,
   chakra,
   Table,
   Thead,

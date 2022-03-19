@@ -1,7 +1,45 @@
 {
-  "plugins": ["cypress"],
-  "parser": "@typescript-eslint/parser",
-  "parserOptions": {
-    "ecmaVersion": 6
-  }
+    "env": {
+      "browser": true,
+      "es2021": true,
+      "jest": true,
+      "node": true
+    },
+    "settings": {
+      "react": {
+        "version": "detect"
+      }
+    },
+    "extends": [
+        "eslint:recommended",
+        "plugin:react/recommended",
+        "plugin:@typescript-eslint/recommended"
+    ],
+    "parser": "@typescript-eslint/parser",
+    "parserOptions": {
+        "ecmaFeatures": {
+            "jsx": true
+        },
+        "ecmaVersion": "latest",
+        "sourceType": "module"
+    },
+    "plugins": [
+        "react",
+        "@typescript-eslint",
+        "react-hooks",
+        "cypress",
+        "unused-imports"
+    ],
+    "rules": {
+      "react-hooks/exhaustive-deps": "warn",
+      "react-hooks/rules-of-hooks": "error",
+      "react/prop-types": "off",
+      "react/react-in-jsx-scope": "off",
+      "@typescript-eslint/explicit-modules-boundary-types": "off",
+      "@typescript-eslint/no-non-null-assertion": "off",
+      "unused-imports/no-unused-imports": "error",
+      "react/no-unescaped-entities": "off"
+    }
 }
+
+

@@ -98,7 +98,7 @@ export default function UserForm(props: Props) {
             </WrapItem>
             <WrapItem width={isSmallerThan900px ? "100%" : "49%"}>
               <InputGroup>
-                <InputLeftAddon children="https://twitter.com/" />
+                <InputLeftAddon>https://twitter.com/</InputLeftAddon>
                 <Input
                   borderLeftRadius="0"
                   placeholder="username"
@@ -109,7 +109,7 @@ export default function UserForm(props: Props) {
             </WrapItem>
             <WrapItem width={isSmallerThan900px ? "100%" : "49%"}>
               <InputGroup>
-                <InputLeftAddon children="https://linkedin.com/in/" />
+                <InputLeftAddon>https://linkedin.com/in/</InputLeftAddon>
                 <Input
                   borderLeftRadius="0"
                   placeholder="username"
@@ -120,7 +120,7 @@ export default function UserForm(props: Props) {
             </WrapItem>
             <WrapItem width={isSmallerThan900px ? "100%" : "49%"}>
               <InputGroup>
-                <InputLeftAddon children="https://github.com/" />
+                <InputLeftAddon>https://github.com/</InputLeftAddon>
                 <Input
                   borderLeftRadius="0"
                   placeholder="username"
