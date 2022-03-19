@@ -20,6 +20,7 @@ import {
 } from "@chakra-ui/react";
 import { HamburgerIcon } from "@chakra-ui/icons";
 import Login from "../WIP/login/Login";
+import { FaGithub, FaDiscord } from "react-icons/fa";
 
 const Link = chakra(NavLink);
 
@@ -76,20 +77,22 @@ export default function Header() {
             <Spacer />
             <HStack gap={4}>
               <ChakraLink
+                fontSize={24}
                 isExternal={true}
                 href={"https://github.com/Br-Dev-Streamers"}
-                color={"gray.100"}
-                _hover={{ textDecoration: "underline" }}
+                color={"whiteAlpha.500"}
+                _hover={{ textDecoration: "underline", color: "gray.100" }}
               >
-                GitHub
+                <FaGithub />
               </ChakraLink>
               <ChakraLink
+                fontSize={24}
                 isExternal={true}
                 href={"https://discord.gg/collabcode"}
-                color={"gray.100"}
-                _hover={{ textDecoration: "underline" }}
+                color={"whiteAlpha.500"}
+                _hover={{ textDecoration: "underline", color: "gray.100" }}
               >
-                Discord
+                <FaDiscord />
               </ChakraLink>
               <Login />
             </HStack>
