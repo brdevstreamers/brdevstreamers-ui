@@ -52,11 +52,9 @@ export default function Mosaic({ channels }: Props) {
 
   const changeMosaicLayout = (layoutName: string): void => {
     if (layoutName === "focus") {
-      // setActiveLayout(false);
       focusOnChannel(channels[0]);
       setMosaicLayout("focus");
     } else {
-      // setActiveLayout(true);
       setMosaicLayout("grid");
     }
   };
