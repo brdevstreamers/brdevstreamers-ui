@@ -52,7 +52,7 @@ const Messages: React.FC<{ channels: string[] }> = ({ channels }) => {
   const filteredMessages = useMemo(() => {
     if (selectedChannels.length === 0) return messages;
     return messages.filter((message) => selectedChannels.includes(message.channel));
-  }, [messages, channels, selectedChannels]);
+  }, [messages, selectedChannels]);
 
   return (
     <AnimatePresence initial={false}>
