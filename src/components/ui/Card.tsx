@@ -153,7 +153,7 @@ export default function Card({
               alt={channel.user_name}
             />
             <Box flex="1">
-              <HStack mb="3">
+              <HStack mb={isLive ? "2" : "1"}>
                 <Text
                   color={"gray.500"}
                   fontWeight={"semibold"}
@@ -166,19 +166,21 @@ export default function Card({
                   {channel.user_login}
                 </Text>
                 <Spacer />
-                <Button
-                  data-test="raid-button"
-                  size="xs"
-                  rounded="sm"
-                  onClick={copyToClipboard}
-                  bgColor="primary.500"
-                  color="secondary.800"
-                  _hover={{
-                    bgColor: "primary.700",
-                  }}
-                >
-                  Raid
-                </Button>
+                {isLive && (
+                  <Button
+                    data-test="raid-button"
+                    size="xs"
+                    rounded="sm"
+                    onClick={copyToClipboard}
+                    bgColor="primary.500"
+                    color="secondary.800"
+                    _hover={{
+                      bgColor: "primary.700",
+                    }}
+                  >
+                    Raid
+                  </Button>
+                )}
               </HStack>
 
               <Text color={"gray.100"} fontSize={"sm"} mt={-1}>
