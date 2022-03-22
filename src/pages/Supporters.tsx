@@ -1,19 +1,8 @@
 import React, { useState, useEffect, useCallback } from "react";
 import axios from "axios";
-import {
-  Box,
-  Center,
-  Heading,
-  Image,
-  Spinner,
-  Text,
-  VStack,
-  Wrap,
-} from "@chakra-ui/react";
+import { Box, Center, Heading, Image, Spinner, Text, VStack, Wrap } from "@chakra-ui/react";
 
 import type { Supporter } from "../types";
-
-import LandingLayout from "../components/layouts/LandingLayout";
 
 export default function Supporters() {
   const [supporters, setSupporters] = useState<Supporter[]>([]);
@@ -34,7 +23,7 @@ export default function Supporters() {
   }, [loadData]);
 
   return (
-    <LandingLayout>
+    <>
       <Box mt={8} mb={4}>
         <Heading>Agradecimentos</Heading>
         <Text color={"gray.500"}>Saiba mais sobre o projeto!</Text>
@@ -76,6 +65,6 @@ export default function Supporters() {
           ))}
         </Wrap>
       )}
-    </LandingLayout>
+    </>
   );
 }

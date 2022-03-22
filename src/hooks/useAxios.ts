@@ -8,15 +8,12 @@ const api = axios.create({
 
 export function useAxios() {
   const apiGet = useCallback(
-    async <Response, Data = void>(
-      endpoint: string,
-      config?: AxiosRequestConfig<Data>,
-    ) => {
-      const { data } = await api.get<
-        Response,
-        AxiosResponse<Response, Data>,
-        Data
-      >(endpoint, config);
+    async <Response, Data = void>(endpoint: string, config?: AxiosRequestConfig<Data>) => {
+      const { data } = await api.get<Response, AxiosResponse<Response, Data>, Data>(
+        endpoint,
+        config,
+      );
+
       return data;
     },
     [],

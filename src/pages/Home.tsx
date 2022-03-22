@@ -19,7 +19,6 @@ import {
 
 import type { Channel, Tag } from "../types";
 
-import LandingLayout from "../components/layouts/LandingLayout";
 import { SkeletonListCard } from "../components/sections/SkeletonListCard";
 import { SkeletonListTags } from "../components/sections/SkeletonListTags";
 import Card from "../components/ui/Card";
@@ -27,17 +26,19 @@ import Mosaic from "../components/sections/Mosaic";
 import { useAxios } from "../hooks/useAxios";
 import { endpoints } from "../service/api";
 import { useSearchParams } from "react-router-dom";
+import { useErrorHandler } from "react-error-boundary";
 
 export default function Home() {
   const REFRESH_TIME_IN_SECONDS = 120;
   const { apiGet } = useAxios();
   const buttonSize = useBreakpointValue({ base: "sm", md: "md" });
   const [isLargerThan1000px] = useMediaQuery("(min-width: 1000px)");
+  const handleError = useErrorHandler();
 
   const [isMosaicMode, setIsMosaicMode] = useState(false);
-  const [channels, setChannels] = useState<Channel[]>([]);
-  const [tags, setTags] = useState<Tag[]>([]);
-  const [vods, setVods] = useState<Channel[]>([]);
+  const [channels, setChannels] = useState<Channel[] | undefined>([]);
+  const [tags, setTags] = useState<Tag[] | undefined>([]);
+  const [vods, setVods] = useState<Channel[] | undefined>([]);
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const [isRefetching, setIsReFetching] = useState<boolean>(false);
   const [selectedChannels, setSelectedChannels] = useState<string[]>([]);
@@ -45,18 +46,22 @@ export default function Home() {
   const [searchParams, setSearchParams] = useSearchParams();
 
   const loadData = useCallback(async () => {
-    setIsLoading(true);
+    try {
+      setIsLoading(true);
 
-    const channelsList = await apiGet<Channel[]>(endpoints.channels.url);
-    const tagsList = await apiGet<Tag[]>(endpoints.tags.url);
-    const vodsList = await apiGet<Channel[]>(endpoints.vods.url);
+      const channelsList = await apiGet<Channel[]>(endpoints.channels.url);
+      const tagsList = await apiGet<Tag[]>(endpoints.tags.url);
+      const vodsList = await apiGet<Channel[]>(endpoints.vods.url);
 
-    setChannels(channelsList);
-    setTags(tagsList);
-    setVods(vodsList);
-
-    setIsLoading(false);
-  }, [apiGet]);
+      setChannels(channelsList);
+      setTags(tagsList);
+      setVods(vodsList);
+    } catch (error) {
+      handleError(error);
+    } finally {
+      setIsLoading(false);
+    }
+  }, [apiGet, handleError]);
 
   const refetchData = useCallback(async () => {
     setIsReFetching(true);
@@ -73,8 +78,8 @@ export default function Home() {
   }, [apiGet]);
 
   const handleShuffleClick = () => {
-    const channelNames = channels.map((channel) => channel.user_name);
-    const channelName = channelNames[Math.floor(Math.random() * channelNames.length)];
+    const channelNames = channels?.map((channel) => channel.user_name);
+    const channelName = channelNames?.[Math.floor(Math.random() * channelNames.length)];
 
     window.open(`https://www.twitch.tv/${channelName}`, "_blank");
   };
@@ -111,18 +116,20 @@ export default function Home() {
 
   useEffect(() => {
     const tagNames = searchParams.get("tags");
-    if (tagNames && tags.length) {
+    if (tagNames && tags?.length) {
       const tagsNamesArray = decodeURIComponent(tagNames).split(",");
-      const newSelectedTags = tagsNamesArray.map((tag) => tags.find((t) => t.name === tag)) as Tag[]; 
+      const newSelectedTags = tagsNamesArray.map((tag) =>
+        tags.find((t) => t.name === tag),
+      ) as Tag[];
       setSelectedTags(newSelectedTags);
     }
   }, [searchParams, tags]);
 
-  const filterChannelsByTags = (channels: Channel[], selectedTags: Tag[]) => {
+  const filterChannelsByTags = (channels: Channel[] | undefined, selectedTags: Tag[]) => {
     if (selectedTags.length === 0) {
       return channels;
     }
-    const filteredChannels = channels.filter((channel) => {
+    const filteredChannels = channels?.filter((channel) => {
       return selectedTags.every((selectedTag) => channel.tags?.includes(selectedTag.id));
     });
 
@@ -135,7 +142,7 @@ export default function Home() {
   );
 
   return (
-    <LandingLayout>
+    <>
       <Flex mt={8} mb={4} gap={2} alignItems="center" wrap="wrap">
         <Box>
           <Heading display="flex" flexDirection="row" alignItems="center">
@@ -213,7 +220,7 @@ export default function Home() {
           <SkeletonListTags />
         ) : (
           <>
-            {tags.map((tag) => {
+            {tags?.map((tag) => {
               const isTagSelected = selectedTags.some((t) => t.id === tag.id);
               return (
                 <TagChakra
@@ -248,7 +255,7 @@ export default function Home() {
         <SkeletonListCard />
       ) : (
         <SimpleGrid columns={{ sm: 2, md: 3, lg: 4 }} gap={4}>
-          {filteredChannels.map((channel) => (
+          {filteredChannels?.map((channel) => (
             <Card
               key={channel.id}
               channel={channel}
@@ -269,7 +276,7 @@ export default function Home() {
         <SkeletonListCard />
       ) : (
         <SimpleGrid columns={{ sm: 2, md: 3, lg: 4 }} gap={4}>
-          {vods.map((channel) => (
+          {vods?.map((channel) => (
             <Card
               key={channel.id}
               channel={channel}
@@ -282,6 +289,6 @@ export default function Home() {
       )}
 
       {isMosaicMode && <Mosaic channels={selectedChannels} />}
-    </LandingLayout>
+    </>
   );
 }

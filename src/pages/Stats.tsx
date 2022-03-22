@@ -19,22 +19,17 @@ import { useAxios } from "../hooks/useAxios";
 import { endpoints } from "../service/api";
 import { Stats, StatsSummary, StatsSummaryDefault } from "../types";
 
-import LandingLayout from "../components/layouts/LandingLayout";
-
 export default function Supporters() {
   const { apiGet } = useAxios();
   const [isLoading, setIsLoading] = useState(false);
   const [stats, setStats] = useState<Stats[]>([]);
-  const [statsSummary, setStatsSummary] =
-    useState<StatsSummary>(StatsSummaryDefault);
+  const [statsSummary, setStatsSummary] = useState<StatsSummary>(StatsSummaryDefault);
 
   const loadData = useCallback(async () => {
     setIsLoading(true);
 
     const statsList = await apiGet<Stats[]>(endpoints.stats.url);
-    const statsSummaryList = await apiGet<StatsSummary>(
-      endpoints.stats_summary.url,
-    );
+    const statsSummaryList = await apiGet<StatsSummary>(endpoints.stats_summary.url);
 
     setStats(statsList);
     setStatsSummary(statsSummaryList);
@@ -64,7 +59,7 @@ export default function Supporters() {
   };
 
   return (
-    <LandingLayout>
+    <>
       <Box mt={8} mb={4}>
         <Heading>Estatísticas</Heading>
         <Text color={"gray.500"}>Saiba mais sobre o projeto!</Text>
@@ -105,17 +100,13 @@ export default function Supporters() {
           <Center mt="10">
             <ReactApexChart
               options={options}
-              series={[
-                statsSummary.streams,
-                statsSummary.vods,
-                statsSummary.previews,
-              ]}
+              series={[statsSummary.streams, statsSummary.vods, statsSummary.previews]}
               type="pie"
               width={380}
             />
           </Center>
         </>
       )}
-    </LandingLayout>
+    </>
   );
 }
