@@ -9,6 +9,7 @@ import ToPage from "./pages/to/ToPage";
 import LoginPage from "./pages/login/LoginPage";
 
 import ReactGA from "react-ga";
+import Contributors from "./pages/Contributors";
 
 function App() {
   useEffect(() => {
@@ -20,6 +21,7 @@ function App() {
       <Route path="/" element={<Home />} />
       <Route path="/sobre" element={<About />} />
       <Route path="/profile" element={<Profile />} />
+      <Route path="/contributors" element={<Contributors />} />
       <Route path="/to/:username" element={<ToPage />} />
       <Route path="/login" element={<LoginPage />} />
     </Routes>

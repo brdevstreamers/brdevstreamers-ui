@@ -7,6 +7,9 @@ export const endpoints = {
   channels: {
     url: "public/streams",
   },
+  contributors: {
+    url: "public/contributors",
+  },
   vods: {
     url: "public/vods",
   },

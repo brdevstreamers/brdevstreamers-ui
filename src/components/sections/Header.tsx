@@ -35,6 +35,11 @@ const links = [
     to: "/sobre",
     label: "Sobre",
   },
+  {
+    id: 3,
+    to: "/contributors",
+    label: "Comunidade",
+  },
 ];
 
 export default function Header() {
