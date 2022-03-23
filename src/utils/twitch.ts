@@ -1,4 +1,9 @@
-const isDevelopment = process.env.NODE_ENV !== "production";
+export enum Environment {
+  Development = "development",
+  Production = "production",
+}
+
+export const isDevelopment = process.env.NODE_ENV !== Environment.Production;
 
 export const getEmbedUrl = (channel: string): string => {
   const domain = isDevelopment ? "localhost" : process.env.REACT_APP_DOMAIN;

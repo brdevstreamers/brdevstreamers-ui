@@ -27,8 +27,10 @@ type Props = {
   channels: Array<string>;
 };
 
+type Layout = "grid" | "focus";
+
 export default function Mosaic({ channels }: Props) {
-  const [mosaicLayout, setMosaicLayout] = useState<"grid" | "focus">("grid");
+  const [mosaicLayout, setMosaicLayout] = useState<Layout>("grid");
   const [channelOnFocus, setChannelOnFocus] = useState<string>("");
   const [channelsOffFocus, setChannelsOffFocus] = useState<Array<string>>([]);
 
@@ -50,12 +52,11 @@ export default function Mosaic({ channels }: Props) {
     onOpen();
   };
 
-  const changeMosaicLayout = (layoutName: string): void => {
+  const changeMosaicLayout = (layoutName: Layout): void => {
+    setMosaicLayout(layoutName);
+
     if (layoutName === "focus") {
       focusOnChannel(channels[0]);
-      setMosaicLayout("focus");
-    } else {
-      setMosaicLayout("grid");
     }
   };
 
