@@ -1,4 +1,5 @@
 import { Center, VStack, Text, Button, Box } from "@chakra-ui/react";
+import { RepeatIcon } from "@chakra-ui/icons";
 import { FallbackProps } from "react-error-boundary";
 
 const ErrorFallback = ({ resetErrorBoundary }: FallbackProps) => {
@@ -13,7 +14,9 @@ const ErrorFallback = ({ resetErrorBoundary }: FallbackProps) => {
             Não conseguimos carregar o que você estava procurando 😔
           </Text>
         </Box>
-        <Button onClick={resetErrorBoundary}>Tente novamente</Button>
+        <Button rounded="sm" onClick={resetErrorBoundary} leftIcon={<RepeatIcon />}>
+          Tente novamente
+        </Button>
       </VStack>
     </Center>
   );
