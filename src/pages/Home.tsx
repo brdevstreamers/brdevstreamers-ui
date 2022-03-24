@@ -64,18 +64,22 @@ export default function Home() {
   }, [apiGet, handleError]);
 
   const refetchData = useCallback(async () => {
-    setIsReFetching(true);
+    try {
+      setIsReFetching(true);
 
-    const channelsList = await apiGet<Channel[]>(endpoints.channels.url);
-    const tagsList = await apiGet<Tag[]>(endpoints.tags.url);
-    const vodsList = await apiGet<Channel[]>(endpoints.vods.url);
+      const channelsList = await apiGet<Channel[]>(endpoints.channels.url);
+      const tagsList = await apiGet<Tag[]>(endpoints.tags.url);
+      const vodsList = await apiGet<Channel[]>(endpoints.vods.url);
 
-    setChannels(channelsList);
-    setTags(tagsList);
-    setVods(vodsList);
-
-    setIsReFetching(false);
-  }, [apiGet]);
+      setChannels(channelsList);
+      setTags(tagsList);
+      setVods(vodsList);
+    } catch (error) {
+      handleError(error);
+    } finally {
+      setIsReFetching(false);
+    }
+  }, [apiGet, handleError]);
 
   const handleShuffleClick = () => {
     const channelNames = channels?.map((channel) => channel.user_name);

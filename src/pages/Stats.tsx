@@ -18,23 +18,31 @@ import {
 import { useAxios } from "../hooks/useAxios";
 import { endpoints } from "../service/api";
 import { Stats, StatsSummary, StatsSummaryDefault } from "../types";
+import { useErrorHandler } from "react-error-boundary";
 
 export default function Supporters() {
   const { apiGet } = useAxios();
+  const handleError = useErrorHandler();
+
   const [isLoading, setIsLoading] = useState(false);
   const [stats, setStats] = useState<Stats[]>([]);
   const [statsSummary, setStatsSummary] = useState<StatsSummary>(StatsSummaryDefault);
 
   const loadData = useCallback(async () => {
-    setIsLoading(true);
+    try {
+      setIsLoading(true);
 
-    const statsList = await apiGet<Stats[]>(endpoints.stats.url);
-    const statsSummaryList = await apiGet<StatsSummary>(endpoints.stats_summary.url);
+      const statsList = await apiGet<Stats[]>(endpoints.stats.url);
+      const statsSummaryList = await apiGet<StatsSummary>(endpoints.stats_summary.url);
 
-    setStats(statsList);
-    setStatsSummary(statsSummaryList);
-    setIsLoading(false);
-  }, [apiGet]);
+      setStats(statsList);
+      setStatsSummary(statsSummaryList);
+    } catch (error) {
+      handleError(error);
+    } finally {
+      setIsLoading(false);
+    }
+  }, [apiGet, handleError]);
 
   useEffect(() => {
     loadData();

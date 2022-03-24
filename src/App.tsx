@@ -21,22 +21,17 @@ function App() {
 
   return (
     <LandingLayout>
-      <Routes>
-        <Route
-          path="/"
-          element={
-            <ErrorBoundary FallbackComponent={ErrorFallback}>
-              <Home />
-            </ErrorBoundary>
-          }
-        />
-        <Route path="/stats" element={<Stats />} />
-        <Route path="/sobre" element={<About />} />
-        <Route path="/agradecimentos" element={<Supporters />} />
-        {/* <Route path="/profile" element={<ProfilePage />} />
+      <ErrorBoundary FallbackComponent={ErrorFallback}>
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/stats" element={<Stats />} />
+          <Route path="/sobre" element={<About />} />
+          <Route path="/agradecimentos" element={<Supporters />} />
+          {/* <Route path="/profile" element={<ProfilePage />} />
       <Route path="/login" element={<LoginPage />} /> */}
-        <Route path="/to/:username" element={<ToPage />} />
-      </Routes>
+          <Route path="/to/:username" element={<ToPage />} />
+        </Routes>
+      </ErrorBoundary>
     </LandingLayout>
   );
 }
