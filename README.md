@@ -22,7 +22,7 @@ Install my-project with npm
 ## Usage
 
 ```bash
-  yarn start
+  yarn start:dev
 ```
 
 Runs the app in the development mode.
@@ -44,7 +44,7 @@ To run tests, run the following command
 To start visual tests with Cypress playground:
 
 ```bash
-  yarn start
+  yarn start:dev
   yarn cy:open
 ```
 
