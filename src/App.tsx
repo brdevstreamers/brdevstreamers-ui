@@ -6,7 +6,7 @@ import ToPage from "./pages/to/ToPage";
 
 import Home from "./pages/Home";
 import About from "./pages/About";
-import Stats from "./pages/Stats";
+import Stats from "./pages/Estatisticas";
 import Supporters from "./pages/Supporters";
 
 import ReactGA from "react-ga";
@@ -23,7 +23,7 @@ function App() {
       <Route path="/sobre" element={<About />} />
       <Route path="/agradecimentos" element={<Supporters />} />
       {/* <Route path="/profile" element={<ProfilePage />} />
-      <Route path="/login" element={<LoginPage />} /> */} 
+      <Route path="/login" element={<LoginPage />} /> */}
       <Route path="/to/:username" element={<ToPage />} />
     </Routes>
   );

@@ -35,7 +35,7 @@ const links = [
   },
   {
     id: 3,
-    to: "/stats",
+    to: "/estatisticas",
     label: "Estatísticas",
   },
   {
@@ -52,20 +52,10 @@ export default function Header() {
 
   return (
     <>
-      <Flex
-        p={4}
-        borderBottomColor={"whiteAlpha.100"}
-        borderBottomWidth={1}
-        alignItems="center"
-      >
+      <Flex p={4} borderBottomColor={"whiteAlpha.100"} borderBottomWidth={1} alignItems="center">
         <Link to="/">
           <HStack>
-            <Image
-              src="/logo.svg"
-              alt="Br Dev Streamers"
-              height={50}
-              width={50}
-            />
+            <Image src="/logo.svg" alt="Br Dev Streamers" height={50} width={50} />
             <Box textAlign={"center"}>
               <Text className="logo-title">BR Dev Streamers</Text>
               <Text mt={-2} className="logo-subtitle">
@@ -87,6 +77,7 @@ export default function Header() {
                     color: "primary.500",
                   }}
                   _hover={{ textDecoration: "underline" }}
+                  data-test="header-link"
                 >
                   {link.label}
                 </Link>
@@ -96,9 +87,10 @@ export default function Header() {
             <HStack gap={4}>
               <ChakraLink
                 isExternal={true}
-                href={"https://github.com/Br-Dev-Streamers"}
+                href={"https://github.com/brdevstreamers"}
                 color={"gray.100"}
                 _hover={{ textDecoration: "underline" }}
+                data-test="header-link"
               >
                 GitHub
               </ChakraLink>
@@ -107,6 +99,7 @@ export default function Header() {
                 href={"https://discord.gg/collabcode"}
                 color={"gray.100"}
                 _hover={{ textDecoration: "underline" }}
+                data-test="header-link"
               >
                 Discord
               </ChakraLink>
@@ -139,12 +132,7 @@ export default function Header() {
         )}
       </Flex>
 
-      <Drawer
-        isOpen={isOpen}
-        placement="right"
-        onClose={onClose}
-        finalFocusRef={buttonRef}
-      >
+      <Drawer isOpen={isOpen} placement="right" onClose={onClose} finalFocusRef={buttonRef}>
         <DrawerOverlay />
 
         <DrawerContent bgColor="secondary.600" color="gray.100" px={4} pt={16}>
@@ -171,7 +159,7 @@ export default function Header() {
 
             <ChakraLink
               isExternal={true}
-              href={"https://github.com/Br-Dev-Streamers"}
+              href={"https://github.com/brdevstreamers"}
               color={"gray.100"}
               w="full"
               p={2}
