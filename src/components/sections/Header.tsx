@@ -96,7 +96,7 @@ export default function Header() {
             <HStack gap={4}>
               <ChakraLink
                 isExternal={true}
-                href={"https://github.com/Br-Dev-Streamers"}
+                href={"https://github.com/brdevstreamers"}
                 color={"gray.100"}
                 _hover={{ textDecoration: "underline" }}
               >
@@ -171,7 +171,7 @@ export default function Header() {
 
             <ChakraLink
               isExternal={true}
-              href={"https://github.com/Br-Dev-Streamers"}
+              href={"https://github.com/brdevstreamers"}
               color={"gray.100"}
               w="full"
               p={2}
