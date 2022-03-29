@@ -24,14 +24,6 @@ describe("Home > Refetch", () => {
       statusCode: 200,
       fixture: "streams_refetch",
     }).as("streams");
-    cy.intercept(tagsRegex, {
-      statusCode: 200,
-      fixture: "tags",
-    }).as("tags");
-    cy.intercept(vodsRegex, {
-      statusCode: 200,
-      fixture: "vods",
-    }).as("vods");
     cy.tick(120 * 1000)
     cy.wait(["@streams", "@tags", "@vods"]);
 
