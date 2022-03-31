@@ -22,12 +22,14 @@ jobs:
           name: built
           path: build
       - name: Build and Push Container
-        run: docker build -t brdevstreamers-ui:${{ github.sha }} .
+        run: |-
+          docker build -t gcr.io/festive-utility-343713/brdevstreamers-ui:${{ github.sha }} .
+          docker push gcr.io/festive-utility-343713/brdevstreamers-ui:${{ github.sha }}
       - name: Deploy
         id: "deploy"
         uses: "google-github-actions/deploy-cloudrun@v0"
         with:
           service: "brdevstreamers-ui"
-          image: "brdevstreamers-ui:${{ github.sha }}"
+          image: "gcr.io/festive-utility-343713/brdevstreamers-ui:${{ github.sha }}"
       - name: "Use output" 
         run: 'curl "${{ steps.deploy.outputs.url }}"'
