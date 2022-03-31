@@ -23,4 +23,9 @@ jobs:
           path: build
       - name: Deploy
         id: "deploy"
-        uses: "google-github-actions/deploy-appengine@v0"
+        uses: "google-github-actions/deploy-cloudrun@v0"
+        with:
+          service: "brdevstreamers-ui"
+          image: "gcr.io/cloudrun/brdevstreamers-ui"
+      - name: "Use output" 
+        run: 'curl "${{ steps.deploy.outputs.url }}"'

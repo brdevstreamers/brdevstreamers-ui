@@ -1,13 +1,7 @@
-### STAGE 1: Build ###
-FROM node:17-alpine AS build
+FROM node:17-slim
 WORKDIR /usr/src/app
-COPY package.json ./
-RUN yarn install
-COPY . .
-RUN yarn run build
-
-### STAGE 2: Run ###
-FROM staticfloat/nginx-certbot
-ENV CERTBOT_EMAIL flaviojmendes@gmail.com
-COPY ./nginx.conf /etc/nginx/user.conf.d/
-COPY --from=build /usr/src/app/build /usr/share/nginx/html
+COPY package*.json ./
+ENV NODE_ENV production
+RUN yarn
+COPY . ./
+CMD [ "yarn", "serve" ]
