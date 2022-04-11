@@ -1,0 +1,46 @@
+[
+  {
+    "user_login": "emersongarrido",
+    "email": null,
+    "bio": null,
+    "github_url": null,
+    "twitter_url": null,
+    "instagram_url": null,
+    "linkedin_url": null,
+    "discord_url": null,
+    "id": "45803811629",
+    "user_id": "576852468",
+    "user_name": "EmersonGarrido",
+    "title": "LiveCoding - Social Network + 18",
+    "viewer_count": 1,
+    "started_at": "2022-03-11T00:20:01Z",
+    "thumbnail_url": "https://static-cdn.jtvnw.net/previews-ttv/live_user_emersongarrido-{width}x{height}.jpg",
+    "profile_image_url": "https://static-cdn.jtvnw.net/jtv_user_pictures/09b1e152-8d9f-49aa-a660-61a66317c187-profile_image-300x300.png",
+    "description": "https://instagram.com/emersongarridoo...",
+    "tags": ["39ee8140-901a-4762-bfca-8260dea1310f"]
+  },
+  {
+    "user_login": "gabrieldneto",
+    "email": null,
+    "bio": null,
+    "github_url": null,
+    "twitter_url": null,
+    "instagram_url": null,
+    "linkedin_url": null,
+    "discord_url": null,
+    "id": "45804806941",
+    "user_id": "756839055",
+    "user_name": "gabrieldneto",
+    "title": "[PT-BR / ENG] #4 Clonando Site da Vans | ReactJS + StrapiCMS",
+    "viewer_count": 2,
+    "started_at": "2022-03-11T01:56:57Z",
+    "thumbnail_url": "https://static-cdn.jtvnw.net/previews-ttv/live_user_gabrieldneto-{width}x{height}.jpg",
+    "profile_image_url": "https://static-cdn.jtvnw.net/jtv_user_pictures/fc4212e4-3fbb-4b99-8d89-cb138bab9c0e-profile_image-300x300.png",
+    "description": "Frontend Developer looking for knowledge......",
+    "tags": [
+      "b741fd1d-e96d-49b8-9f2d-03a631c33e04",
+      "c23ce252-cf78-4b98-8c11-8769801aaf3a",
+      "39ee8140-901a-4762-bfca-8260dea1310f"
+    ]
+  }
+]

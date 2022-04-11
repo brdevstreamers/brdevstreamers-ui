@@ -7,7 +7,7 @@ import "./App.css";
 
 import Home from "./pages/Home";
 import About from "./pages/About";
-import Stats from "./pages/Stats";
+import Stats from "./pages/Estatisticas";
 import Supporters from "./pages/Supporters";
 import ToPage from "./pages/to/ToPage";
 

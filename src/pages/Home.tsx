@@ -36,40 +36,28 @@ export default function Home() {
   const handleError = useErrorHandler();
 
   const [isMosaicMode, setIsMosaicMode] = useState(false);
-  const [channels, setChannels] = useState<Channel[] | undefined>([]);
-  const [tags, setTags] = useState<Tag[] | undefined>([]);
-  const [vods, setVods] = useState<Channel[] | undefined>([]);
-  const [isLoading, setIsLoading] = useState<boolean>(true);
-  const [isRefetching, setIsReFetching] = useState<boolean>(false);
+  const [channels, setChannels] = useState<Channel[]>([]);
+  const [tags, setTags] = useState<Tag[]>([]);
+  const [vods, setVods] = useState<Channel[]>([]);
   const [selectedChannels, setSelectedChannels] = useState<string[]>([]);
   const [selectedTags, setSelectedTags] = useState<Array<Tag>>([]);
   const [searchParams, setSearchParams] = useSearchParams();
 
+  const [isFetching, setIsFetching] = useState<boolean>(true);
+
+  const hasData = !!channels.length || !!tags.length || !!vods.length;
+  const isLoading = isFetching && !hasData;
+  const isRefetching = isLoading && hasData;
+
   const loadData = useCallback(async () => {
     try {
-      setIsLoading(true);
+      setIsFetching(true);
 
-      const channelsList = await apiGet<Channel[]>(endpoints.channels.url);
-      const tagsList = await apiGet<Tag[]>(endpoints.tags.url);
-      const vodsList = await apiGet<Channel[]>(endpoints.vods.url);
-
-      setChannels(channelsList);
-      setTags(tagsList);
-      setVods(vodsList);
-    } catch (error) {
-      handleError(error);
-    } finally {
-      setIsLoading(false);
-    }
-  }, [apiGet, handleError]);
-
-  const refetchData = useCallback(async () => {
-    try {
-      setIsReFetching(true);
-
-      const channelsList = await apiGet<Channel[]>(endpoints.channels.url);
-      const tagsList = await apiGet<Tag[]>(endpoints.tags.url);
-      const vodsList = await apiGet<Channel[]>(endpoints.vods.url);
+      const [channelsList, tagsList, vodsList] = await Promise.all([
+        apiGet<Channel[]>(endpoints.channels.url),
+        apiGet<Tag[]>(endpoints.tags.url),
+        apiGet<Channel[]>(endpoints.vods.url),
+      ]);
 
       setChannels(channelsList);
       setTags(tagsList);
@@ -77,15 +65,14 @@ export default function Home() {
     } catch (error) {
       handleError(error);
     } finally {
-      setIsReFetching(false);
+      setIsFetching(false);
     }
   }, [apiGet, handleError]);
 
   const handleShuffleClick = () => {
-    const channelNames = channels?.map((channel) => channel.user_name);
-    const channelName = channelNames?.[Math.floor(Math.random() * channelNames.length)];
+    const channel = channels[Math.floor(Math.random() * channels.length)];
 
-    window.open(`https://www.twitch.tv/${channelName}`, "_blank");
+    window.open(`https://www.twitch.tv/${channel.user_name}`, "_blank");
   };
 
   const handleChannelToMosaic = (channelName: string) => {
@@ -112,11 +99,11 @@ export default function Home() {
     loadData();
 
     const reloadInterval = setInterval(() => {
-      refetchData();
+      loadData();
     }, REFRESH_TIME_IN_SECONDS * 1000);
 
     return () => clearInterval(reloadInterval);
-  }, [loadData, refetchData]);
+  }, [loadData]);
 
   useEffect(() => {
     const tagNames = searchParams.get("tags");

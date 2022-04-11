@@ -20,7 +20,7 @@ import { endpoints } from "../service/api";
 import { Stats, StatsSummary, StatsSummaryDefault } from "../types";
 import { useErrorHandler } from "react-error-boundary";
 
-export default function Supporters() {
+export default function StatsPage() {
   const { apiGet } = useAxios();
   const handleError = useErrorHandler();
 

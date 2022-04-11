@@ -9,14 +9,17 @@ import {
   ModalOverlay,
   useDisclosure,
   useToast,
+  VStack,
   type ButtonProps,
 } from "@chakra-ui/react";
 import { motion } from "framer-motion";
 import { useState } from "react";
 import { BsGrid1X2Fill, BsGridFill, BsXLg } from "react-icons/bs";
+
 import ButtonMosaicLayout from "../ui/ButtonMosaicLayout";
 import MosaicFocus from "../ui/MosaicFocus";
 import MosaicGrid from "../ui/MosaicGrid";
+import Messages from "../ui/Messages";
 
 const MotionButton = motion<ButtonProps>(chakra.button);
 
@@ -24,11 +27,12 @@ type Props = {
   channels: Array<string>;
 };
 
+type Layout = "grid" | "focus";
+
 export default function Mosaic({ channels }: Props) {
-  const [mosaicLayout, setMosaicLayout] = useState<"grid" | "focus">("grid");
+  const [mosaicLayout, setMosaicLayout] = useState<Layout>("grid");
   const [channelOnFocus, setChannelOnFocus] = useState<string>("");
   const [channelsOffFocus, setChannelsOffFocus] = useState<Array<string>>([]);
-  const [activeLayout, setActiveLayout] = useState<boolean>(true);
 
   const { isOpen, onOpen, onClose } = useDisclosure();
   const toast = useToast();
@@ -48,14 +52,11 @@ export default function Mosaic({ channels }: Props) {
     onOpen();
   };
 
-  const changeMosaicLayout = (layoutName: string): void => {
+  const changeMosaicLayout = (layoutName: Layout): void => {
+    setMosaicLayout(layoutName);
+
     if (layoutName === "focus") {
-      setActiveLayout(false);
       focusOnChannel(channels[0]);
-      setMosaicLayout("focus");
-    } else {
-      setActiveLayout(true);
-      setMosaicLayout("grid");
     }
   };
 
@@ -95,38 +96,42 @@ export default function Mosaic({ channels }: Props) {
         <ModalOverlay />
         <ModalContent rounded={"none"} backgroundColor="secondary.600" overflow="auto">
           <ModalBody>
-            <HStack justifyContent={"center"} mb={2}>
-              <ButtonMosaicLayout
-                isActive={activeLayout}
-                layout={"grid"}
-                changeMosaicLayout={changeMosaicLayout}
-                Icon={BsGridFill}
-              />
-              <ButtonMosaicLayout
-                isActive={!activeLayout}
-                layout={"focus"}
-                changeMosaicLayout={changeMosaicLayout}
-                Icon={BsGrid1X2Fill}
-              />
-              <Button
-                bgColor={"primary.500"}
-                borderRadius={"sm"}
-                _hover={{ bgColor: "primary.600", color: "primary.400" }}
-                onClick={onClose}
-              >
-                <BsXLg />
-              </Button>
-            </HStack>
+            <HStack>
+              <VStack flex="1" alignItems="streach">
+                <HStack justifyContent={"center"} mb={2}>
+                  <ButtonMosaicLayout
+                    isActive={mosaicLayout === "grid"}
+                    onClick={() => changeMosaicLayout("grid")}
+                    Icon={BsGridFill}
+                  />
+                  <ButtonMosaicLayout
+                    isActive={mosaicLayout === "focus"}
+                    onClick={() => changeMosaicLayout("focus")}
+                    Icon={BsGrid1X2Fill}
+                  />
+                  <Button
+                    bgColor={"primary.500"}
+                    borderRadius={"sm"}
+                    _hover={{ bgColor: "primary.600", color: "primary.400" }}
+                    onClick={onClose}
+                  >
+                    <BsXLg />
+                  </Button>
+                </HStack>
 
-            {mosaicLayout === "grid" ? (
-              <MosaicGrid channels={channels} />
-            ) : (
-              <MosaicFocus
-                channelsOffFocus={channelsOffFocus}
-                channelOnFocus={channelOnFocus}
-                focusOnChannel={focusOnChannel}
-              />
-            )}
+                {mosaicLayout === "grid" ? (
+                  <MosaicGrid channels={channels} />
+                ) : (
+                  <MosaicFocus
+                    channelsOffFocus={channelsOffFocus}
+                    channelOnFocus={channelOnFocus}
+                    focusOnChannel={focusOnChannel}
+                  />
+                )}
+              </VStack>
+
+              <Messages channels={channels} />
+            </HStack>
           </ModalBody>
         </ModalContent>
       </Modal>
