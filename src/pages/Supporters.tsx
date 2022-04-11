@@ -1,40 +1,37 @@
 import React, { useState, useEffect, useCallback } from "react";
 import axios from "axios";
-import {
-  Box,
-  Center,
-  Heading,
-  Image,
-  Spinner,
-  Text,
-  VStack,
-  Wrap,
-} from "@chakra-ui/react";
+import { Box, Center, Heading, Image, Spinner, Text, VStack, Wrap } from "@chakra-ui/react";
 
 import type { Supporter } from "../types";
-
-import LandingLayout from "../components/layouts/LandingLayout";
+import { useErrorHandler } from "react-error-boundary";
 
 export default function Supporters() {
+  const handleError = useErrorHandler();
+
   const [supporters, setSupporters] = useState<Supporter[]>([]);
   const [isLoading, setIsLoading] = useState(false);
 
   const loadData = useCallback(async () => {
-    setIsLoading(true);
+    try {
+      setIsLoading(true);
 
-    const supportersUrl = process.env.REACT_APP_SUPPORTERS || "";
-    const { data } = await axios.get<Supporter[]>(supportersUrl);
+      const supportersUrl = process.env.REACT_APP_SUPPORTERS || "";
+      const { data } = await axios.get<Supporter[]>(supportersUrl);
 
-    setSupporters(data);
-    setIsLoading(false);
-  }, []);
+      setSupporters(data);
+    } catch (error) {
+      handleError(error);
+    } finally {
+      setIsLoading(false);
+    }
+  }, [handleError]);
 
   useEffect(() => {
     loadData();
   }, [loadData]);
 
   return (
-    <LandingLayout>
+    <>
       <Box mt={8} mb={4}>
         <Heading>Agradecimentos</Heading>
         <Text color={"gray.500"}>Saiba mais sobre o projeto!</Text>
@@ -76,6 +73,6 @@ export default function Supporters() {
           ))}
         </Wrap>
       )}
-    </LandingLayout>
+    </>
   );
 }
