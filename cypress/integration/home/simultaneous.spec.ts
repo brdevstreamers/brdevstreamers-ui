@@ -17,10 +17,12 @@ describe("Home > Simultaneous", () => {
     cy.visit(Cypress.env("hostUrl"));
     cy.wait(["@streams", "@tags", "@vods"]);
 
-    cy.getByData("simultaneous-button").click();
-    cy.getByData("start-simultaneous-button").click();
-    cy.get(".chakra-toast")
-      .should("have.length", 1)
-      .contains("Você deve selecionar pelo menos duas streams");
+    cy.getByDataTest("simultaneous-button").click();
+    cy.getByDataTest("start-simultaneous-button").click();
+
+    cy.findByRole("alert", { name: "Você deve selecionar pelo menos duas streams" }).should(
+      "have.length",
+      1,
+    );
   });
 });

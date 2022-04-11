@@ -104,7 +104,9 @@ export default function Home() {
     const tagNames = searchParams.get("tags");
     if (tagNames && tags.length) {
       const tagsNamesArray = decodeURIComponent(tagNames).split(",");
-      const newSelectedTags = tagsNamesArray.map((tag) => tags.find((t) => t.name === tag)) as Tag[]; 
+      const newSelectedTags = tagsNamesArray.map((tag) =>
+        tags.find((t) => t.name === tag),
+      ) as Tag[];
       setSelectedTags(newSelectedTags);
     }
   }, [searchParams, tags]);
@@ -224,9 +226,7 @@ export default function Home() {
                   _hover={{
                     opacity: "0.5",
                   }}
-                  data-test={
-                    isTagSelected ? "tag-filter-item-selected" : "tag-filter-item-unselected"
-                  }
+                  data-test="tag-filter"
                 >
                   {tag.name}
                 </TagChakra>
@@ -261,13 +261,7 @@ export default function Home() {
       ) : (
         <SimpleGrid columns={{ sm: 2, md: 3, lg: 4 }} gap={4}>
           {vods.map((channel) => (
-            <Card
-              key={channel.id}
-              channel={channel}
-              isLive={false}
-              isMosaicMode={false}
-              data-test="card-vod"
-            />
+            <Card key={channel.id} channel={channel} isLive={false} isMosaicMode={false} />
           ))}
         </SimpleGrid>
       )}

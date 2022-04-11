@@ -23,7 +23,7 @@ export default function About() {
         <Text color={"gray.500"}>Saiba mais sobre o projeto!</Text>
       </Box>
 
-      <Accordion defaultIndex={[0, 1, 2]} allowMultiple>
+      <Accordion defaultIndex={[0, 1, 2]} allowMultiple data-test="accordion-container">
         <AccordionItem
           border="none"
           bgColor="blackAlpha.300"

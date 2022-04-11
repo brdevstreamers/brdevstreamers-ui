@@ -52,7 +52,13 @@ export default function Header() {
 
   return (
     <>
-      <Flex p={4} borderBottomColor={"whiteAlpha.100"} borderBottomWidth={1} alignItems="center">
+      <Flex
+        p={4}
+        borderBottomColor={"whiteAlpha.100"}
+        borderBottomWidth={1}
+        alignItems="center"
+        data-test="header-container"
+      >
         <Link to="/">
           <HStack>
             <Image src="/logo.svg" alt="Br Dev Streamers" height={50} width={50} />
@@ -77,7 +83,6 @@ export default function Header() {
                     color: "primary.500",
                   }}
                   _hover={{ textDecoration: "underline" }}
-                  data-test="header-link"
                 >
                   {link.label}
                 </Link>
@@ -90,7 +95,6 @@ export default function Header() {
                 href={"https://github.com/brdevstreamers"}
                 color={"gray.100"}
                 _hover={{ textDecoration: "underline" }}
-                data-test="header-link"
               >
                 GitHub
               </ChakraLink>
@@ -99,7 +103,6 @@ export default function Header() {
                 href={"https://discord.gg/collabcode"}
                 color={"gray.100"}
                 _hover={{ textDecoration: "underline" }}
-                data-test="header-link"
               >
                 Discord
               </ChakraLink>
