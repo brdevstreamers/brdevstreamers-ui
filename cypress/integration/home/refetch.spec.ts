@@ -18,7 +18,7 @@ describe("Home > Refetch", () => {
     cy.visit(Cypress.env("hostUrl"));
     cy.wait(["@streams", "@tags", "@vods"]);
 
-    cy.getByData("card-online").should("have.length", 13);
+    cy.getByDataTest("card-online").should("have.length", 13);
 
     cy.intercept(streamsRegex, {
       statusCode: 200,
@@ -27,6 +27,6 @@ describe("Home > Refetch", () => {
     cy.tick(120 * 1000)
     cy.wait(["@streams", "@tags", "@vods"]);
 
-    cy.getByData("card-online").should("have.length", 2);
+    cy.getByDataTest("card-online").should("have.length", 2);
   });
 });

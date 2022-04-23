@@ -1,7 +1,7 @@
 import { streamsRegex, tagsRegex, vodsRegex } from "../../consts/urlRegexes";
 
 describe("Home > Raid", () => {
-  it("Copy raid command to clipboard", () => {
+  it("should copy raid command to clipboard", () => {
     const COPIED_TEXT = "/raid emersongarrido";
 
     cy.intercept(streamsRegex, {
@@ -41,11 +41,13 @@ describe("Home > Raid", () => {
 
     cy.wait(["@streams", "@tags", "@vods"]);
 
-    cy.getByData("raid-button").first().click();
-    cy.window().its("navigator.clipboard").invoke("readText").should("equal", COPIED_TEXT);
+    cy.getByDataTest("card-online")
+      .first()
+      .within(() => {
+        cy.findByRole("button", { name: "Raid" }).click();
+        cy.window().its("navigator.clipboard").invoke("readText").should("equal", COPIED_TEXT);
+      });
 
-    cy.get(".chakra-alert").within(() => {
-      cy.get(".chakra-alert__title").contains(`Comando "${COPIED_TEXT}" copiado!`);
-    });
+    cy.findByRole("alert", { name: `Comando "${COPIED_TEXT}" copiado!` }).should("have.length", 1);
   });
 });

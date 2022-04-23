@@ -1,0 +1,17 @@
+{
+  "exclude": ["../node_modules/@types/jest", "../node_modules/@testing-library/jest-dom"],
+  "include": ["integration/**/*", "plugins/**/*", "support/**/*"],
+  "compilerOptions": {
+    "baseUrl": ".",
+    "noEmit": true,
+    "types": ["node", "cypress", "@testing-library/cypress"],
+    "esModuleInterop": true,
+    "jsx": "react",
+    "moduleResolution": "node",
+    "target": "es2019",
+    "strict": true,
+    "skipLibCheck": true,
+    "resolveJsonModule": true,
+    "typeRoots": ["../node_modules/@types"]
+  }
+}
