@@ -110,8 +110,7 @@ export default function StreamModal(props: Props) {
                   src={
                     "https://www.twitch.tv/embed/" +
                     props.streamer.user_name +
-                    "/chat?parent=" +
-                    process.env.REACT_APP_DOMAIN
+                    "/chat?parent=brstreamers.dev" 
                   }
                   height="100%"
                   width="100%"
