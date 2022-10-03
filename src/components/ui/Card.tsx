@@ -168,7 +168,6 @@ export default function Card({
                 <Spacer />
                 {isLive && (
                   <Button
-                    data-test="raid-button"
                     size="xs"
                     rounded="sm"
                     onClick={copyToClipboard}
