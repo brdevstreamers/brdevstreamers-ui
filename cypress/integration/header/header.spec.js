@@ -5,8 +5,8 @@ describe("Home > Filter", () => {
     const LINKS = [
       { text: "Assistir", href: "/" },
       { text: "Sobre", href: "/sobre" },
-      { text: "Estatísticas", href: "/estatisticas" },
-      { text: "Agradecimentos", href: "/agradecimentos" },
+//       { text: "Estatísticas", href: "/estatisticas" },
+//       { text: "Agradecimentos", href: "/agradecimentos" },
       { text: "GitHub", href: "https://github.com/brdevstreamers" },
       { text: "Discord", href: "https://discord.gg/collabcode" },
     ];
