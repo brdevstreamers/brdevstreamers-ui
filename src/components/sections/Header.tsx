@@ -33,16 +33,16 @@ const links = [
     to: "/sobre",
     label: "Sobre",
   },
-  {
-    id: 3,
-    to: "/estatisticas",
-    label: "Estatísticas",
-  },
-  {
-    id: 4,
-    to: "/agradecimentos",
-    label: "Agradecimentos",
-  },
+//   {
+//     id: 3,
+//     to: "/estatisticas",
+//     label: "Estatísticas",
+//   },
+//   {
+//     id: 4,
+//     to: "/agradecimentos",
+//     label: "Agradecimentos",
+//   },
 ];
 
 export default function Header() {
