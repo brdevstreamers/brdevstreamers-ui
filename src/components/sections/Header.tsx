@@ -9,6 +9,8 @@ import {
   Spacer,
   Text,
   Button,
+  List,
+  ListItem,
   Link as ChakraLink,
   useMediaQuery,
   useDisclosure,
@@ -52,7 +54,7 @@ export default function Header() {
 
   return (
     <>
-      <Flex p={4} borderBottomColor={"whiteAlpha.100"} borderBottomWidth={1} alignItems="center">
+      <Flex p={4} borderBottomColor={"whiteAlpha.100"} borderBottomWidth={1} alignItems="center" as="header">
         <Link to="/">
           <HStack>
             <Image src="/logo.svg" alt="Br Dev Streamers" height={50} width={50} />
@@ -67,42 +69,52 @@ export default function Header() {
         <Spacer />
         {isLargerThanLg && (
           <>
-            <HStack gap={4}>
-              {links.map((link) => (
-                <Link
-                  to={link.to}
-                  key={link.id}
+            <HStack gap={4} as="nav">
+              <List display="flex" gap={4}>
+                {links.map((link) => (
+                  <ListItem key={link.id}>
+                    <Link
+                      to={link.to}
+                    
+                      color={"gray.100"}
+                      _activeLink={{
+                        color: "primary.500",
+                      }}
+                      _hover={{ textDecoration: "underline" }}
+                      data-test="header-link"
+                    >
+                      {link.label}
+                    </Link>
+                  </ListItem>
+                ))}
+              </List>
+            </HStack>
+            <Spacer />
+            <HStack gap={4} as="nav">
+            <List display="flex" gap={4}>
+              <ListItem>
+                <ChakraLink
+                  isExternal={true}
+                  href={"https://github.com/brdevstreamers"}
                   color={"gray.100"}
-                  _activeLink={{
-                    color: "primary.500",
-                  }}
                   _hover={{ textDecoration: "underline" }}
                   data-test="header-link"
                 >
-                  {link.label}
-                </Link>
-              ))}
-            </HStack>
-            <Spacer />
-            <HStack gap={4}>
-              <ChakraLink
-                isExternal={true}
-                href={"https://github.com/brdevstreamers"}
-                color={"gray.100"}
-                _hover={{ textDecoration: "underline" }}
-                data-test="header-link"
-              >
-                GitHub
-              </ChakraLink>
-              <ChakraLink
-                isExternal={true}
-                href={"https://discord.gg/collabcode"}
-                color={"gray.100"}
-                _hover={{ textDecoration: "underline" }}
-                data-test="header-link"
-              >
-                Discord
-              </ChakraLink>
+                  GitHub
+                </ChakraLink>
+              </ListItem>
+              <ListItem>
+                <ChakraLink
+                  isExternal={true}
+                  href={"https://discord.gg/collabcode"}
+                  color={"gray.100"}
+                  _hover={{ textDecoration: "underline" }}
+                  data-test="header-link"
+                >
+                  Discord
+                </ChakraLink>
+              </ListItem>
+              </List>
               {/* <Button
           bgColor={"primary.500"}
           borderRadius={"sm"}
@@ -136,50 +148,56 @@ export default function Header() {
         <DrawerOverlay />
 
         <DrawerContent bgColor="secondary.600" color="gray.100" px={4} pt={16}>
-          <DrawerCloseButton />
+          <DrawerCloseButton aria-label="Fechar" />
 
           <VStack alignItems="start">
-            {links.map((link) => (
-              <Link
-                to={link.to}
-                key={link.id}
-                w="full"
-                p={2}
-                rounded="sm"
-                color={"gray.100"}
-                _activeLink={{
-                  color: "primary.500",
-                  bgColor: "blackAlpha.500",
-                }}
-                _hover={{ bgColor: "blackAlpha.500" }}
-              >
-                {link.label}
-              </Link>
-            ))}
+            <List display="flex" flexDirection="column" gap={4} width="100%">
+              {links.map((link) => (
+                <ListItem key={link.id} display="flex">
+                  <Link
+                    to={link.to}
+                    w="full"
+                    p={2}
+                    rounded="sm"
+                    color={"gray.100"}
+                    _activeLink={{
+                      color: "primary.500",
+                      bgColor: "blackAlpha.500",
+                    }}
+                    _hover={{ bgColor: "blackAlpha.500" }}
+                  >
+                    {link.label}
+                  </Link>
+                </ListItem>
+              ))}
 
-            <ChakraLink
-              isExternal={true}
-              href={"https://github.com/brdevstreamers"}
-              color={"gray.100"}
-              w="full"
-              p={2}
-              rounded="sm"
-              _hover={{ bgColor: "blackAlpha.500" }}
-            >
-              GitHub
-            </ChakraLink>
-
-            <ChakraLink
-              isExternal={true}
-              href={"https://discord.gg/collabcode"}
-              p={2}
-              w="full"
-              rounded="sm"
-              color={"gray.100"}
-              _hover={{ bgColor: "blackAlpha.500" }}
-            >
-              Discord
-            </ChakraLink>
+              <ListItem display="flex"> 
+                <ChakraLink
+                  isExternal={true}
+                  href={"https://github.com/brdevstreamers"}
+                  color={"gray.100"}
+                  w="full"
+                  p={2}
+                  rounded="sm"
+                  _hover={{ bgColor: "blackAlpha.500" }}
+                >
+                  GitHub
+                </ChakraLink>
+              </ListItem>
+              <ListItem display="flex">
+                <ChakraLink
+                  isExternal={true}
+                  href={"https://discord.gg/collabcode"}
+                  p={2}
+                  w="full"
+                  rounded="sm"
+                  color={"gray.100"}
+                  _hover={{ bgColor: "blackAlpha.500" }}
+                >
+                  Discord
+                </ChakraLink>
+              </ListItem>
+            </List>
           </VStack>
         </DrawerContent>
       </Drawer>
