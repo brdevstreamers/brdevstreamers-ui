@@ -125,7 +125,7 @@ export default function Card({
               />
             )}
           </Box>
-          <Box position={"absolute"} bottom={0} right={0} left={0} pointerEvents={"none"} pb="8">
+          <Box position={"absolute"} bottom={0} right={0} left={0} pointerEvents={"none"} pb={showPreview ? "2" : "8"}>
             <HStack justify={"space-between"} m={2}>
               <Tag
                 rounded={"5px"}
@@ -165,10 +165,11 @@ export default function Card({
         </Box>
         <Box
           p={4}
-          borderRadius={"2xl"}
+          borderRadius={!showPreview ? "2xl" : ""}
           bg="#3F4357"
           style={{
-            translate: '0 -25px'
+            translate: !showPreview ? '0 -25px' : "",
+            transition: "all ease .3s"
           }}
         >
           <HStack alignItems={"start"}>
