@@ -82,7 +82,6 @@ export default function Card({
       boxShadow={["base"]}
       position={"relative"}
       _hover={{
-        // transform: "scale(1.05)",
         filter: 'drop-shadow(0px 8px 4px rgba(251, 68, 255, 0.25))'
       }}
       sx={{
