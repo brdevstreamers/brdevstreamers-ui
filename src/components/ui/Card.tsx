@@ -108,10 +108,7 @@ export default function Card({
                   alt={`Preview da live de ${channel.user_name}`}
                   position={"relative"}
                 />
-                {
-                  showPreview                  
-                  && <Preview channel={channel} />
-                }
+                { showPreview && <Preview channel={channel} /> }
               </>
             ) : (
               <Image
