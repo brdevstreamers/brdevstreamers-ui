@@ -9,10 +9,10 @@ type Props = {
 
 export default function LandingLayout({ children }: Props) {
   return (
-    <Stack>
+    <Stack h="100vh">
       <Header />
-      <Box m={[0, "center"]}>
-        <Container maxW="container.xl" mb="10">
+      <Box m={[0, "center"]} flex="1">
+        <Container maxW="container.xl" mb="10" h="full">
           {children}
         </Container>
       </Box>

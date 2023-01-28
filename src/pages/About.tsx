@@ -13,11 +13,10 @@ import {
   Text,
   Wrap,
 } from "@chakra-ui/react";
-import LandingLayout from "../components/layouts/LandingLayout";
 
 export default function About() {
   return (
-    <LandingLayout>
+    <>
       <Box mt={8} mb={4}>
         <Heading>Sobre</Heading>
         <Text color={"gray.500"}>Saiba mais sobre o projeto!</Text>
@@ -133,6 +132,6 @@ export default function About() {
           </AccordionPanel>
         </AccordionItem>
       </Accordion>
-    </LandingLayout>
+    </>
   );
 }
