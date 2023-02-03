@@ -74,16 +74,16 @@ export default function Card({
         target: "_blank",
       })}
       onClick={() => handleChannelToMosaic(channel.user_name)}
-      bgColor={"whiteAlpha.100"}
       maxW="sm"
-      borderWidth="1px"
-      borderColor={"whiteAlpha.100"}
-      borderRadius={"sm"}
+      bg="#3F4357"
+      border={"1px solid #B685FF"}
+      borderRadius={"10px"}
       overflow="hidden"
       boxShadow={["base"]}
       position={"relative"}
       _hover={{
         transform: "scale(1.05)",
+        filter: 'drop-shadow(0px 8px 4px rgba(251, 68, 255, 0.25))'
       }}
       sx={{
         willChange: "transform",
@@ -109,7 +109,10 @@ export default function Card({
                   alt={`Preview da live de ${channel.user_name}`}
                   position={"relative"}
                 />
-                {showPreview && <Preview channel={channel} />}
+                {
+                  showPreview                  
+                  && <Preview channel={channel} />
+                }
               </>
             ) : (
               <Image
@@ -122,27 +125,52 @@ export default function Card({
               />
             )}
           </Box>
-          <Box position={"absolute"} bottom={0} right={0} left={0} pointerEvents={"none"}>
+          <Box position={"absolute"} bottom={0} right={0} left={0} pointerEvents={"none"} pb="8">
             <HStack justify={"space-between"} m={2}>
-              <Tag rounded={"sm"} size={"sm"}>
+              <Tag
+                rounded={"5px"}
+                size={"lg"}
+              >
                 <TagLeftIcon as={ViewIcon} />
-                <TagLabel>{channel.viewer_count}</TagLabel>
+                <TagLabel
+                  fontSize={16}
+                  fontWeight="bold"
+                >
+                  {channel.viewer_count}
+                </TagLabel>
               </Tag>
               {isLive ? (
-                <Tag rounded={"sm"} size={"sm"}>
+                <Tag
+                  rounded={"5px"}
+                  size={"lg"}
+                  fontSize={16}
+                  fontWeight="bold"
+                >
                   {formatDistanceToNow(Date.parse(channel.started_at), {
                     locale: ptBR,
                   })}
                 </Tag>
               ) : (
-                <Tag rounded={"sm"} size={"sm"}>
+                <Tag
+                  rounded={"5px"}
+                  size={"lg"}
+                  fontSize={16}
+                  fontWeight="bold"
+                >
                   {channel.duration}
                 </Tag>
               )}
             </HStack>
           </Box>
         </Box>
-        <Box m={4}>
+        <Box
+          p={4}
+          borderRadius={"2xl"}
+          bg="#3F4357"
+          style={{
+            translate: '0 -25px'
+          }}
+        >
           <HStack alignItems={"start"}>
             <Image
               width="full"
@@ -155,7 +183,7 @@ export default function Card({
             <Box flex="1">
               <HStack mb={isLive ? "2" : "1"}>
                 <Text
-                  color={"gray.500"}
+                  color={"#A67BE9"}
                   fontWeight={"semibold"}
                   mt={-1}
                   _hover={{
@@ -172,8 +200,8 @@ export default function Card({
                     size="xs"
                     rounded="sm"
                     onClick={copyToClipboard}
-                    bgColor="primary.500"
-                    color="secondary.800"
+                    bgColor="#A67BE9"
+                    color="#E5E5E5"
                     _hover={{
                       bgColor: "primary.700",
                     }}
@@ -183,7 +211,7 @@ export default function Card({
                 )}
               </HStack>
 
-              <Text color={"gray.100"} fontSize={"sm"} mt={-1}>
+              <Text color={"#CDD3DA"} fontSize={"sm"} mt={-1}>
                 {channel.title}
               </Text>
             </Box>
