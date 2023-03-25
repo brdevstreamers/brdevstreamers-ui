@@ -110,7 +110,7 @@ export default function Card({
                   position={"relative"}
                 />
                 {
-                  showPreview                  
+                  showPreview
                   && <Preview channel={channel} />
                 }
               </>
@@ -211,7 +211,7 @@ export default function Card({
                 )}
               </HStack>
 
-              <Text color={"#CDD3DA"} fontSize={"sm"} mt={-1}>
+              <Text color={"#CDD3DA"} fontSize={"sm"} mt={-1} overflowWrap={"anywhere"}>
                 {channel.title}
               </Text>
             </Box>
