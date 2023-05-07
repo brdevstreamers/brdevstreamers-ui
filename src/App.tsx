@@ -1,4 +1,3 @@
-import React, { useEffect } from "react";
 import { Routes, Route } from "react-router-dom";
 import "./App.css";
 
@@ -8,14 +7,15 @@ import Home from "./pages/Home";
 import About from "./pages/About";
 import Stats from "./pages/Estatisticas";
 import Supporters from "./pages/Supporters";
+import ReactGA from "react-ga4";
 
-import ReactGA from "react-ga";
 
 function App() {
-  useEffect(() => {
-    ReactGA.pageview(window.location.pathname + window.location.search);
+  ReactGA.initialize("G-R9QL9W2YR4");
+  ReactGA.send({
+    hitType: "pageview",
+    page: window.location.pathname + window.location.search,
   });
-
   return (
     <Routes>
       <Route path="/" element={<Home />} />
