@@ -70,12 +70,14 @@ export default function Home() {
     window.open(`https://www.twitch.tv/${channel.user_name}`, "_blank");
   };
 
+  const cleanUpUsername = (text: string) => text.toLowerCase().replace('#', '');
+
   const handleChannelToMosaic = (channelName: string) => {
-    const channel = selectedChannels.find((channel) => channel === channelName);
+    const channel = selectedChannels.find((channel) => cleanUpUsername(channel) === cleanUpUsername(channelName));
     if (channel) {
-      setSelectedChannels(selectedChannels.filter((item) => item !== channel));
+      setSelectedChannels(state => state.filter((item) => cleanUpUsername(item) !== cleanUpUsername(channel)));
     } else {
-      setSelectedChannels([...selectedChannels, channelName]);
+      setSelectedChannels(state => [...state, cleanUpUsername(channelName)]);
     }
   };
 
@@ -124,7 +126,7 @@ export default function Home() {
     () => filterChannelsByTags(channels, selectedTags),
     [channels, selectedTags],
   );
-
+  
   return (
     <LandingLayout>
       <Flex mt={8} mb={4} gap={2} alignItems="center" wrap="wrap">
@@ -245,6 +247,7 @@ export default function Home() {
               channel={channel}
               isLive={true}
               isMosaicMode={isMosaicMode}
+              isSelected={selectedChannels.some(item => cleanUpUsername(item) === cleanUpUsername(channel.user_name))}
               handleChannelToMosaic={handleChannelToMosaic}
               data-test="card-online"
             />
