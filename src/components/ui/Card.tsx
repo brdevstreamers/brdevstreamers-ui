@@ -82,7 +82,6 @@ export default function Card({
       boxShadow={["base"]}
       position={"relative"}
       _hover={{
-        transform: "scale(1.05)",
         filter: 'drop-shadow(0px 8px 4px rgba(251, 68, 255, 0.25))'
       }}
       sx={{
@@ -109,10 +108,7 @@ export default function Card({
                   alt={`Preview da live de ${channel.user_name}`}
                   position={"relative"}
                 />
-                {
-                  showPreview                  
-                  && <Preview channel={channel} />
-                }
+                { showPreview && <Preview channel={channel} /> }
               </>
             ) : (
               <Image
@@ -125,7 +121,7 @@ export default function Card({
               />
             )}
           </Box>
-          <Box position={"absolute"} bottom={0} right={0} left={0} pointerEvents={"none"} pb="8">
+          <Box position={"absolute"} bottom={0} right={0} left={0} pointerEvents={"none"} pb={showPreview ? "2" : "8"}>
             <HStack justify={"space-between"} m={2}>
               <Tag
                 rounded={"5px"}
@@ -165,10 +161,11 @@ export default function Card({
         </Box>
         <Box
           p={4}
-          borderRadius={"2xl"}
+          borderRadius={!showPreview ? "2xl" : ""}
           bg="#3F4357"
           style={{
-            translate: '0 -25px'
+            translate: !showPreview ? '0 -25px' : "",
+            transition: "all ease .3s"
           }}
         >
           <HStack alignItems={"start"}>
