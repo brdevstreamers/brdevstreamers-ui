@@ -15,8 +15,8 @@ const Preview = ({ channel }: Props) => (
       src={
         "https://player.twitch.tv/?channel=" +
         channel.user_name +
-        "&parent=" +
-        process.env.REACT_APP_DOMAIN +
+        "&parent=www.brstreamers.dev" +
+        
         "&enableExtensions=false&muted=true&quality=low&controls=false"
       }
       h={"full"}
