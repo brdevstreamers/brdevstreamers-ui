@@ -2,14 +2,15 @@ import { Box, Text, Link } from "@chakra-ui/react";
 
 export default function Footer() {
   return (
-    <Box>
-      <Box maxW={"container.xl"} m={"0 auto"}>
+    <Box as="footer">
+      <Box maxW={"container.xl"} m={"0 auto"} as="section">
         <Box
           py={4}
           m={4}
           borderTopColor={"whiteAlpha.100"}
           borderTopWidth={1}
           textAlign={"end"}
+          as="article"
         >
           <Text color="primary.400" fontSize={"sm"}>
             Idealizado por{" "}

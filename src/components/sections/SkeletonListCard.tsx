@@ -9,7 +9,7 @@ import {
 
 export const SkeletonListCard = () => {
   return (
-    <SimpleGrid minChildWidth="300px" columns={{ sm: 2, md: 3, lg: 4 }} gap={4}>
+    <SimpleGrid minChildWidth="300px" columns={{ sm: 2, md: 3, lg: 4 }} gap={4} as="section">
       {[...new Array(8)].map((_el, index) => (
         <Box
           key={index}
@@ -23,6 +23,7 @@ export const SkeletonListCard = () => {
           overflowY="clip"
           textOverflow="ellipsis"
           bgColor="whiteAlpha.100"
+          as="article"
         >
           <Stack>
             <Skeleton height="167px" />

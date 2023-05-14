@@ -11,7 +11,7 @@ export default function LandingLayout({ children }: Props) {
   return (
     <Stack>
       <Header />
-      <Box m={[0, "center"]}>
+      <Box m={[0, "center"]} as="main">
         <Container maxW="container.xl" mb="10">
           {children}
         </Container>
