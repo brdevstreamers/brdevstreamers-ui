@@ -51,7 +51,7 @@ export default function Home() {
   const loadData = useCallback(async () => {
     setIsFetching(true);
 
-    const [channelsList, tagsList, vodsList] = await Promise.all([
+    const [channelsList, vodsList] = await Promise.all([
       apiGet<Channel[]>(endpoints.channels.url),
       // apiGet<Tag[]>(endpoints.tags.url),
       apiGet<Channel[]>(endpoints.vods.url),
