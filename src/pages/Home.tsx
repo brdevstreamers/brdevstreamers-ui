@@ -58,7 +58,7 @@ export default function Home() {
     ]);
 
     setChannels(channelsList);
-    // setTags(tagsList);
+    setTags([]);
     setVods(vodsList);
 
     setIsFetching(false);
