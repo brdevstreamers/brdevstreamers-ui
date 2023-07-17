@@ -53,12 +53,12 @@ export default function Home() {
 
     const [channelsList, tagsList, vodsList] = await Promise.all([
       apiGet<Channel[]>(endpoints.channels.url),
-      apiGet<Tag[]>(endpoints.tags.url),
+      // apiGet<Tag[]>(endpoints.tags.url),
       apiGet<Channel[]>(endpoints.vods.url),
     ]);
 
     setChannels(channelsList);
-    setTags(tagsList);
+    // setTags(tagsList);
     setVods(vodsList);
 
     setIsFetching(false);
